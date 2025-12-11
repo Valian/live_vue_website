@@ -104,3 +104,9 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+
+/* LiveVue brand colors - Phoenix orange + Vue green */
+@theme {
+  --color-phoenix: #FD4F00;
+  --color-vue: #42b883;
+}

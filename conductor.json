@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "setup": "mix setup",
+        "run": "mix phx.server"
+    }
+}

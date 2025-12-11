@@ -35,37 +35,53 @@ defmodule LiveVueWebsiteWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
+    <header class="navbar sticky top-0 z-50 border-b border-base-300 bg-base-100/80 backdrop-blur px-4 sm:px-6 lg:px-8">
       <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={static_url(LiveVueWebsiteWeb.Endpoint, ~p"/images/logo.svg")} width="36" />
-          <span class="text-sm font-semibold">v{Application.spec(:phoenix, :vsn)}</span>
+        <a href="/" class="flex items-center gap-2 text-lg font-semibold">
+          <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
         </a>
       </div>
       <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
+        <ul class="hidden sm:flex flex-row px-1 space-x-2 items-center">
           <li>
-            <a href="https://phoenixframework.org/" class="btn btn-ghost">Website</a>
+            <a href="#examples" class="btn btn-ghost btn-sm">Examples</a>
           </li>
           <li>
-            <a href="https://github.com/phoenixframework/phoenix" class="btn btn-ghost">GitHub</a>
+            <a href="https://hexdocs.pm/live_vue" class="btn btn-ghost btn-sm">Docs</a>
+          </li>
+          <li>
+            <a href="https://github.com/Valian/live_vue" class="btn btn-ghost btn-sm">GitHub</a>
           </li>
           <li>
             <.theme_toggle />
           </li>
           <li>
-            <a href="https://hexdocs.pm/phoenix/overview.html" class="btn btn-primary">
+            <a href="https://hexdocs.pm/live_vue" class="btn btn-primary btn-sm">
               Get Started <span aria-hidden="true">&rarr;</span>
             </a>
           </li>
         </ul>
+        <div class="sm:hidden flex items-center gap-2">
+          <.theme_toggle />
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
+              <.icon name="hero-bars-3" class="size-5" />
+            </div>
+            <ul
+              tabindex="0"
+              class="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow border border-base-300"
+            >
+              <li><a href="#examples">Examples</a></li>
+              <li><a href="https://hexdocs.pm/live_vue">Docs</a></li>
+              <li><a href="https://github.com/Valian/live_vue">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </header>
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
-        {render_slot(@inner_block)}
-      </div>
+    <main>
+      {render_slot(@inner_block)}
     </main>
 
     <.flash_group flash={@flash} />

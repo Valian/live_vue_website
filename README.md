@@ -1,18 +1,30 @@
-# LiveVueWebsite
+# LiveVue Website
 
-To start your Phoenix server:
+Official showcase website for [LiveVue](https://github.com/Valian/live_vue) - Vue.js components inside Phoenix LiveView with seamless end-to-end reactivity.
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## About
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+This is the marketing and demo site for LiveVue. It targets Elixir developers who use LiveView and have hit the limits of hooks for complex client-side interactions.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Structure
 
-## Learn more
+- **Landing page** - What LiveVue is, why it exists, comparisons to alternatives
+- **Embedded examples** - Vue components as islands within HEEX templates
+- **SPA examples** - Vue owns the entire page layout, LiveView manages state
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+See [docs/landing-page.md](docs/landing-page.md) for landing page content and structure.
+
+## Development
+
+```bash
+mix setup
+mix phx.server
+```
+
+Visit [localhost:4000](http://localhost:4000).
+
+## Links
+
+- [LiveVue on Hex](https://hex.pm/packages/live_vue)
+- [LiveVue Docs](https://hexdocs.pm/live_vue)
+- [LiveVue GitHub](https://github.com/Valian/live_vue)
