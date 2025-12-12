@@ -18,6 +18,7 @@ defmodule LiveVueWebsiteWeb.Router do
     pipe_through :browser
 
     live "/", LandingLive
+    live "/landing-two", LandingTwoLive
   end
 
   # Other scopes may use custom stacks.

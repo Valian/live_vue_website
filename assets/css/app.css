@@ -110,3 +110,6 @@
   --color-phoenix: #FD4F00;
   --color-vue: #42b883;
 }
+
+/* Landing page two styles */
+@import "./landing-two.css";
