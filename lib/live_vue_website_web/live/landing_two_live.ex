@@ -377,7 +377,11 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
             </h2>
           </div>
 
-          <div class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8 max-[900px]:grid-cols-1">
+          <div
+            id="code-examples"
+            phx-hook="Highlight"
+            class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8 max-[900px]:grid-cols-1"
+          >
             <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
               <div class="flex items-center gap-3 py-4 px-6 bg-landing-elevated border-b border-landing-border">
                 <span class="w-2.5 h-2.5 rounded-full bg-vue"></span>
@@ -386,7 +390,7 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
                   Vue Component
                 </span>
               </div>
-              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed text-landing-muted whitespace-pre"><code>{vue_code_example()}</code></pre>
+              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-vue" phx-no-format>{vue_code_example()}</code></pre>
             </div>
 
             <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
@@ -397,7 +401,7 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
                   LiveView
                 </span>
               </div>
-              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed text-landing-muted whitespace-pre"><code>{elixir_code_example()}</code></pre>
+              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-elixir" phx-no-format>{elixir_code_example()}</code></pre>
             </div>
           </div>
 

@@ -27,6 +27,7 @@ live_vue_website-*.tar
 
 # Ignore assets that are produced by build tools.
 /priv/static/*
+!/priv/static/images/
 
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log
