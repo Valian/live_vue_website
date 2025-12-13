@@ -84,8 +84,12 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
         </div>
 
         <nav class="relative flex justify-between items-center py-6 z-10">
-          <a href="/" class="font-serif text-[1.75rem] no-underline tracking-tight">
-            <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
+          <a
+            href="/"
+            class="flex items-center gap-3 font-serif text-[1.75rem] no-underline tracking-tight"
+          >
+            <img src="/images/live_vue_logo_rounded.png" alt="LiveVue" class="h-10 w-10 rounded-lg" />
+            <span><span class="text-phoenix">Live</span><span class="text-vue">Vue</span></span>
           </a>
           <div class="flex items-center gap-2">
             <a
@@ -429,66 +433,45 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
         </div>
       </section>
 
-      <%!-- USE CASES SECTION --%>
+      <%!-- WHEN TO USE LIVEVUE SECTION --%>
       <section class="py-24 px-[clamp(1.5rem,5vw,4rem)] bg-landing-deep">
-        <div class="grid grid-cols-[1fr_auto_1fr] gap-12 max-w-[1000px] mx-auto items-start max-md:grid-cols-1">
-          <div class="p-8">
-            <h3 class="flex items-center gap-3 font-serif text-xl font-normal mb-6">
-              <span class="flex items-center justify-center w-7 h-7 rounded-full shrink-0 bg-vue/15 text-vue">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="3"
-                  class="w-3.5 h-3.5"
-                >
-                  <path d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              When to use LiveVue
-            </h3>
-            <ul class="list-none p-0 m-0 flex flex-col gap-3">
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                Rich interactions - drag-drop, animations, complex local state
-              </li>
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                Third-party libraries - Chart.js, TipTap, any Vue package
-              </li>
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                Team familiarity - your team knows Vue
-              </li>
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                Gradual adoption - start with one component
-              </li>
-            </ul>
+        <div class="max-w-[700px] mx-auto">
+          <div class="text-center mb-12">
+            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+              When to reach for LiveVue
+            </span>
+            <h2 class="font-serif text-[clamp(2rem,5vw,3rem)] font-normal leading-tight tracking-tight mb-6">
+              LiveView is great.<br />But sometimes not enough.
+            </h2>
+            <p class="text-landing-muted text-lg leading-relaxed">
+              For most apps, LiveView handles everything. But when you need rich client-side
+              interactions or want to tap into the Vue ecosystem, LiveVue bridges the gap.
+            </p>
           </div>
-          <div class="w-px bg-landing-border self-stretch max-md:w-full max-md:h-px"></div>
-          <div class="p-8">
-            <h3 class="flex items-center gap-3 font-serif text-xl font-normal mb-6">
-              <span class="flex items-center justify-center w-7 h-7 rounded-full shrink-0 bg-white/10 text-landing-muted">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  class="w-3.5 h-3.5"
-                >
-                  <circle cx="12" cy="12" r="8" />
-                </svg>
-              </span>
-              When LiveView is enough
-            </h3>
-            <ul class="list-none p-0 m-0 flex flex-col gap-3">
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                Forms, tables, simple interactions
-              </li>
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                Server-rendered content with minimal JS
-              </li>
-              <li class="text-landing-muted pl-4 relative text-[0.95rem] leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-landing-border">
-                When you do not need the Vue runtime (around 34 KB gzipped)
-              </li>
-            </ul>
+
+          <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
+              <div class="text-2xl mb-3">🎨</div>
+              <h3 class="font-medium text-landing-text mb-1">Rich Interactions</h3>
+              <p class="text-landing-muted text-sm">Drag-drop, animations, complex local state</p>
+            </div>
+            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
+              <div class="text-2xl mb-3">📦</div>
+              <h3 class="font-medium text-landing-text mb-1">Vue Ecosystem</h3>
+              <p class="text-landing-muted text-sm">
+                Chart.js, TipTap, Headless UI — any Vue package
+              </p>
+            </div>
+            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
+              <div class="text-2xl mb-3">👥</div>
+              <h3 class="font-medium text-landing-text mb-1">Team Familiarity</h3>
+              <p class="text-landing-muted text-sm">Your frontend team already knows Vue</p>
+            </div>
+            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
+              <div class="text-2xl mb-3">🌱</div>
+              <h3 class="font-medium text-landing-text mb-1">Gradual Adoption</h3>
+              <p class="text-landing-muted text-sm">Start with one component, expand as needed</p>
+            </div>
           </div>
         </div>
       </section>
@@ -540,7 +523,8 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
       <%!-- FOOTER --%>
       <footer class="py-12 px-[clamp(1.5rem,5vw,4rem)] border-t border-landing-border">
         <div class="max-w-[1200px] mx-auto flex justify-between items-center flex-wrap gap-6 max-sm:flex-col max-sm:text-center">
-          <div class="font-serif text-xl">
+          <div class="flex items-center gap-2 font-serif text-xl">
+            <img src="/images/live_vue_logo_rounded.png" alt="LiveVue" class="h-8 w-8 rounded-md" />
             <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
           </div>
           <div class="flex gap-8">

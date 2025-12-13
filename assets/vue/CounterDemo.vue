@@ -1,19 +1,42 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useLiveVue } from 'live_vue'
 
 const props = defineProps<{
   count: number
 }>()
 
+const live = useLiveVue()
+
 // Local Vue state - doesn't hit the server
 const diff = ref(1)
 const lastAction = ref<string | null>(null)
+let actionTimeout: ReturnType<typeof setTimeout> | null = null
 
 function showAction(action: string) {
   lastAction.value = action
-  setTimeout(() => {
+  if (actionTimeout) {
+    clearTimeout(actionTimeout)
+  }
+  actionTimeout = setTimeout(() => {
     lastAction.value = null
+    actionTimeout = null
   }, 1500)
+}
+
+function increment() {
+  live.pushEvent('inc', { diff: diff.value })
+  showAction(`+${diff.value}`)
+}
+
+function decrement() {
+  live.pushEvent('dec', {})
+  showAction('-1')
+}
+
+function reset() {
+  live.pushEvent('reset', {})
+  showAction('reset')
 }
 </script>
 
@@ -58,9 +81,7 @@ function showAction(action: string) {
       <div class="grid grid-cols-3 gap-3">
         <button
           class="flex flex-col items-center justify-center gap-1 p-4 border border-phoenix bg-phoenix/10 rounded-[10px] text-landing-text cursor-pointer transition-all duration-150 hover:-translate-y-0.5 hover:bg-phoenix/20 hover:shadow-[0_4px_20px_rgba(253,79,0,0.3)] active:translate-y-0"
-          phx-click="inc"
-          :phx-value-diff="diff"
-          @click="showAction(`+${diff}`)"
+          @click="increment"
         >
           <span class="text-2xl font-light leading-none text-phoenix">+</span>
           <span class="font-mono text-[0.7rem] text-landing-muted">{{ diff }}</span>
@@ -68,8 +89,7 @@ function showAction(action: string) {
 
         <button
           class="flex flex-col items-center justify-center gap-1 p-4 border border-white/10 bg-[rgba(26,26,36,0.9)] rounded-[10px] text-landing-text cursor-pointer transition-all duration-150 hover:-translate-y-0.5 hover:border-landing-muted hover:bg-white/5 active:translate-y-0"
-          phx-click="dec"
-          @click="showAction('-1')"
+          @click="decrement"
         >
           <span class="text-2xl font-light leading-none">−</span>
           <span class="font-mono text-[0.7rem] text-landing-muted">1</span>
@@ -77,22 +97,23 @@ function showAction(action: string) {
 
         <button
           class="flex flex-col items-center justify-center gap-1 p-4 border border-white/10 bg-[rgba(26,26,36,0.9)] rounded-[10px] text-landing-text text-xs cursor-pointer transition-all duration-150 hover:-translate-y-0.5 hover:border-landing-muted hover:bg-white/5 active:translate-y-0"
-          phx-click="reset"
-          @click="showAction('reset')"
+          @click="reset"
         >
           <span class="font-mono text-[0.7rem] text-landing-text">Reset</span>
         </button>
       </div>
 
-      <!-- Action Hint -->
-      <div
-        class="flex items-center gap-2 py-3 px-4 bg-phoenix/10 border border-phoenix/20 rounded-lg text-xs text-landing-muted opacity-0 translate-y-2 transition-all duration-300"
-        :class="{ 'opacity-100 translate-y-0': lastAction }"
-      >
-        <span class="font-mono text-[0.6rem] uppercase tracking-wide py-0.5 px-1.5 bg-phoenix text-white rounded font-semibold">
-          phx-click
-        </span>
-        {{ lastAction === 'reset' ? 'Sent "reset" event' : `Sent "inc" with diff=${lastAction?.replace('+', '')}` }}
+      <!-- Action Hint - fixed height to prevent layout shift -->
+      <div class="h-12">
+        <div
+          v-if="lastAction"
+          class="flex items-center gap-2 py-3 px-4 bg-phoenix/10 border border-phoenix/20 rounded-lg text-xs text-landing-muted"
+        >
+          <span class="font-mono text-[0.6rem] uppercase tracking-wide py-0.5 px-1.5 bg-phoenix text-white rounded font-semibold">
+            event
+          </span>
+          {{ lastAction === 'reset' ? 'Sent "reset"' : `Sent "inc" with diff=${lastAction?.replace('+', '')}` }}
+        </div>
       </div>
     </div>
   </div>
