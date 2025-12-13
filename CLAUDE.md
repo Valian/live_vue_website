@@ -1,5 +1,13 @@
 This is a web application written using the Phoenix web framework.
 
+## Styling
+
+We use Tailwind CSS v4, configured via `assets/css/app.css`. This includes:
+- daisyUI plugin with custom light/dark themes
+- heroicons plugin
+- Custom LiveVue brand colors (`--color-phoenix`, `--color-vue`, `--color-landing-*`)
+- Custom fonts: Instrument Serif, JetBrains Mono, Inter
+
 ## Project guidelines
 
 - Use `mix precommit` alias when you are done with all changes and fix any pending issues
