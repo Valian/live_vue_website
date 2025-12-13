@@ -453,28 +453,34 @@ defmodule LiveVueWebsiteWeb.LandingTwoLive do
             </p>
           </div>
 
-          <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
-              <div class="text-2xl mb-3">🎨</div>
-              <h3 class="font-medium text-landing-text mb-1">Rich Interactions</h3>
-              <p class="text-landing-muted text-sm">Drag-drop, animations, complex local state</p>
-            </div>
-            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
-              <div class="text-2xl mb-3">📦</div>
-              <h3 class="font-medium text-landing-text mb-1">Vue Ecosystem</h3>
-              <p class="text-landing-muted text-sm">
-                Chart.js, TipTap, Headless UI — any Vue package
+          <div class="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">🎨</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Rich Interactions</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Drag-drop, animations, complex local state that doesn't need the server.
               </p>
             </div>
-            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
-              <div class="text-2xl mb-3">👥</div>
-              <h3 class="font-medium text-landing-text mb-1">Team Familiarity</h3>
-              <p class="text-landing-muted text-sm">Your frontend team already knows Vue</p>
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">📦</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Vue Ecosystem</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Chart.js, TipTap, Headless UI — any Vue package works out of the box.
+              </p>
             </div>
-            <div class="p-6 bg-landing-card border border-landing-border rounded-xl">
-              <div class="text-2xl mb-3">🌱</div>
-              <h3 class="font-medium text-landing-text mb-1">Gradual Adoption</h3>
-              <p class="text-landing-muted text-sm">Start with one component, expand as needed</p>
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">👥</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Team Familiarity</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Your frontend team already knows Vue. Let them use what they know.
+              </p>
+            </div>
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">🌱</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Gradual Adoption</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Start with one component. Expand as needed. No big rewrites.
+              </p>
             </div>
           </div>
         </div>
