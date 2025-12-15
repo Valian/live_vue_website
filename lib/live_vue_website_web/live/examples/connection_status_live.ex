@@ -1,17 +1,17 @@
-defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
+defmodule LiveVueWebsiteWeb.Examples.ConnectionStatusLive do
   use LiveVueWebsiteWeb, :live_view
 
   require LiveVueWebsiteWeb.Examples.ExampleSource, as: ExampleSource
 
-  @vue_source ExampleSource.vue_source("SsrControl")
-  @elixir_source ExampleSource.elixir_source("SsrControl")
+  @vue_source ExampleSource.vue_source("ConnectionStatus")
+  @elixir_source ExampleSource.elixir_source("ConnectionStatus")
 
   @valid_tabs ~w(preview liveview vue)
 
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
-       page_title: "SSR Control – LiveVue Examples",
+       page_title: "Connection Status – LiveVue Examples",
        vue_source: @vue_source,
        elixir_source: @elixir_source
      )}
@@ -24,7 +24,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.examples current_example="ssr-control">
+    <Layouts.examples current_example="connection-status">
       <%!-- Header --%>
       <header class="mb-8">
         <div class="flex items-center gap-2 text-sm text-landing-muted mb-4">
@@ -32,15 +32,14 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
             <path d="M9 18l6-6-6-6" />
           </svg>
-          <span class="text-landing-text">SSR Control</span>
+          <span class="text-landing-text">Connection Status</span>
         </div>
         <h1 class="font-serif text-4xl font-normal tracking-tight mb-4">
-          SSR Control
+          Connection Status
         </h1>
         <p class="text-lg text-landing-muted max-w-2xl">
-          Control server-side rendering for components that need browser-only APIs.
-          Use <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">v-ssr={false}</code>
-          to disable SSR when needed.
+          Monitor the WebSocket connection state in real-time using the useLiveConnection() hook.
+          Track when the connection is open, connecting, closing, or closed.
         </p>
       </header>
 
@@ -51,12 +50,12 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
         </h2>
         <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
           <div class="flex gap-3">
-            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
+            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
               1
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">SSR by default</div>
-              <div class="text-xs text-landing-muted">Components render on server</div>
+              <div class="font-medium text-landing-text text-sm">useLiveConnection()</div>
+              <div class="text-xs text-landing-muted">Hook for connection state</div>
             </div>
           </div>
           <div class="flex gap-3">
@@ -64,8 +63,8 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               2
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">v-ssr={false}</div>
-              <div class="text-xs text-landing-muted">Client-only rendering</div>
+              <div class="font-medium text-landing-text text-sm">WebSocket State</div>
+              <div class="text-xs text-landing-muted">Reactive connection status</div>
             </div>
           </div>
           <div class="flex gap-3">
@@ -73,8 +72,8 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               3
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Browser APIs</div>
-              <div class="text-xs text-landing-muted">window, navigator, etc.</div>
+              <div class="font-medium text-landing-text text-sm">Real-time Feedback</div>
+              <div class="text-xs text-landing-muted">Visual connection indicator</div>
             </div>
           </div>
         </div>
@@ -131,9 +130,9 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
         <%= case @active_tab do %>
           <% "preview" -> %>
             <div class="p-8 flex justify-center">
-              <div class="w-full max-w-2xl">
-                {live_render(@socket, LiveVueWebsiteWeb.Examples.SsrControlPreview,
-                  id: "ssr-control-preview"
+              <div class="w-full max-w-md">
+                {live_render(@socket, LiveVueWebsiteWeb.Examples.ConnectionStatusPreview,
+                  id: "connection-status-preview"
                 )}
               </div>
             </div>
@@ -142,7 +141,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               id="code-tab-liveview"
               code={@elixir_source}
               language="elixir"
-              filename="ssr_control_live.ex"
+              filename="connection_status_live.ex"
               color="phoenix"
             />
           <% "vue" -> %>
@@ -150,7 +149,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               id="code-tab-vue"
               code={@vue_source}
               language="vue"
-              filename="SsrControl.vue"
+              filename="ConnectionStatus.vue"
               color="vue"
             />
         <% end %>
@@ -163,16 +162,23 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
         <div class="grid gap-4">
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 1
               </span>
-              SSR enabled by default
+              The useLiveConnection() hook
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              LiveVue components are server-side rendered by default for faster initial page loads.
-              The component renders to HTML on the server, then Vue hydrates it on the client.
+              The <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">useLiveConnection()</code>
+              hook provides reactive access to the WebSocket connection state. It returns
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">connectionState</code>
+              (a ref with values "connecting", "open", "closing", or "closed") and
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">isConnected</code>
+              (a computed boolean for convenience).
             </p>
-            <.example_snippet code={~s|<.vue v-component="SsrControl" v-socket={@socket} />|} />
+            <.example_snippet
+              language="javascript"
+              code="const { connectionState, isConnected } = useLiveConnection()"
+            />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -180,16 +186,19 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 2
               </span>
-              Disable SSR when needed
+              Reactive state tracking
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Add <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">v-ssr={false}</code>
-              to skip server rendering. The component shows a placeholder during SSR and only
-              renders on the client after hydration.
+              Use Vue's <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">watch()</code>
+              to track state changes over time. This example maintains a history of the last 5 state transitions
+              with timestamps, demonstrating how connection state changes propagate through your component.
             </p>
-            <.example_snippet code={
-              ~s|<.vue v-component="SsrControl" v-socket={@socket} v-ssr={false} />|
-            } />
+            <.example_snippet
+              language="javascript"
+              code={
+                ~s|watch(connectionState, (newState) => {\n  stateHistory.value.push({ state: newState, timestamp: new Date() })\n}, { immediate: true })|
+              }
+            />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -197,31 +206,17 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 3
               </span>
-              Browser APIs require special handling
+              Visual feedback
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              When using browser-only APIs like <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">window</code>, <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">navigator</code>, or <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">document</code>,
-              you can either check if they exist or disable SSR entirely.
+              Bind the connection state to your UI with dynamic classes and animations. Show users when they're
+              connected with a pulsing green indicator, or warn them about connection issues with red/amber states.
+              This creates a responsive, transparent user experience.
             </p>
             <.example_snippet
-              language="javascript"
-              code={~s|const userAgent = typeof window !== 'undefined' ? navigator.userAgent : 'SSR'|}
+              language="vue"
+              code={~s|<span :class="isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'" />|}
             />
-          </div>
-
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
-            <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
-                4
-              </span>
-              When to use v-ssr={false}
-            </h3>
-            <p class="text-landing-muted text-sm leading-relaxed">
-              Use <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">v-ssr={false}</code>
-              for components that heavily rely on browser APIs, third-party libraries that
-              aren't SSR-compatible, or when the component doesn't benefit from SSR
-              (like maps, charts, or client-only visualizations).
-            </p>
           </div>
         </div>
       </section>
@@ -230,7 +225,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
       <section class="mt-12 pt-8 border-t border-landing-border">
         <div class="flex items-center justify-between">
           <div class="text-landing-muted text-sm">
-            Next up: Slots for composable components
+            Next up: Simple Form with useLiveForm()
           </div>
           <span class="text-landing-muted/50 text-sm">Coming soon</span>
         </div>

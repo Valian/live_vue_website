@@ -175,7 +175,7 @@ defmodule LiveVueWebsiteWeb.Examples.ServerEventsLive do
               in LiveView to send data to the client. The first argument is the socket,
               the second is the event name, and the third is the payload.
             </p>
-            <.example_snippet code={~s|push_event(socket, "notification", %{message: "Hello!"})|}/>
+            <.example_snippet code={~s|push_event(socket, "notification", %{message: "Hello!"})|} />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -210,7 +210,9 @@ defmodule LiveVueWebsiteWeb.Examples.ServerEventsLive do
             </p>
             <.example_snippet
               language="javascript"
-              code={~s|useLiveEvent('notification', handleNotification)\nuseLiveEvent('alert', handleAlert)|}
+              code={
+                ~s|useLiveEvent('notification', handleNotification)\nuseLiveEvent('alert', handleAlert)|
+              }
             />
           </div>
 
@@ -227,7 +229,9 @@ defmodule LiveVueWebsiteWeb.Examples.ServerEventsLive do
               callback. This example triggers them from button clicks, but they could come from
               background processes, PubSub, or any other source.
             </p>
-            <.example_snippet code={~s|def handle_event("trigger", _, socket) do\n  {:noreply, push_event(socket, "event_name", data)}\nend|}/>
+            <.example_snippet code={
+              ~s|def handle_event("trigger", _, socket) do\n  {:noreply, push_event(socket, "event_name", data)}\nend|
+            } />
           </div>
         </div>
       </section>
@@ -238,7 +242,10 @@ defmodule LiveVueWebsiteWeb.Examples.ServerEventsLive do
           <div class="text-landing-muted text-sm">
             Next up: Navigation with Link component
           </div>
-          <.link navigate="/examples/navigation" class="text-phoenix hover:text-phoenix/80 text-sm font-medium">
+          <.link
+            navigate="/examples/navigation"
+            class="text-phoenix hover:text-phoenix/80 text-sm font-medium"
+          >
             Navigation →
           </.link>
         </div>

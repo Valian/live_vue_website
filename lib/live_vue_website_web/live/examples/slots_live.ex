@@ -1,17 +1,17 @@
-defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
+defmodule LiveVueWebsiteWeb.Examples.SlotsLive do
   use LiveVueWebsiteWeb, :live_view
 
   require LiveVueWebsiteWeb.Examples.ExampleSource, as: ExampleSource
 
-  @vue_source ExampleSource.vue_source("SsrControl")
-  @elixir_source ExampleSource.elixir_source("SsrControl")
+  @vue_source ExampleSource.vue_source("Slots")
+  @elixir_source ExampleSource.elixir_source("Slots")
 
   @valid_tabs ~w(preview liveview vue)
 
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
-       page_title: "SSR Control – LiveVue Examples",
+       page_title: "Slots – LiveVue Examples",
        vue_source: @vue_source,
        elixir_source: @elixir_source
      )}
@@ -24,7 +24,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.examples current_example="ssr-control">
+    <Layouts.examples current_example="slots">
       <%!-- Header --%>
       <header class="mb-8">
         <div class="flex items-center gap-2 text-sm text-landing-muted mb-4">
@@ -32,15 +32,14 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
             <path d="M9 18l6-6-6-6" />
           </svg>
-          <span class="text-landing-text">SSR Control</span>
+          <span class="text-landing-text">Slots</span>
         </div>
         <h1 class="font-serif text-4xl font-normal tracking-tight mb-4">
-          SSR Control
+          Slots
         </h1>
         <p class="text-lg text-landing-muted max-w-2xl">
-          Control server-side rendering for components that need browser-only APIs.
-          Use <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">v-ssr={false}</code>
-          to disable SSR when needed.
+          Pass HEEx content into Vue components using slots. Combine the power of server-rendered
+          templates with Vue's component composition.
         </p>
       </header>
 
@@ -51,21 +50,21 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
         </h2>
         <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
           <div class="flex gap-3">
-            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
+            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
               1
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">SSR by default</div>
-              <div class="text-xs text-landing-muted">Components render on server</div>
+              <div class="font-medium text-landing-text text-sm">Default Slot</div>
+              <div class="text-xs text-landing-muted">Main content between tags</div>
             </div>
           </div>
           <div class="flex gap-3">
-            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
+            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
               2
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">v-ssr={false}</div>
-              <div class="text-xs text-landing-muted">Client-only rendering</div>
+              <div class="font-medium text-landing-text text-sm">Named Slots</div>
+              <div class="text-xs text-landing-muted">Header, footer, icon slots</div>
             </div>
           </div>
           <div class="flex gap-3">
@@ -73,8 +72,8 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               3
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Browser APIs</div>
-              <div class="text-xs text-landing-muted">window, navigator, etc.</div>
+              <div class="font-medium text-landing-text text-sm">Fallback Content</div>
+              <div class="text-xs text-landing-muted">Default content when slot empty</div>
             </div>
           </div>
         </div>
@@ -130,11 +129,9 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
       <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
         <%= case @active_tab do %>
           <% "preview" -> %>
-            <div class="p-8 flex justify-center">
-              <div class="w-full max-w-2xl">
-                {live_render(@socket, LiveVueWebsiteWeb.Examples.SsrControlPreview,
-                  id: "ssr-control-preview"
-                )}
+            <div class="p-8">
+              <div class="max-w-2xl mx-auto">
+                {live_render(@socket, LiveVueWebsiteWeb.Examples.SlotsPreview, id: "slots-preview")}
               </div>
             </div>
           <% "liveview" -> %>
@@ -142,7 +139,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               id="code-tab-liveview"
               code={@elixir_source}
               language="elixir"
-              filename="ssr_control_live.ex"
+              filename="slots_preview.ex"
               color="phoenix"
             />
           <% "vue" -> %>
@@ -150,7 +147,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               id="code-tab-vue"
               code={@vue_source}
               language="vue"
-              filename="SsrControl.vue"
+              filename="Slots.vue"
               color="vue"
             />
         <% end %>
@@ -163,33 +160,46 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
         <div class="grid gap-4">
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 1
               </span>
-              SSR enabled by default
+              Vue components define slot insertion points
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              LiveVue components are server-side rendered by default for faster initial page loads.
-              The component renders to HTML on the server, then Vue hydrates it on the client.
+              In the Vue component, use
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">&lt;slot /&gt;</code>
+              for the default slot and
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">
+                &lt;slot name="header" /&gt;
+              </code>
+              for named slots. These act as placeholders for content passed from HEEx.
             </p>
-            <.example_snippet code={~s|<.vue v-component="SsrControl" v-socket={@socket} />|} />
+            <.example_snippet
+              language="vue"
+              code={~s|<slot />  <!-- default slot -->\n<slot name="header" />  <!-- named slot -->|}
+            />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 2
               </span>
-              Disable SSR when needed
+              HEEx uses :slot_name syntax to pass content
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Add <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">v-ssr={false}</code>
-              to skip server rendering. The component shows a placeholder during SSR and only
-              renders on the client after hydration.
+              In LiveView templates, content placed directly between the
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">&lt;.vue&gt;</code>
+              tags becomes the default slot. Named slots use the
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">:slot_name</code>
+              syntax.
             </p>
-            <.example_snippet code={
-              ~s|<.vue v-component="SsrControl" v-socket={@socket} v-ssr={false} />|
-            } />
+            <.example_snippet
+              language="elixir"
+              code={
+                ~s|<.vue v-component="Card" v-socket={@socket}>\n  <:header>Title</:header>\n  Default slot content\n</.vue>|
+              }
+            />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -197,31 +207,35 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 3
               </span>
-              Browser APIs require special handling
+              Slots can have fallback content
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              When using browser-only APIs like <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">window</code>, <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">navigator</code>, or <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">document</code>,
-              you can either check if they exist or disable SSR entirely.
+              When a slot isn't provided, Vue renders the fallback content inside the
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">&lt;slot&gt;</code>
+              tags. This is useful for optional sections or default states.
             </p>
             <.example_snippet
-              language="javascript"
-              code={~s|const userAgent = typeof window !== 'undefined' ? navigator.userAgent : 'SSR'|}
+              language="vue"
+              code={~s|<slot name="footer">\n  <p>Default footer content</p>\n</slot>|}
             />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 4
               </span>
-              When to use v-ssr={false}
+              Check slot presence in Vue
             </h3>
-            <p class="text-landing-muted text-sm leading-relaxed">
-              Use <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">v-ssr={false}</code>
-              for components that heavily rely on browser APIs, third-party libraries that
-              aren't SSR-compatible, or when the component doesn't benefit from SSR
-              (like maps, charts, or client-only visualizations).
+            <p class="text-landing-muted text-sm leading-relaxed mb-3">
+              Use <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">useSlots()</code>
+              to conditionally render sections based on whether a slot was provided. This enables
+              flexible layouts that adapt to the content.
             </p>
+            <.example_snippet
+              language="javascript"
+              code={~s|const slots = useSlots()\nconst hasFooter = computed(() => !!slots.footer)|}
+            />
           </div>
         </div>
       </section>
@@ -230,7 +244,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
       <section class="mt-12 pt-8 border-t border-landing-border">
         <div class="flex items-center justify-between">
           <div class="text-landing-muted text-sm">
-            Next up: Slots for composable components
+            Next up: Simple Form with useLiveForm()
           </div>
           <span class="text-landing-muted/50 text-sm">Coming soon</span>
         </div>

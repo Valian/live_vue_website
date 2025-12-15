@@ -174,8 +174,7 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLive do
               The <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">Link</code>
               component provides three navigation modes:
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">href</code>
-              for normal links,
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">navigate</code>
+              for normal links, <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">navigate</code>
               for LiveView navigation with new state, and
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">patch</code>
               for updating params while preserving state.
@@ -198,8 +197,7 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLive do
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">useLiveNavigation()</code>
               composable. It provides
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">navigate()</code>
-              and
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">patch()</code>
+              and <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">patch()</code>
               functions.
             </p>
             <.example_snippet
@@ -216,8 +214,7 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLive do
               Patch with query params and replace
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Use
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">patch()</code>
+              Use <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">patch()</code>
               to update query parameters without adding a history entry. Pass an object of params and options like
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">replace: true</code>
               to avoid cluttering the browser history.

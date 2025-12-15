@@ -19,7 +19,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Animated Counter",
           description: "Vue transitions and animations with server state",
           icon: "hero-sparkles",
-          status: :coming_soon
+          status: :ready
         }
       ]
     },
@@ -107,7 +107,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Connection Status",
           description: "useLiveConnection() for offline handling",
           icon: "hero-wifi",
-          status: :coming_soon
+          status: :ready
         }
       ]
     },
@@ -119,7 +119,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Slots",
           description: "Default and named slots with HEEX content",
           icon: "hero-puzzle-piece",
-          status: :coming_soon
+          status: :ready
         },
         %{
           id: "ssr-control",

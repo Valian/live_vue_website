@@ -107,37 +107,33 @@ Categories:
 | Example | Route | LiveVue Features | Files |
 |---------|-------|------------------|-------|
 | **Counter** | `/examples/counter` | Props, phx-click, local Vue state | `counter_live.ex`, `counter_preview.ex`, `Counter.vue` |
+| **Animated Counter** | `/examples/animated-counter` | Vue `<Transition>`, `watch()`, CSS animations | `animated_counter_live.ex`, `animated_counter_preview.ex`, `AnimatedCounter.vue` |
 | **Event Handling** | `/examples/events` | `pushEvent()`, `useLiveVue()`, `$live` template access | `events_live.ex`, `events_preview.ex`, `Events.vue` |
 | **Server Events** | `/examples/server-events` | `push_event/3` (server), `useLiveEvent()` (client) | `server_events_live.ex`, `server_events_preview.ex`, `ServerEvents.vue` |
 | **Navigation** | `/examples/navigation` | `Link` component (href/navigate/patch), `useLiveNavigation()` | `navigation_live.ex`, `navigation_preview.ex`, `Navigation.vue` |
 | **SSR Control** | `/examples/ssr-control` | `v-ssr={false}`, `onMounted()` for client detection | `ssr_control_live.ex`, `ssr_control_preview.ex`, `SsrControl.vue` |
+| **Connection Status** | `/examples/connection-status` | `useLiveConnection()`, WebSocket state tracking | `connection_status_live.ex`, `connection_status_preview.ex`, `ConnectionStatus.vue` |
+| **Slots** | `/examples/slots` | Default/named slots, HEEx content in Vue | `slots_live.ex`, `slots_preview.ex`, `Slots.vue` |
 
 ### Not Yet Implemented (status: :coming_soon)
 
 | Example | Category | LiveVue Features | Complexity |
 |---------|----------|------------------|------------|
-| **Animated Counter** | Getting Started | Vue transitions/animations | Low |
 | **Simple Form** | Forms | `useLiveForm()`, Ecto validation | Medium |
 | **Nested Objects** | Forms | Nested field paths (dot notation) | Medium |
 | **Dynamic Arrays** | Forms | `fieldArray()` with add/remove/move | Medium-High |
 | **File Upload** | Uploads | `useLiveUpload()`, progress, drag & drop | Medium |
 | **Phoenix Streams** | Real-time | `stream()` integration | Medium |
-| **Connection Status** | Real-time | `useLiveConnection()` | Low |
-| **Slots** | Advanced | Default/named slots with HEEX | Medium |
 
 ### Suggested Next Examples (by complexity)
 
-**Low complexity:**
-1. **Animated Counter** - Add Vue transitions to existing Counter pattern
-2. **Connection Status** - Simple `useLiveConnection()` hook demo
-
 **Medium complexity:**
-3. **Simple Form** - `useLiveForm()` with basic Ecto changeset
-4. **File Upload** - `useLiveUpload()` with `allow_upload` on server
+1. **Simple Form** - `useLiveForm()` with basic Ecto changeset
+2. **File Upload** - `useLiveUpload()` with `allow_upload` on server
 
 **Higher complexity:**
-5. **Phoenix Streams** - Requires understanding of LiveView streams
-6. **Dynamic Arrays** - `fieldArray()` with complex form state
+3. **Phoenix Streams** - Requires understanding of LiveView streams
+4. **Dynamic Arrays** - `fieldArray()` with complex form state
 
 ## File Structure
 
