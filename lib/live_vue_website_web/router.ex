@@ -19,6 +19,7 @@ defmodule LiveVueWebsiteWeb.Router do
 
     live "/", LandingLive
     live "/landing-two", LandingTwoLive
+    live "/examples", ExamplesLive
   end
 
   # Other scopes may use custom stacks.
