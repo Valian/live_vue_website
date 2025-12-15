@@ -45,7 +45,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
       assert vue.props["form"]["name"] == "contact"
       assert vue.props["form"]["values"]["name"] == nil
       assert vue.props["form"]["values"]["email"] == nil
-      assert vue.props["form"]["values"]["message"] == nil
+      assert vue.props["form"]["values"]["consent"] == nil
     end
 
     test "validate event updates form with errors for empty fields", %{conn: conn} do
@@ -54,7 +54,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
       form_view = find_live_child(view, "simple-form-preview")
 
       render_hook(form_view, "validate", %{
-        "contact" => %{"name" => "", "email" => "", "message" => ""}
+        "contact" => %{"name" => "", "email" => ""}
       })
 
       vue = LiveVue.Test.get_vue(view, name: "examples/SimpleForm")
@@ -62,7 +62,6 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
       # Should have validation errors
       assert vue.props["form"]["errors"]["name"] != nil
       assert vue.props["form"]["errors"]["email"] != nil
-      assert vue.props["form"]["errors"]["message"] != nil
     end
 
     test "validate event shows no errors for valid data", %{conn: conn} do
@@ -74,7 +73,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
         "contact" => %{
           "name" => "John Doe",
           "email" => "john@example.com",
-          "message" => "This is a valid message with enough characters."
+          "consent" => "true"
         }
       })
 
@@ -86,9 +85,6 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
 
       assert vue.props["form"]["errors"]["email"] == nil ||
                vue.props["form"]["errors"]["email"] == []
-
-      assert vue.props["form"]["errors"]["message"] == nil ||
-               vue.props["form"]["errors"]["message"] == []
     end
 
     test "validate event shows error for short name", %{conn: conn} do
@@ -100,7 +96,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
         "contact" => %{
           "name" => "A",
           "email" => "test@test.com",
-          "message" => "Long enough message"
+          "consent" => "true"
         }
       })
 
@@ -120,7 +116,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
         "contact" => %{
           "name" => "John",
           "email" => "not-an-email",
-          "message" => "Long enough message"
+          "consent" => "true"
         }
       })
 
@@ -131,23 +127,23 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
       assert errors != nil && errors != []
     end
 
-    test "validate event shows error for short message", %{conn: conn} do
+    test "validate event shows error when consent not accepted", %{conn: conn} do
       {:ok, view, _html} = live(conn, ~p"/examples/simple-form?tab=preview")
 
       form_view = find_live_child(view, "simple-form-preview")
 
       render_hook(form_view, "validate", %{
-        "contact" => %{"name" => "John", "email" => "john@test.com", "message" => "Short"}
+        "contact" => %{"name" => "John", "email" => "john@test.com", "consent" => "false"}
       })
 
       vue = LiveVue.Test.get_vue(view, name: "examples/SimpleForm")
 
-      # Message should have length error
-      errors = vue.props["form"]["errors"]["message"]
+      # Consent should have acceptance error
+      errors = vue.props["form"]["errors"]["consent"]
       assert errors != nil && errors != []
     end
 
-    test "submit event with valid data resets the form", %{conn: conn} do
+    test "submit event with valid data clears the form", %{conn: conn} do
       {:ok, view, _html} = live(conn, ~p"/examples/simple-form?tab=preview")
 
       form_view = find_live_child(view, "simple-form-preview")
@@ -156,16 +152,15 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
         "contact" => %{
           "name" => "John Doe",
           "email" => "john@example.com",
-          "message" => "This is a valid message with enough characters."
+          "consent" => "true"
         }
       })
 
       vue = LiveVue.Test.get_vue(view, name: "examples/SimpleForm")
 
-      # Form should be reset
+      # Form values should be cleared after successful submit
       assert vue.props["form"]["values"]["name"] == nil
       assert vue.props["form"]["values"]["email"] == nil
-      assert vue.props["form"]["values"]["message"] == nil
     end
 
     test "submit event with invalid data keeps form with errors", %{conn: conn} do
@@ -174,7 +169,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
       form_view = find_live_child(view, "simple-form-preview")
 
       render_hook(form_view, "submit", %{
-        "contact" => %{"name" => "", "email" => "", "message" => ""}
+        "contact" => %{"name" => "", "email" => ""}
       })
 
       vue = LiveVue.Test.get_vue(view, name: "examples/SimpleForm")
@@ -182,7 +177,6 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLiveTest do
       # Should have validation errors
       assert vue.props["form"]["errors"]["name"] != nil
       assert vue.props["form"]["errors"]["email"] != nil
-      assert vue.props["form"]["errors"]["message"] != nil
     end
 
     test "vue component has correct name", %{conn: conn} do

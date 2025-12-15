@@ -31,6 +31,7 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/examples/array-form", Examples.ArrayFormLive
     live "/examples/encoder", Examples.EncoderLive
     live "/examples/streams", Examples.StreamsLive
+    live "/examples/file-upload", Examples.FileUploadLive
   end
 
   # Other scopes may use custom stacks.

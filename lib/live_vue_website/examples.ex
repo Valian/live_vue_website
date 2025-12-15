@@ -88,7 +88,7 @@ defmodule LiveVueWebsite.Examples do
           title: "File Upload",
           description: "useLiveUpload() with progress tracking",
           icon: "hero-cloud-arrow-up",
-          status: :coming_soon
+          status: :ready
         }
       ]
     },
