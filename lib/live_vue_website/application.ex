@@ -15,8 +15,8 @@ defmodule LiveVueWebsite.Application do
        repos: Application.fetch_env!(:live_vue_website, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:live_vue_website, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: LiveVueWebsite.PubSub},
-      # Start a worker by calling: LiveVueWebsite.Worker.start_link(arg)
-      # {LiveVueWebsite.Worker, arg},
+      LiveVueWebsite.LivePoll,
+      LiveVueWebsite.GitHubStars,
       # Start to serve requests, typically the last entry
       LiveVueWebsiteWeb.Endpoint
     ]
