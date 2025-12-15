@@ -185,7 +185,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
               Use
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.fieldArray("tags")</code>
-              to get a reactive array with add, remove, and iteration capabilities.
+              to get a reactive array with add, remove, and iteration capabilities. Nested access is supported.
             </p>
             <.example_snippet
               language="javascript"

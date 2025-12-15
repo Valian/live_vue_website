@@ -268,7 +268,8 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
               Call <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.submit()</code>
               to send the <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">submitEvent</code>
-              to the server, and <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.reset()</code>
+              to the server, and
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.reset()</code>
               to restore initial values and clear touched state.
             </p>
             <.example_snippet

@@ -203,7 +203,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
               Use
               <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.field("address.city")</code>
               or chain with <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">.field()</code>.
-              Both have full TypeScript support for type-safe paths.
+              Both have full TypeScript support for type-safe paths. Use `field[index]` to access nested array fields, eg `form.field("tags[0].name")`.
             </p>
             <.example_snippet
               language="javascript"
