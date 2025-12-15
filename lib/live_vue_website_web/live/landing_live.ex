@@ -1,463 +1,56 @@
 defmodule LiveVueWebsiteWeb.LandingLive do
   use LiveVueWebsiteWeb, :live_view
 
-  def render(assigns) do
-    ~H"""
-    <Layouts.app flash={@flash}>
-      <%!-- Hero Section --%>
-      <section class="relative py-20 lg:py-32">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              <span class="text-phoenix">Vue</span>
-              inside <span class="text-phoenix">Phoenix LiveView</span>
-              <br />
-              <span class="text-base-content/80">with seamless end-to-end reactivity.</span>
-            </h1>
-            <p class="mx-auto mt-6 max-w-2xl text-lg text-base-content/70">
-              Forms, uploads, streams, events — all working. Plus instant reload and SSR.
-            </p>
-            <div class="mt-10 flex items-center justify-center gap-4">
-              <a href="https://hexdocs.pm/live_vue" class="btn btn-primary btn-lg">
-                Get Started <span aria-hidden="true">&rarr;</span>
-              </a>
-              <a href="#examples" class="btn btn-ghost btn-lg">
-                Examples
-              </a>
-            </div>
-          </div>
-
-          <%!-- Hero Animation Placeholder --%>
-          <div class="mt-16 lg:mt-24">
-            <div class="relative mx-auto max-w-4xl rounded-xl border-2 border-base-300 bg-base-200 p-8 shadow-xl">
-              <div class="text-center text-sm text-base-content/50">
-                [Vue Component Placeholder: HeroAnimation]
-              </div>
-              <%!-- Static fallback diagram --%>
-              <div class="mt-6 space-y-4 font-mono text-sm">
-                <%!-- Server Box --%>
-                <div class="rounded-lg border-2 border-phoenix/50 bg-phoenix/5 p-4">
-                  <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-phoenix">
-                    Server (LiveView)
-                  </div>
-                  <code class="text-base-content/80">
-                    {"assigns = %{count: 5, user: %{name: \"Alice\"}}"}
-                  </code>
-                </div>
-
-                <%!-- Arrows --%>
-                <div class="flex items-center justify-center gap-8 text-base-content/40">
-                  <div class="flex flex-col items-center">
-                    <span class="text-xs">props</span>
-                    <span class="text-lg">↓</span>
-                    <span class="text-xs">(auto-sync)</span>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <span class="text-xs">events</span>
-                    <span class="text-lg">↑</span>
-                    <span class="text-xs">(pushEvent)</span>
-                  </div>
-                </div>
-
-                <%!-- Client Box --%>
-                <div class="rounded-lg border-2 border-vue/50 bg-vue/5 p-4">
-                  <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-vue">
-                    Client (Vue Component)
-                  </div>
-                  <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <div class="text-xs text-base-content/50">props (from server)</div>
-                      <code class="text-base-content/80">count: 5</code>
-                    </div>
-                    <div>
-                      <div class="text-xs text-base-content/50">local state (Vue refs)</div>
-                      <code class="text-base-content/80">filter: "all"</code>
-                    </div>
-                  </div>
-                </div>
-
-                <%!-- DOM Box --%>
-                <div class="rounded-lg border-2 border-base-300 bg-base-100 p-4">
-                  <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-base-content/60">
-                    DOM
-                  </div>
-                  <code class="text-base-content/80">{"<p>Count: 5</p>"}</code>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%!-- Features Grid --%>
-      <section class="py-20 lg:py-32">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              Built for the LiveView way
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-lg text-base-content/70">
-              Everything you need to build rich client-side interactions while keeping server-side state management.
-            </p>
-          </div>
-
-          <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <.feature_card
-              icon="hero-bolt"
-              title="End-to-End Reactivity"
-              description="Props flow from LiveView assigns. Changes sync automatically."
-            />
-            <.feature_card
-              icon="hero-wrench-screwdriver"
-              title="Built for LiveView"
-              description="Not a wrapper or adapter. Designed for LiveView's architecture."
-            />
-            <.feature_card
-              icon="hero-computer-desktop"
-              title="Server-Side Rendered"
-              description="Vue components render on first paint. No loading flash."
-            />
-            <.feature_card
-              icon="hero-cube"
-              title="Efficient Updates"
-              description="Only changed props sent via JSON patches over WebSocket."
-            />
-            <.feature_card
-              icon="hero-code-bracket"
-              title="TypeScript Ready"
-              description="Full type safety for props, events, and composables."
-            />
-            <.feature_card
-              icon="hero-rocket-launch"
-              title="One-Line Install"
-              description="mix igniter.install live_vue handles setup automatically."
-            />
-          </div>
-        </div>
-      </section>
-
-      <%!-- Code Example Section --%>
-      <section class="py-20 lg:py-32 bg-base-200/50">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              Simple mental model
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-lg text-base-content/70">
-              Props in, events out. Server owns the state.
-            </p>
-          </div>
-
-          <div class="mt-16 grid gap-8 lg:grid-cols-2">
-            <%!-- Vue Component Code --%>
-            <.code_block filename="Counter.vue" lang="vue" code={@vue_code} />
-
-            <%!-- LiveView Code --%>
-            <.code_block filename="counter_live.ex" lang="elixir" code={@elixir_code} />
-          </div>
-        </div>
-      </section>
-
-      <%!-- What Works Section --%>
-      <section class="py-20 lg:py-32" id="examples">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              Everything just works
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-lg text-base-content/70">
-              LiveView features you rely on, now with Vue-friendly APIs.
-            </p>
-          </div>
-
-          <div class="mt-16 grid gap-12 lg:grid-cols-2">
-            <.feature_block title="Forms & Validation" icon="hero-document-text">
-              <p class="text-base-content/70">
-                Ecto changesets work the same way.
-                <code class="text-sm bg-base-200 px-1.5 py-0.5 rounded">useLiveForm()</code>
-                provides the same validation flow you'd use in HEEX.
-              </p>
-              <div class="mt-4 text-center text-sm text-base-content/50">
-                [Vue Component Placeholder: FormDemo]
-              </div>
-            </.feature_block>
-
-            <.feature_block title="Streams" icon="hero-queue-list">
-              <p class="text-base-content/70">
-                Pass <code class="text-sm bg-base-200 px-1.5 py-0.5 rounded">@streams.items</code>
-                as a prop. LiveVue applies patches efficiently.
-              </p>
-              <div class="mt-4 text-center text-sm text-base-content/50">
-                [Vue Component Placeholder: StreamDemo]
-              </div>
-            </.feature_block>
-
-            <.feature_block title="File Uploads" icon="hero-cloud-arrow-up">
-              <p class="text-base-content/70">
-                <code class="text-sm bg-base-200 px-1.5 py-0.5 rounded">useLiveUpload()</code>
-                wraps LiveView's upload system. Same backend, Vue-friendly API.
-              </p>
-              <div class="mt-4 text-center text-sm text-base-content/50">
-                [Vue Component Placeholder: UploadDemo]
-              </div>
-            </.feature_block>
-
-            <.feature_block title="Events & Navigation" icon="hero-arrows-right-left">
-              <p class="text-base-content/70">
-                <code class="text-sm bg-base-200 px-1.5 py-0.5 rounded">pushEvent()</code>
-                to server,
-                <code class="text-sm bg-base-200 px-1.5 py-0.5 rounded">useLiveEvent()</code>
-                from server. Plus
-                <code class="text-sm bg-base-200 px-1.5 py-0.5 rounded">&lt;Link&gt;</code>
-                for navigation.
-              </p>
-              <div class="mt-4 text-center text-sm text-base-content/50">
-                [Vue Component Placeholder: EventsDemo]
-              </div>
-            </.feature_block>
-          </div>
-        </div>
-      </section>
-
-      <%!-- Use Cases Section --%>
-      <section class="py-20 lg:py-32 bg-base-200/50">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="grid gap-12 lg:grid-cols-2">
-            <div>
-              <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-                When LiveVue makes sense
-              </h2>
-              <ul class="mt-8 space-y-4">
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-check-circle" class="size-6 text-vue shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Rich interactions</strong>
-                    — Drag-and-drop, animations, complex local state
-                  </span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-check-circle" class="size-6 text-vue shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Third-party libraries</strong> — Chart.js, TipTap, Vue ecosystem packages
-                  </span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-check-circle" class="size-6 text-vue shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Team familiarity</strong> — Your team knows Vue and wants to use it
-                  </span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-check-circle" class="size-6 text-vue shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Gradual adoption</strong> — Start with one component, expand as needed
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-                When plain LiveView is enough
-              </h2>
-              <ul class="mt-8 space-y-4">
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-minus-circle" class="size-6 text-base-content/40 shrink-0 mt-0.5" />
-                  <span>Forms, tables, simple interactions</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-minus-circle" class="size-6 text-base-content/40 shrink-0 mt-0.5" />
-                  <span>Server-rendered content with minimal JS</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <.icon name="hero-minus-circle" class="size-6 text-base-content/40 shrink-0 mt-0.5" />
-                  <span>When you don't need the Vue runtime (~34kb gzipped)</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%!-- Two Approaches Section --%>
-      <section class="py-20 lg:py-32">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              Two approaches, one library
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-lg text-base-content/70">
-              Use Vue as islands within HEEX, or let Vue render everything.
-            </p>
-          </div>
-
-          <div class="mt-16 grid gap-8 lg:grid-cols-2">
-            <div class="rounded-xl border border-base-300 bg-base-100 p-8">
-              <div class="flex items-center gap-3">
-                <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-phoenix/10">
-                  <.icon name="hero-puzzle-piece" class="size-6 text-phoenix" />
-                </span>
-                <h3 class="text-xl font-semibold">Embedded Components</h3>
-              </div>
-              <p class="mt-4 text-base-content/70">
-                Vue handles interactive islands. Phoenix renders the layout.
-              </p>
-              <pre class="mt-6 overflow-x-auto rounded-lg bg-base-200 p-4 text-sm"><code>{@embedded_code}</code></pre>
-            </div>
-
-            <div class="rounded-xl border border-base-300 bg-base-100 p-8">
-              <div class="flex items-center gap-3">
-                <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-vue/10">
-                  <.icon name="hero-square-3-stack-3d" class="size-6 text-vue" />
-                </span>
-                <h3 class="text-xl font-semibold">Full Vue Layouts</h3>
-              </div>
-              <p class="mt-4 text-base-content/70">
-                Vue renders everything. LiveView manages state and routing.
-              </p>
-              <pre class="mt-6 overflow-x-auto rounded-lg bg-base-200 p-4 text-sm"><code>{@spa_code}</code></pre>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%!-- Quick Start Section --%>
-      <section class="py-20 lg:py-32 bg-base-200/50">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              Get started in minutes
-            </h2>
-          </div>
-
-          <div class="mt-12 mx-auto max-w-2xl space-y-6">
-            <div class="rounded-xl border border-base-300 bg-base-100 overflow-hidden">
-              <div class="border-b border-base-300 bg-base-200 px-4 py-3">
-                <span class="text-sm font-medium">New project</span>
-              </div>
-              <pre class="overflow-x-auto p-4 text-sm"><code>mix igniter.new my_app --with phx.new --install live_vue</code></pre>
-            </div>
-
-            <div class="rounded-xl border border-base-300 bg-base-100 overflow-hidden">
-              <div class="border-b border-base-300 bg-base-200 px-4 py-3">
-                <span class="text-sm font-medium">Existing project</span>
-              </div>
-              <pre class="overflow-x-auto p-4 text-sm"><code>mix igniter.install live_vue</code></pre>
-            </div>
-
-            <div class="rounded-xl border border-base-300 bg-base-100 overflow-hidden">
-              <div class="border-b border-base-300 bg-base-200 px-4 py-3">
-                <span class="text-sm font-medium">Create a component</span>
-              </div>
-              <pre class="overflow-x-auto p-4 text-sm"><code>{@quickstart_component}</code></pre>
-            </div>
-
-            <div class="rounded-xl border border-base-300 bg-base-100 overflow-hidden">
-              <div class="border-b border-base-300 bg-base-200 px-4 py-3">
-                <span class="text-sm font-medium">Use it</span>
-              </div>
-              <pre class="overflow-x-auto p-4 text-sm"><code>{"<.vue count={@count} v-component=\"Counter\" v-socket={@socket} />"}</code></pre>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%!-- Comparisons Section --%>
-      <section class="py-20 lg:py-32">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              How it compares
-            </h2>
-          </div>
-
-          <div class="mt-16 grid gap-8 md:grid-cols-3">
-            <div class="rounded-xl border border-base-300 bg-base-100 p-6">
-              <h3 class="text-lg font-semibold">vs Pure LiveView</h3>
-              <p class="mt-4 text-sm text-base-content/70">
-                LiveView is excellent for most UI work. LiveVue adds Vue when you need complex client-side state, Vue ecosystem libraries, or component patterns that map better to Vue.
-              </p>
-            </div>
-
-            <div class="rounded-xl border border-base-300 bg-base-100 p-6">
-              <h3 class="text-lg font-semibold">vs Inertia.js</h3>
-              <p class="mt-4 text-sm text-base-content/70">
-                Different goals. Inertia replaces LiveView with a request/response model. LiveVue keeps LiveView's WebSocket connection and real-time capabilities.
-              </p>
-            </div>
-
-            <div class="rounded-xl border border-base-300 bg-base-100 p-6">
-              <h3 class="text-lg font-semibold">vs LiveSvelte / LiveReact</h3>
-              <p class="mt-4 text-sm text-base-content/70">
-                Same idea, different framework. Choose based on team preference and ecosystem needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%!-- CTA Section --%>
-      <section class="py-20 lg:py-32 bg-gradient-to-br from-phoenix/10 via-transparent to-vue/10">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-              Ready to try LiveVue?
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-lg text-base-content/70">
-              Check out the docs, browse examples, or jump straight in.
-            </p>
-            <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
-              <a href="https://hexdocs.pm/live_vue" class="btn btn-primary btn-lg">
-                Documentation
-              </a>
-              <a href="https://github.com/Valian/live_vue" class="btn btn-ghost btn-lg">
-                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 mr-2">
-                  <path
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M12 0C5.37 0 0 5.506 0 12.303c0 5.445 3.435 10.043 8.205 11.674.6.107.825-.262.825-.585 0-.292-.015-1.261-.015-2.291C6 21.67 5.22 20.346 4.98 19.654c-.135-.354-.72-1.446-1.23-1.738-.42-.23-1.02-.8-.015-.815.945-.015 1.62.892 1.845 1.261 1.08 1.86 2.805 1.338 3.495 1.015.105-.8.42-1.338.765-1.645-2.67-.308-5.46-1.37-5.46-6.075 0-1.338.465-2.446 1.23-3.307-.12-.308-.54-1.569.12-3.26 0 0 1.005-.323 3.3 1.26.96-.276 1.98-.415 3-.415s2.04.139 3 .416c2.295-1.6 3.3-1.261 3.3-1.261.66 1.691.24 2.952.12 3.26.765.861 1.23 1.953 1.23 3.307 0 4.721-2.805 5.767-5.475 6.075.435.384.81 1.122.81 2.276 0 1.645-.015 2.968-.015 3.383 0 .323.225.707.825.585a12.047 12.047 0 0 0 5.919-4.489A12.536 12.536 0 0 0 24 12.304C24 5.505 18.63 0 12 0Z"
-                  />
-                </svg>
-                GitHub
-              </a>
-              <a href="https://hex.pm/packages/live_vue" class="btn btn-ghost btn-lg">
-                Hex.pm
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%!-- Footer --%>
-      <footer class="border-t border-base-300 py-12">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div class="flex items-center gap-2">
-              <span class="text-lg font-semibold">LiveVue</span>
-              <span class="text-sm text-base-content/50">
-                Built with <span class="text-phoenix">Phoenix</span>
-                + <span class="text-vue">Vue</span>
-              </span>
-            </div>
-            <div class="flex items-center gap-6 text-sm text-base-content/70">
-              <a href="https://github.com/Valian/live_vue" class="hover:text-base-content">GitHub</a>
-              <a href="https://hexdocs.pm/live_vue" class="hover:text-base-content">Docs</a>
-              <a href="https://hex.pm/packages/live_vue" class="hover:text-base-content">Hex.pm</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </Layouts.app>
-    """
-  end
+  alias LiveVueWebsite.LivePoll
+  alias LiveVueWebsite.GitHubStars
 
   def mount(_params, _session, socket) do
-    vue_code = """
+    if connected?(socket) do
+      LivePoll.subscribe()
+    end
+
+    poll_state = LivePoll.get_state()
+    github_stars = GitHubStars.get_stars()
+
+    {:ok,
+     assign(socket,
+       count: 0,
+       page_title: "LiveVue – Vue Components in Phoenix LiveView",
+       poll: poll_state,
+       github_stars: github_stars
+     )}
+  end
+
+  def handle_event("inc", %{"diff" => diff}, socket) do
+    {:noreply, update(socket, :count, &(&1 + diff))}
+  end
+
+  def handle_event("dec", _params, socket) do
+    {:noreply, update(socket, :count, &(&1 - 1))}
+  end
+
+  def handle_event("reset", _params, socket) do
+    {:noreply, assign(socket, :count, 0)}
+  end
+
+  def handle_event("poll_vote", %{"choice" => choice}, socket) do
+    LivePoll.vote(choice)
+    {:noreply, socket}
+  end
+
+  def handle_info({:poll_update, poll_state}, socket) do
+    {:noreply, assign(socket, :poll, poll_state)}
+  end
+
+  defp vue_code_example do
+    """
     <script setup lang="ts">
     import { ref } from "vue"
 
+    // Props from LiveView
     const props = defineProps<{ count: number }>()
+
+    // Local Vue state
     const diff = ref(1)
     </script>
 
@@ -469,17 +62,21 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       </button>
     </template>
     """
+  end
 
-    elixir_code = """
+  defp elixir_code_example do
+    ~s'''
     defmodule MyAppWeb.CounterLive do
       use MyAppWeb, :live_view
 
       def render(assigns) do
-        ~H\"\"\"
-        <.vue count={@count}
-              v-component="Counter"
-              v-socket={@socket} />
-        \"\"\"
+        ~H"""
+        <.vue
+          count={@count}
+          v-component="Counter"
+          v-socket={@socket}
+        />
+        """
       end
 
       def mount(_params, _session, socket) do
@@ -490,112 +87,659 @@ defmodule LiveVueWebsiteWeb.LandingLive do
         {:noreply, update(socket, :count, &(&1 + diff))}
       end
     end
-    """
-
-    embedded_code = """
-    def render(assigns) do
-      ~H\"\"\"
-      <Layouts.app flash={@flash}>
-        <h1>Dashboard</h1>
-        <.vue data={@metrics}
-              v-component="Chart"
-              v-socket={@socket} />
-      </Layouts.app>
-      \"\"\"
-    end
-    """
-
-    spa_code = """
-    def render(assigns) do
-      ~H\"\"\"
-      <.vue v-component="App"
-            v-socket={@socket}
-            {@props} />
-      \"\"\"
-    end
-    """
-
-    quickstart_component = """
-    <!-- assets/vue/Counter.vue -->
-    <script setup lang="ts">
-    const props = defineProps<{ count: number }>()
-    </script>
-
-    <template>
-      <p>Count: {{ props.count }}</p>
-      <button phx-click="increment">+1</button>
-    </template>
-    """
-
-    socket =
-      assign(socket,
-        vue_code: String.trim(vue_code),
-        elixir_code: String.trim(elixir_code),
-        embedded_code: String.trim(embedded_code),
-        spa_code: String.trim(spa_code),
-        quickstart_component: String.trim(quickstart_component)
-      )
-
-    {:ok, socket}
+    '''
   end
 
-  # Component helpers
-
-  attr :icon, :string, required: true
-  attr :title, :string, required: true
-  attr :description, :string, required: true
-
-  defp feature_card(assigns) do
+  def render(assigns) do
     ~H"""
-    <div class="rounded-xl border border-base-300 bg-base-100 p-6 transition hover:border-primary/50 hover:shadow-lg">
-      <div class="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-        <.icon name={@icon} class="size-6 text-primary" />
-      </div>
-      <h3 class="mt-4 text-lg font-semibold">{@title}</h3>
-      <p class="mt-2 text-sm text-base-content/70">{@description}</p>
-    </div>
-    """
-  end
+    <div class="bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif] leading-relaxed overflow-x-hidden">
+      <%!-- HERO SECTION --%>
+      <section class="relative min-h-screen flex flex-col px-[clamp(1.5rem,5vw,4rem)]">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div class="absolute rounded-full blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite] w-[600px] h-[600px] bg-[radial-gradient(circle,var(--color-phoenix)_0%,transparent_70%)] -top-[200px] -right-[100px]">
+          </div>
+          <div class="absolute rounded-full blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite] w-[500px] h-[500px] bg-[radial-gradient(circle,var(--color-vue)_0%,transparent_70%)] -bottom-[150px] -left-[100px] [animation-delay:-10s]">
+          </div>
+          <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_70%)]">
+          </div>
+        </div>
 
-  attr :title, :string, required: true
-  attr :icon, :string, required: true
-  slot :inner_block, required: true
+        <nav class="relative flex justify-between items-center py-6 z-10">
+          <a
+            href="/"
+            class="flex items-center gap-3 font-serif text-[1.75rem] no-underline tracking-tight"
+          >
+            <img src="/images/live_vue_logo_rounded.png" alt="LiveVue" class="h-10 w-10 rounded-lg" />
+            <span><span class="text-phoenix">Live</span><span class="text-vue">Vue</span></span>
+          </a>
+          <div class="flex items-center gap-2">
+            <a
+              href="#features"
+              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+            >
+              Features
+            </a>
+            <a
+              href="#code"
+              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+            >
+              Code
+            </a>
+            <a
+              href="/examples"
+              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+            >
+              Examples
+            </a>
+            <a
+              href="https://hexdocs.pm/live_vue"
+              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+            >
+              Docs
+            </a>
+            <a
+              href="https://github.com/Valian/live_vue"
+              class="inline-flex items-center gap-1.5 py-1.5 px-3 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-amber-400">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <span class="font-mono text-xs">{@github_stars}</span>
+            </a>
+          </div>
+        </nav>
 
-  defp feature_block(assigns) do
-    ~H"""
-    <div class="rounded-xl border border-base-300 bg-base-100 p-6">
-      <div class="flex items-center gap-3">
-        <.icon name={@icon} class="size-6 text-primary" />
-        <h3 class="text-lg font-semibold">{@title}</h3>
-      </div>
-      <div class="mt-4">
-        {render_slot(@inner_block)}
-      </div>
-    </div>
-    """
-  end
+        <div class="relative flex-1 flex flex-col justify-center max-w-[800px] py-16 z-5">
+          <div class="inline-flex items-center gap-2 py-1.5 px-4 bg-white/5 border border-landing-border rounded-full text-xs text-landing-muted w-fit mb-8 backdrop-blur-lg">
+            <span class="w-1.5 h-1.5 bg-vue rounded-full animate-[pulse-dot_2s_ease-in-out_infinite]">
+            </span>
+            Phoenix LiveView + Vue.js
+          </div>
 
-  attr :filename, :string, required: true
-  attr :lang, :string, required: true
-  attr :code, :string, required: true
+          <h1 class="font-serif text-[clamp(3rem,8vw,5.5rem)] font-normal leading-none tracking-tight mb-6">
+            The missing <span class="text-vue">Vue</span>
+            bridge for <span class="text-phoenix italic">LiveView</span>
+          </h1>
 
-  defp code_block(assigns) do
-    dot_color =
-      case assigns.lang do
-        "vue" -> "bg-vue"
-        "elixir" -> "bg-phoenix"
-        _ -> "bg-base-content/50"
-      end
+          <p class="text-xl text-landing-muted max-w-[540px] mb-10 leading-relaxed">
+            When LiveView hooks get messy, reach for Vue.
+            Full reactivity. No API layer. One install command.
+          </p>
 
-    assigns = assign(assigns, :dot_color, dot_color)
+          <div class="flex gap-4 flex-wrap mb-12">
+            <a
+              href="https://hexdocs.pm/live_vue"
+              class="inline-flex items-center gap-2 py-3.5 px-7 bg-gradient-to-br from-phoenix to-phoenix-glow text-white no-underline font-medium rounded-lg transition-all duration-200 shadow-[0_4px_20px_rgba(253,79,0,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_30px_rgba(253,79,0,0.4)] group"
+            >
+              Get Started
+              <svg
+                class="w-[18px] h-[18px] transition-transform duration-200 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="#code"
+              class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
+            >
+              See the code
+            </a>
+          </div>
 
-    ~H"""
-    <div class="rounded-xl border border-base-300 bg-base-100 overflow-hidden">
-      <div class="flex items-center gap-2 border-b border-base-300 bg-base-200 px-4 py-3">
-        <span class={["inline-flex h-3 w-3 rounded-full", @dot_color]}></span>
-        <span class="text-sm font-medium">{@filename}</span>
-      </div>
-      <pre class="overflow-x-auto p-4 text-sm"><code class={"language-#{@lang}"}>{@code}</code></pre>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2 py-3 px-4 bg-landing-elevated border border-landing-border rounded-lg w-fit">
+              <code class="font-mono text-sm text-vue">mix igniter.install live_vue</code>
+              <button
+                class="bg-none border-none p-1 cursor-pointer text-landing-muted transition-colors flex items-center hover:text-landing-text"
+                onclick="navigator.clipboard.writeText('mix igniter.install live_vue')"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="w-4 h-4"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                </svg>
+              </button>
+            </div>
+            <span class="text-xs text-landing-muted">
+              Phoenix 1.8+ ·
+              <a
+                href="https://hexdocs.pm/live_vue/installation.html#new-project"
+                class="text-vue hover:underline"
+              >
+                Starting fresh?
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] max-w-[600px] z-1 hidden lg:block">
+          <.vue v-component="DataFlowHero" v-socket={@socket} />
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-landing-muted text-xs uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
+          <span>Scroll to explore</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </div>
+      </section>
+
+      <%!-- FEATURES SECTION --%>
+      <section id="features" class="py-32 px-[clamp(1.5rem,5vw,4rem)] bg-landing-bg">
+        <div class="text-center mb-16">
+          <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+            Why LiveVue
+          </span>
+          <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
+            Everything LiveView does,<br />Vue can too.
+          </h2>
+          <p class="text-landing-muted text-lg mt-6 max-w-[600px] mx-auto">
+            Streams, forms with Ecto validation, file uploads, server events — all work through Vue-native composables. You're not giving up LiveView features. You're extending them.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 max-w-[1200px] mx-auto">
+          <%!-- Hero feature: End-to-End Reactivity --%>
+          <div class="col-span-full grid grid-cols-[auto_1fr] gap-8 items-center p-8 bg-[linear-gradient(135deg,rgba(253,79,0,0.05)_0%,rgba(66,184,131,0.05)_100%)] border border-[rgba(253,79,0,0.2)] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted max-sm:grid-cols-1 max-sm:text-center">
+            <div class="w-[120px] h-[120px]">
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                class="w-full h-full animate-[spin-slow_20s_linear_infinite]"
+              >
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="20"
+                  stroke="url(#gradient-phoenix)"
+                  stroke-width="2"
+                  stroke-dasharray="4 4"
+                />
+                <circle cx="24" cy="24" r="12" stroke="url(#gradient-vue)" stroke-width="2" />
+                <circle cx="24" cy="24" r="4" fill="url(#gradient-mix)" />
+                <defs>
+                  <linearGradient id="gradient-phoenix" x1="0" y1="0" x2="48" y2="48">
+                    <stop offset="0%" stop-color="#FD4F00" />
+                    <stop offset="100%" stop-color="#FF8A50" />
+                  </linearGradient>
+                  <linearGradient id="gradient-vue" x1="0" y1="0" x2="48" y2="48">
+                    <stop offset="0%" stop-color="#42b883" />
+                    <stop offset="100%" stop-color="#35495e" />
+                  </linearGradient>
+                  <linearGradient id="gradient-mix" x1="0" y1="0" x2="48" y2="48">
+                    <stop offset="0%" stop-color="#FD4F00" />
+                    <stop offset="100%" stop-color="#42b883" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-[1.75rem] mb-3 tracking-tight">End-to-End Reactivity</h3>
+              <p class="text-landing-muted text-lg leading-relaxed max-w-[500px]">
+                LiveView assigns become Vue props automatically. When server state changes, Vue re-renders.
+                When Vue emits events, LiveView handles them. The loop is complete.
+              </p>
+            </div>
+          </div>
+
+          <%!-- Composables highlight --%>
+          <div class="col-span-full p-8 bg-landing-card border border-vue/30 rounded-xl">
+            <h3 class="font-serif text-xl mb-6 tracking-tight text-center">
+              Vue-native composables for LiveView features
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="p-4 bg-landing-elevated rounded-lg text-center">
+                <code class="text-vue text-sm font-mono">useLiveVue()</code>
+                <p class="text-landing-muted text-xs mt-2">pushEvent, handleEvent & more</p>
+              </div>
+              <div class="p-4 bg-landing-elevated rounded-lg text-center">
+                <code class="text-vue text-sm font-mono">useLiveForm()</code>
+                <p class="text-landing-muted text-xs mt-2">Ecto changeset validation</p>
+              </div>
+              <div class="p-4 bg-landing-elevated rounded-lg text-center">
+                <code class="text-vue text-sm font-mono">useLiveUpload()</code>
+                <p class="text-landing-muted text-xs mt-2">LiveView file uploads</p>
+              </div>
+              <div class="p-4 bg-landing-elevated rounded-lg text-center">
+                <code class="text-vue text-sm font-mono">useLiveEvent()</code>
+                <p class="text-landing-muted text-xs mt-2">Server → client events</p>
+              </div>
+            </div>
+            <p class="text-landing-muted text-sm mt-6 text-center">
+              Plus <code class="text-phoenix">phx-click</code>, <code class="text-phoenix">phx-change</code>, and all Phoenix bindings work inside Vue templates.
+              <code class="text-vue">$live</code>
+              is available in templates for quick access.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">🖥️</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">Server-Side Rendered</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              Vue components render on first paint. No loading flash. Full SEO.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">📦</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">Efficient Updates</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              JSON patches over WebSocket. Only changed props are sent.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">⚡</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">Vite-Powered DX</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              Instant HMR, TypeScript out of the box. The legendary Vite experience, for free.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">🚀</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">One-Line Install</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              Igniter handles the setup. TypeScript, Vite, SSR — all configured.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">🎯</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">Streams Support</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              Phoenix Streams work transparently. Efficient patches, no special handling.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">🦄</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">Vue Ecosystem</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              Use any Vue library. Chart.js, TipTap, Headless UI — they all work.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">🤖</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">AI-Ready</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              AGENTS.md auto-generated with LiveVue usage rules. Your AI assistant knows how to use it.
+            </p>
+          </div>
+
+          <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+            <div class="text-3xl mb-4">🐌</div>
+            <h3 class="font-serif text-xl mb-2 tracking-tight">Lazy Loading</h3>
+            <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+              Load Vue components on demand. Keep your initial bundle small.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <%!-- INTERACTIVE DEMO SECTION --%>
+      <section
+        id="demo"
+        class="relative py-32 px-[clamp(1.5rem,5vw,4rem)] bg-landing-deep overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-landing-border before:to-transparent"
+      >
+        <div class="max-w-[1000px] mx-auto">
+          <div class="text-center mb-16">
+            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+              Try it live
+            </span>
+            <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
+              Server state meets<br />client interactivity
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-8">
+            <div class="flex justify-center">
+              <.vue v-component="CounterDemo" count={@count} v-socket={@socket} />
+            </div>
+
+            <div class="flex flex-col gap-8">
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  01
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    The count lives on the server.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    LiveView owns {@count}. Vue receives it as a prop.
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  02
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    The slider is local Vue state.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    No server round-trip for UI-only state.
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  03
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    phx-click triggers handle_event.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    Vue template, LiveView handler. Seamless.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <%!-- LIVE POLL SECTION --%>
+      <section
+        id="poll"
+        class="relative py-32 px-[clamp(1.5rem,5vw,4rem)] bg-landing-bg overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-landing-border before:to-transparent"
+      >
+        <div class="max-w-[1000px] mx-auto">
+          <div class="text-center mb-16">
+            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-phoenix mb-4">
+              Real-time collaboration
+            </span>
+            <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
+              PubSub in action
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-8">
+            <div class="flex justify-center">
+              <.vue
+                v-component="LivePoll"
+                question={@poll.question}
+                optionA={@poll.option_a}
+                optionB={@poll.option_b}
+                votesA={@poll.votes_a}
+                votesB={@poll.votes_b}
+                votingEndsAt={@poll.voting_ends_at}
+                winner={@poll.winner}
+                v-socket={@socket}
+              />
+            </div>
+
+            <div class="flex flex-col gap-8">
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  01
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    All users share the same poll.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    A GenServer holds the canonical state. Votes are authoritative.
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  02
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    Updates broadcast via PubSub.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    Every vote triggers a broadcast. All connected LiveViews update.
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  03
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    Vue handles the polish.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    Smooth bar animations, countdown timer, confetti — all local state.
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-6 items-start">
+                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                  04
+                </div>
+                <div class="flex flex-col gap-1">
+                  <strong class="text-landing-text font-medium">
+                    3-second local vote throttle.
+                  </strong>
+                  <span class="text-landing-muted text-sm">
+                    Client-side rate limiting — no server round-trip needed.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <%!-- CODE SECTION --%>
+      <section id="code" class="py-32 px-[clamp(1.5rem,5vw,4rem)] bg-landing-bg">
+        <div class="max-w-[1100px] mx-auto">
+          <div class="text-center mb-16">
+            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+              The mental model
+            </span>
+            <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
+              Props in. Events out.<br />Server owns the state.
+            </h2>
+          </div>
+
+          <div
+            id="code-examples"
+            phx-hook="Highlight"
+            class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8 max-[900px]:grid-cols-1"
+          >
+            <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
+              <div class="flex items-center gap-3 py-4 px-6 bg-landing-elevated border-b border-landing-border">
+                <span class="w-2.5 h-2.5 rounded-full bg-vue"></span>
+                <span class="font-mono text-[0.85rem] text-landing-text">Counter.vue</span>
+                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted">
+                  Vue Component
+                </span>
+              </div>
+              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-vue" phx-no-format>{vue_code_example()}</code></pre>
+            </div>
+
+            <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
+              <div class="flex items-center gap-3 py-4 px-6 bg-landing-elevated border-b border-landing-border">
+                <span class="w-2.5 h-2.5 rounded-full bg-phoenix"></span>
+                <span class="font-mono text-[0.85rem] text-landing-text">counter_live.ex</span>
+                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted">
+                  LiveView
+                </span>
+              </div>
+              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-elixir" phx-no-format>{elixir_code_example()}</code></pre>
+            </div>
+          </div>
+
+          <div class="mt-12 relative">
+            <div class="h-0.5 bg-gradient-to-r from-phoenix to-vue rounded-sm"></div>
+            <div class="flex justify-between mt-4">
+              <span class="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-phoenix">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="w-4 h-4"
+                >
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+                Props
+              </span>
+              <span class="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-vue">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="w-4 h-4"
+                >
+                  <path d="M12 19V5M5 12l7-7 7 7" />
+                </svg>
+                Events
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <%!-- WHEN TO USE LIVEVUE SECTION --%>
+      <section class="py-24 px-[clamp(1.5rem,5vw,4rem)] bg-landing-deep">
+        <div class="max-w-[700px] mx-auto">
+          <div class="text-center mb-12">
+            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+              When to reach for LiveVue
+            </span>
+            <h2 class="font-serif text-[clamp(2rem,5vw,3rem)] font-normal leading-tight tracking-tight mb-6">
+              LiveView is great.<br />But sometimes not enough.
+            </h2>
+            <p class="text-landing-muted text-lg leading-relaxed">
+              For most apps, LiveView handles everything. But when you need rich client-side
+              interactions or want to tap into the Vue ecosystem, LiveVue bridges the gap.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">🎨</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Rich Interactions</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Drag-drop, animations, complex local state that doesn't need the server.
+              </p>
+            </div>
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">📦</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Vue Ecosystem</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Chart.js, TipTap, Headless UI — any Vue package works out of the box.
+              </p>
+            </div>
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">👥</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Team Familiarity</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Your frontend team already knows Vue. Let them use what they know.
+              </p>
+            </div>
+            <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
+              <div class="text-3xl mb-4">🌱</div>
+              <h3 class="font-serif text-xl mb-2 tracking-tight">Gradual Adoption</h3>
+              <p class="text-landing-muted text-[0.95rem] leading-relaxed">
+                Start with one component. Expand as needed. No big rewrites.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <%!-- FOOTER CTA --%>
+      <section class="relative py-32 px-[clamp(1.5rem,5vw,4rem)] text-center overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+          <div class="absolute rounded-full blur-[100px] w-[400px] h-[400px] opacity-30 bg-[radial-gradient(circle,var(--color-phoenix)_0%,transparent_70%)] -top-[100px] -left-[100px]">
+          </div>
+          <div class="absolute rounded-full blur-[100px] w-[400px] h-[400px] opacity-30 bg-[radial-gradient(circle,var(--color-vue)_0%,transparent_70%)] -bottom-[100px] -right-[100px]">
+          </div>
+        </div>
+        <div class="relative z-1 max-w-[600px] mx-auto">
+          <h2 class="font-serif text-[clamp(2rem,5vw,3rem)] font-normal mb-4 tracking-tight">
+            Ready to bridge the gap?
+          </h2>
+          <p class="text-landing-muted text-lg mb-8">
+            One command. Full TypeScript. SSR included. Start building.
+          </p>
+          <div class="inline-block py-4 px-8 bg-landing-elevated border border-landing-border rounded-lg font-mono text-base text-vue mb-10">
+            <code>mix igniter.install live_vue</code>
+          </div>
+          <div class="flex gap-4 justify-center flex-wrap">
+            <a
+              href="https://hexdocs.pm/live_vue"
+              class="inline-flex items-center gap-2 py-3.5 px-7 bg-gradient-to-br from-phoenix to-phoenix-glow text-white no-underline font-medium rounded-lg transition-all duration-200 shadow-[0_4px_20px_rgba(253,79,0,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_30px_rgba(253,79,0,0.4)] group"
+            >
+              Read the docs
+              <svg
+                class="w-[18px] h-[18px] transition-transform duration-200 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="https://github.com/Valian/live_vue"
+              class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
+            >
+              View on GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <%!-- FOOTER --%>
+      <footer class="py-12 px-[clamp(1.5rem,5vw,4rem)] border-t border-landing-border">
+        <div class="max-w-[1200px] mx-auto flex justify-between items-center flex-wrap gap-6 max-sm:flex-col max-sm:text-center">
+          <div class="flex items-center gap-2 font-serif text-xl">
+            <img src="/images/live_vue_logo_rounded.png" alt="LiveVue" class="h-8 w-8 rounded-md" />
+            <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
+          </div>
+          <div class="flex gap-8">
+            <a
+              href="https://hexdocs.pm/live_vue"
+              class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
+            >
+              Documentation
+            </a>
+            <a
+              href="https://github.com/Valian/live_vue"
+              class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://hex.pm/packages/live_vue"
+              class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
+            >
+              Hex.pm
+            </a>
+          </div>
+          <div class="text-landing-muted text-xs">
+            Built with Phoenix LiveView + Vue.js
+          </div>
+        </div>
+      </footer>
     </div>
     """
   end

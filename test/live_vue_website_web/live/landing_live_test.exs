@@ -9,7 +9,7 @@ defmodule LiveVueWebsiteWeb.LandingLiveTest do
     # Run: cd assets && npx vite build
     {:ok, _view, html} = live(conn, ~p"/")
     assert html =~ "Vue"
-    assert html =~ "Phoenix LiveView"
-    assert html =~ "seamless end-to-end reactivity"
+    assert html =~ "LiveView"
+    assert html =~ "End-to-End Reactivity"
   end
 end

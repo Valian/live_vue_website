@@ -18,7 +18,6 @@ defmodule LiveVueWebsiteWeb.Router do
     pipe_through :browser
 
     live "/", LandingLive
-    live "/landing-two", LandingTwoLive
     live "/examples", ExamplesLive
     live "/examples/counter", Examples.CounterLive
   end
