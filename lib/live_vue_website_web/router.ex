@@ -17,7 +17,9 @@ defmodule LiveVueWebsiteWeb.Router do
   scope "/", LiveVueWebsiteWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", LandingLive
+    live "/examples", ExamplesLive
+    live "/examples/counter", Examples.CounterLive
   end
 
   # Other scopes may use custom stacks.

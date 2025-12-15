@@ -104,3 +104,112 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+
+/* LiveVue brand colors and landing page theme */
+@theme {
+  --color-phoenix: #FD4F00;
+  --color-phoenix-glow: #FF6B2C;
+  --color-vue: #42b883;
+  --color-vue-dark: #35495e;
+  --color-landing-deep: #0a0a0f;
+  --color-landing-bg: #0f0f15;
+  --color-landing-elevated: #16161f;
+  --color-landing-card: #1a1a24;
+  --color-landing-text: #f0f0f5;
+  --color-landing-muted: #8888a0;
+  --color-landing-border: #2a2a3a;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Landing page keyframe animations */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes bounce-scroll {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes count-pop {
+  0% { transform: scale(1.1); color: var(--color-phoenix); }
+  100% { transform: scale(1); color: var(--color-landing-text); }
+}
+
+@keyframes flow-down {
+  0% { top: 0; opacity: 1; }
+  100% { top: calc(100% - 10px); opacity: 1; }
+}
+
+@keyframes flow-up {
+  0% { bottom: 20px; opacity: 1; }
+  100% { bottom: calc(100% - 30px); opacity: 1; }
+}
+
+/* Google Fonts import for landing page */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+/* Highlight.js theme - customized for landing page */
+.hljs {
+  color: #c9d1d9;
+  background: transparent;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #8888a0;
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-tag .hljs-name {
+  color: #FD4F00;
+}
+.hljs-string,
+.hljs-attr,
+.hljs-symbol,
+.hljs-bullet {
+  color: #42b883;
+}
+.hljs-number,
+.hljs-literal {
+  color: #79c0ff;
+}
+.hljs-title,
+.hljs-section,
+.hljs-title.class_,
+.hljs-title.function_ {
+  color: #ffc777;
+}
+.hljs-variable,
+.hljs-template-variable {
+  color: #ffa657;
+}
+.hljs-type,
+.hljs-built_in {
+  color: #7ee787;
+}
+.hljs-attribute {
+  color: #42b883;
+}
+.hljs-tag {
+  color: #8888a0;
+}
+.hljs-tag .hljs-attr {
+  color: #42b883;
+}
+.hljs-meta {
+  color: #FD4F00;
+}
