@@ -30,6 +30,7 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/examples/nested-form", Examples.NestedFormLive
     live "/examples/array-form", Examples.ArrayFormLive
     live "/examples/encoder", Examples.EncoderLive
+    live "/examples/streams", Examples.StreamsLive
   end
 
   # Other scopes may use custom stacks.

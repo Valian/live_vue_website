@@ -13,6 +13,13 @@ defmodule LiveVueWebsite.Examples do
           description: "Server state, local Vue state, phx-click, transitions",
           icon: "hero-plus-circle",
           status: :ready
+        },
+        %{
+          id: "encoder",
+          title: "Custom Encoder",
+          description: "Pass custom structs with @derive and defimpl",
+          icon: "hero-code-bracket",
+          status: :ready
         }
       ]
     },
@@ -93,7 +100,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Phoenix Streams",
           description: "Efficient list updates with stream()",
           icon: "hero-signal",
-          status: :coming_soon
+          status: :ready
         },
         %{
           id: "connection-status",
@@ -107,13 +114,6 @@ defmodule LiveVueWebsite.Examples do
     %{
       category: "Advanced",
       items: [
-        %{
-          id: "encoder",
-          title: "Custom Encoder",
-          description: "LiveVue.Encoder protocol with @derive and defimpl",
-          icon: "hero-code-bracket",
-          status: :ready
-        },
         %{
           id: "slots",
           title: "Slots",
