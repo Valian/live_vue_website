@@ -17,9 +17,16 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLive do
      )}
   end
 
-  def handle_params(params, _uri, socket) do
+  def handle_params(params, uri, socket) do
     tab = if params["tab"] in @valid_tabs, do: params["tab"], else: "preview"
-    {:noreply, assign(socket, :active_tab, tab)}
+    %URI{path: path} = URI.parse(uri)
+
+    {:noreply,
+     assign(socket,
+       active_tab: tab,
+       current_path: path,
+       query_params: Map.drop(params, ["tab"])
+     )}
   end
 
   def render(assigns) do
@@ -134,9 +141,12 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLive do
           <% "preview" -> %>
             <div class="p-8 flex justify-center">
               <div class="w-full max-w-2xl">
-                {live_render(@socket, LiveVueWebsiteWeb.Examples.NavigationPreview,
-                  id: "navigation-preview"
-                )}
+                <.vue
+                  current_path={@current_path}
+                  query_params={@query_params}
+                  v-component="examples/Navigation"
+                  v-socket={@socket}
+                />
               </div>
             </div>
           <% "liveview" -> %>

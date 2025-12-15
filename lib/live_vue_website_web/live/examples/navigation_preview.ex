@@ -1,6 +1,6 @@
 defmodule LiveVueWebsiteWeb.Examples.NavigationPreview do
   @moduledoc """
-  Minimal navigation demo LiveView for embedding in examples.
+  Navigation demo LiveView showing handle_params usage.
   The source of this module is displayed as example code.
   """
   use LiveVueWebsiteWeb, :live_view
@@ -17,10 +17,16 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationPreview do
   end
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, current_path: "/examples/navigation", query_params: %{}), layout: false}
+    {:ok, socket, layout: false}
   end
 
-  def handle_event("update_location", %{"path" => path, "query" => query}, socket) do
-    {:noreply, assign(socket, current_path: path, query_params: query)}
+  def handle_params(params, uri, socket) do
+    %URI{path: path} = URI.parse(uri)
+
+    {:noreply,
+     assign(socket,
+       current_path: path,
+       query_params: params
+     )}
   end
 end

@@ -25,24 +25,18 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLiveTest do
       view |> element("a[href='?tab=vue']") |> render_click()
       assert has_element?(view, "[id='code-tab-vue']")
 
-      # Switch back to preview
+      # Switch back to preview - vue component should be rendered
       view |> element("a[href='?tab=preview']") |> render_click()
-      assert has_element?(view, "[id='navigation-preview']")
-    end
-
-    test "preview tab contains the embedded NavigationPreview LiveView", %{conn: conn} do
-      {:ok, view, _html} = live(conn, ~p"/examples/navigation?tab=preview")
-
-      assert has_element?(view, "[id='navigation-preview']")
+      vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
+      assert vue.component == "examples/Navigation"
     end
   end
 
-  describe "NavigationPreview component" do
-    test "displays initial path and empty query params", %{conn: conn} do
+  describe "Navigation component" do
+    test "displays path and query params from handle_params", %{conn: conn} do
       {:ok, view, _html} = live(conn, ~p"/examples/navigation")
 
       vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
-      # Child LiveViews can't use handle_params, so values are from mount
       assert vue.props["current_path"] == "/examples/navigation"
       assert vue.props["query_params"] == %{}
     end
@@ -54,19 +48,23 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLiveTest do
       assert vue.component == "examples/Navigation"
     end
 
-    test "update_location event updates path and query params", %{conn: conn} do
+    test "query params are updated via handle_params on patch", %{conn: conn} do
       {:ok, view, _html} = live(conn, ~p"/examples/navigation")
 
-      navigation_view = find_live_child(view, "navigation-preview")
-
-      render_hook(navigation_view, "update_location", %{
-        "path" => "/new/path",
-        "query" => %{"foo" => "bar"}
-      })
+      # Patch with a query param (excluding tab which is used by the page)
+      view |> element("a[href='?tab=preview']") |> render_click()
 
       vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
-      assert vue.props["current_path"] == "/new/path"
-      assert vue.props["query_params"]["foo"] == "bar"
+      # The tab param is filtered out, so query_params should be empty
+      assert vue.props["query_params"] == %{}
+      assert vue.props["current_path"] == "/examples/navigation"
+    end
+
+    test "query params with demo param are passed to vue component", %{conn: conn} do
+      {:ok, view, _html} = live(conn, ~p"/examples/navigation?demo=true")
+
+      vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
+      assert vue.props["query_params"]["demo"] == "true"
     end
   end
 end
