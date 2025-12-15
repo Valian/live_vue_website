@@ -38,7 +38,8 @@ defmodule LiveVueWebsiteWeb.Examples.EncoderLive do
           Custom Encoder
         </h1>
         <p class="text-lg text-landing-muted max-w-2xl">
-          Control how structs are encoded to JSON using the <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder</code>
+          Control how structs are encoded to JSON using the
+          <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder</code>
           protocol. Derive for simple cases, implement custom logic when needed.
         </p>
       </header>
@@ -168,18 +169,18 @@ defmodule LiveVueWebsiteWeb.Examples.EncoderLive do
               Derive for simple structs
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Use <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">@derive LiveVue.Encoder</code>
+              Use
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">
+                @derive LiveVue.Encoder
+              </code>
               to automatically encode all struct fields. Add
-              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">only:</code> or
-              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">except:</code>
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">only:</code>
+              or <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">except:</code>
               to control which fields are included.
             </p>
             <.example_snippet
               language="elixir"
-              code={~s|defmodule Business do
-  @derive LiveVue.Encoder
-  defstruct [:name, :industry]
-end|}
+              code="defmodule Business do\n  @derive LiveVue.Encoder\n  defstruct [:name, :industry]\nend"
             />
           </div>
 
@@ -197,18 +198,7 @@ end|}
             </p>
             <.example_snippet
               language="elixir"
-              code={~s|defimpl LiveVue.Encoder, for: UserProfile do
-  def encode(profile, opts) do
-    avatar_url =
-      case Keyword.get(opts, :avatar) do
-        :original -> profile.avatar_original_url
-        _ -> profile.avatar_url
-      end
-
-    %{name: profile.name, avatar_url: avatar_url, ...}
-    |> LiveVue.Encoder.encode(opts)
-  end
-end|}
+              code="defimpl LiveVue.Encoder, for: UserProfile do\n  def encode(profile, opts) do\n    avatar_url =\n      case Keyword.get(opts, :avatar) do\n        :original -> profile.avatar_original_url\n        _ -> profile.avatar_url\n      end\n\n    %{name: profile.name, avatar_url: avatar_url, ...}\n    |> LiveVue.Encoder.encode(opts)\n  end\nend"
             />
           </div>
 
@@ -220,16 +210,16 @@ end|}
               Pass options when encoding
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Call <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder.encode/2</code>
+              Call
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">
+                LiveVue.Encoder.encode/2
+              </code>
               explicitly in your template to pass custom options. This lets you control
               encoding per-prop.
             </p>
-            <.example_snippet code={~s|<.vue
-  profile={@profile}
-  profile_with_original_avatar={LiveVue.Encoder.encode(@profile, avatar: :original)}
-  v-component="UserProfile"
-  v-socket={@socket}
-/>|} />
+            <.example_snippet code={
+              ~s'<.vue\n  profile={@profile}\n  profile_with_original_avatar={LiveVue.Encoder.encode(@profile, avatar: :original)}\n  v-component="UserProfile"\n  v-socket={@socket}\n/>'
+            } />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -241,12 +231,14 @@ end|}
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
               When encoding nested structs, call
-              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder.encode/2</code>
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">
+                LiveVue.Encoder.encode/2
+              </code>
               on nested values to ensure they're properly encoded. Options are passed through.
             </p>
             <.example_snippet
               language="elixir"
-              code={~s|business: LiveVue.Encoder.encode(profile.business, opts)|}
+              code="business: LiveVue.Encoder.encode(profile.business, opts)"
             />
           </div>
         </div>

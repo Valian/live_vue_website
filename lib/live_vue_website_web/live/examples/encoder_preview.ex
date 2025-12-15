@@ -5,28 +5,24 @@ defmodule LiveVueWebsiteWeb.Examples.EncoderPreview do
   """
   use LiveVueWebsiteWeb, :live_view
 
-  # Simple struct with derived encoder - all fields encoded
   defmodule Business do
     @derive LiveVue.Encoder
     defstruct [:name, :industry]
   end
 
-  # Custom encoder with options support
   defmodule UserProfile do
-    defstruct [:name, :email, :avatar_url, :avatar_original_url, :business]
+    defstruct [:name, :avatar_url, :avatar_original_url, :business]
   end
 
   defimpl LiveVue.Encoder, for: UserProfile do
     def encode(profile, opts) do
       avatar_url =
-        case Keyword.get(opts, :avatar) do
-          :original -> profile.avatar_original_url
-          _ -> profile.avatar_url
-        end
+        if Keyword.get(opts, :avatar) == :original,
+          do: profile.avatar_original_url,
+          else: profile.avatar_url
 
       %{
         name: profile.name,
-        email: profile.email,
         avatar_url: avatar_url,
         business: LiveVue.Encoder.encode(profile.business, opts)
       }
@@ -38,7 +34,7 @@ defmodule LiveVueWebsiteWeb.Examples.EncoderPreview do
     ~H"""
     <.vue
       profile={@profile}
-      profile_with_original_avatar={LiveVue.Encoder.encode(@profile, avatar: :original)}
+      profile_original={LiveVue.Encoder.encode(@profile, avatar: :original)}
       v-component="examples/Encoder"
       v-socket={@socket}
     />
@@ -48,13 +44,9 @@ defmodule LiveVueWebsiteWeb.Examples.EncoderPreview do
   def mount(_params, _session, socket) do
     profile = %UserProfile{
       name: "Ada Lovelace",
-      email: "ada@example.com",
-      avatar_url: "https://api.dicebear.com/9.x/personas/svg?seed=Ada&size=64",
-      avatar_original_url: "https://api.dicebear.com/9.x/personas/svg?seed=Ada&size=256",
-      business: %Business{
-        name: "Analytical Engine Co.",
-        industry: "Computing"
-      }
+      avatar_url: "https://api.dicebear.com/9.x/personas/png?seed=Lovelace&size=32",
+      avatar_original_url: "https://api.dicebear.com/9.x/personas/png?seed=Lovelace&size=256",
+      business: %Business{name: "Analytical Engine Co.", industry: "Computing"}
     }
 
     {:ok, assign(socket, profile: profile), layout: false}
