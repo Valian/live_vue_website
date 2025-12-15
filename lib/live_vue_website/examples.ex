@@ -62,7 +62,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Simple Form",
           description: "useLiveForm() with Ecto validation",
           icon: "hero-document-text",
-          status: :coming_soon
+          status: :ready
         },
         %{
           id: "nested-form",
