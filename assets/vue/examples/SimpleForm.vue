@@ -4,7 +4,7 @@ import { useLiveForm, type Form } from "live_vue"
 type ContactForm = {
   name: string
   email: string
-  message: string
+  consent: boolean
 }
 
 const props = defineProps<{ form: Form<ContactForm> }>()
@@ -17,7 +17,7 @@ const form = useLiveForm(() => props.form, {
 
 const nameField = form.field("name")
 const emailField = form.field("email")
-const messageField = form.field("message")
+const consentField = form.field("consent")
 </script>
 
 <template>
@@ -66,23 +66,31 @@ const messageField = form.field("message")
       </div>
 
       <div class="space-y-2">
-        <label class="text-sm font-medium text-landing-text">Message</label>
-        <textarea
-          v-bind="messageField.inputAttrs.value"
-          rows="3"
-          placeholder="Your message..."
-          :class="[
-            'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors resize-none',
-            messageField.isTouched.value && messageField.errorMessage.value
-              ? 'border-red-500/50 focus:border-red-500'
-              : 'border-landing-border focus:border-vue'
-          ]"
-        />
+        <label class="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            :checked="consentField.value.value"
+            :name="consentField.inputAttrs.value.name"
+            :id="consentField.inputAttrs.value.id"
+            @change="consentField.value.value = ($event.target as HTMLInputElement).checked"
+            @focus="consentField.inputAttrs.value.onFocus"
+            @blur="consentField.inputAttrs.value.onBlur"
+            :class="[
+              'mt-1 w-4 h-4 rounded border bg-transparent transition-colors accent-vue',
+              consentField.isTouched.value && consentField.errorMessage.value
+                ? 'border-red-500/50'
+                : 'border-landing-border'
+            ]"
+          />
+          <span class="text-sm text-landing-muted">
+            I consent to the processing of my personal data
+          </span>
+        </label>
         <div
-          v-if="messageField.isTouched.value && messageField.errorMessage.value"
+          v-if="consentField.isTouched.value && consentField.errorMessage.value"
           class="text-sm text-red-400"
         >
-          {{ messageField.errorMessage.value }}
+          {{ consentField.errorMessage.value }}
         </div>
       </div>
     </div>

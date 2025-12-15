@@ -7,7 +7,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormPreview do
 
   import Ecto.Changeset
 
-  @types %{name: :string, email: :string, message: :string}
+  @types %{name: :string, email: :string, consent: :boolean}
 
   def render(assigns) do
     ~H"""
@@ -51,9 +51,9 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormPreview do
   defp changeset(params) do
     {%{}, @types}
     |> cast(params, Map.keys(@types))
-    |> validate_required([:name, :email, :message])
+    |> validate_required([:name, :email])
     |> validate_length(:name, min: 2, max: 50)
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must be a valid email")
-    |> validate_length(:message, min: 10, max: 500)
+    |> validate_acceptance(:consent, message: "you must consent to continue")
   end
 end

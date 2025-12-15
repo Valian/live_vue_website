@@ -187,20 +187,42 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
               Access fields with form.field()
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Each field provides reactive state including <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">value</code>, <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">errorMessage</code>, <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">isTouched</code>,
+              Each field provides reactive state including <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">value</code>,
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">errors</code>
+              (array), <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">errorMessage</code>
+              (first error shortcut), <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">isTouched</code>,
               and <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">inputAttrs</code>
               for binding.
             </p>
             <.example_snippet
               language="javascript"
-              code={"const nameField = form.field(\"name\")\n// Use: nameField.inputAttrs.value, nameField.errorMessage.value"}
+              code={"const nameField = form.field(\"name\")\n// errorMessage.value is equivalent to errors.value[0]\n// Use: nameField.inputAttrs.value, nameField.errorMessage.value"}
+            />
+          </div>
+
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+            <h3 class="flex items-center gap-2 font-medium mb-3">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
+                3
+              </span>
+              Error display strategies
+            </h3>
+            <p class="text-landing-muted text-sm leading-relaxed mb-3">
+              You can display validation errors in different ways depending on UX needs.
+              This example shows errors only after the user has interacted with a field
+              (<code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">isTouched</code>),
+              which prevents showing errors before the user has had a chance to fill in the form.
+            </p>
+            <.example_snippet
+              language="vue"
+              code={"<!-- Show error only after user interaction -->\n<div v-if=\"nameField.isTouched.value && nameField.errorMessage.value\">\n  {{ nameField.errorMessage.value }}\n</div>\n\n<!-- Always show error (useful after submit) -->\n<div v-if=\"nameField.errorMessage.value\">...</div>\n\n<!-- Show all errors for a field -->\n<div v-for=\"error in nameField.errors.value\">{{ error }}</div>"}
             />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
-                3
+                4
               </span>
               Server validates with Ecto changeset
             </h3>
@@ -221,7 +243,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
-                4
+                5
               </span>
               Bind inputs with v-bind and inputAttrs
             </h3>
@@ -233,6 +255,25 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
             <.example_snippet
               language="vue"
               code={~s|<input v-bind="nameField.inputAttrs.value" type="text" />|}
+            />
+          </div>
+
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+            <h3 class="flex items-center gap-2 font-medium mb-3">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
+                6
+              </span>
+              Submit and reset the form
+            </h3>
+            <p class="text-landing-muted text-sm leading-relaxed mb-3">
+              Call <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.submit()</code>
+              to send the <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">submitEvent</code>
+              to the server, and <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.reset()</code>
+              to restore initial values and clear touched state.
+            </p>
+            <.example_snippet
+              language="vue"
+              code={"<button @click=\"form.submit()\" :disabled=\"!form.isValid.value\">\n  Submit\n</button>\n<button @click=\"form.reset()\">Reset</button>"}
             />
           </div>
         </div>
