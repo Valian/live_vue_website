@@ -20,6 +20,7 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/", LandingLive
     live "/examples", ExamplesLive
     live "/examples/counter", Examples.CounterLive
+    live "/examples/events", Examples.EventsLive
   end
 
   # Other scopes may use custom stacks.

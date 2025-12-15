@@ -31,7 +31,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Event Handling",
           description: "pushEvent, phx-click, and useLiveVue()",
           icon: "hero-cursor-arrow-rays",
-          status: :coming_soon
+          status: :ready
         },
         %{
           id: "server-events",
