@@ -443,6 +443,79 @@ defmodule LiveVueWebsiteWeb.CoreComponents do
   end
 
   @doc """
+  Renders a code block with syntax highlighting and copy button.
+
+  Used in the examples pages to display source code.
+
+  ## Examples
+
+      <.example_code code={@elixir_source} language="elixir" filename="counter_live.ex" />
+      <.example_code code={@vue_source} language="vue" filename="Counter.vue" color="vue" />
+  """
+  attr :code, :string, required: true, doc: "the source code to display"
+  attr :language, :string, required: true, doc: "the language for syntax highlighting"
+  attr :filename, :string, required: true, doc: "the filename to display in header"
+
+  attr :color, :string,
+    default: "phoenix",
+    values: ~w(phoenix vue),
+    doc: "accent color for the dot"
+
+  attr :id, :string, default: nil, doc: "optional id for the code block"
+
+  def example_code(assigns) do
+    assigns = assign_new(assigns, :id, fn -> "code-#{assigns.language}" end)
+
+    ~H"""
+    <div class="relative">
+      <div class="flex items-center gap-3 py-3 px-4 bg-landing-elevated border-b border-landing-border">
+        <span class={[
+          "w-2 h-2 rounded-full",
+          @color == "phoenix" && "bg-phoenix",
+          @color == "vue" && "bg-vue"
+        ]}>
+        </span>
+        <span class="font-mono text-sm text-landing-muted">{@filename}</span>
+        <button
+          class="ml-auto p-1.5 text-landing-muted hover:text-landing-text transition-colors rounded hover:bg-white/5"
+          onclick={"navigator.clipboard.writeText(#{Jason.encode!(@code)})"}
+          title="Copy code"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+          </svg>
+        </button>
+      </div>
+      <div id={@id} phx-hook="Highlight" class="p-4 overflow-x-auto">
+        <pre class="font-mono text-sm leading-relaxed"><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
+  Renders an inline code snippet for use in explanations.
+
+  Prevents HEEx interpolation issues when displaying code containing curly braces.
+
+  ## Examples
+
+      <.example_snippet code="<.vue count={@count} v-socket={@socket} />" />
+  """
+  attr :code, :string, required: true, doc: "the code snippet to display"
+  attr :class, :string, default: nil, doc: "additional classes"
+  attr :language, :string, default: "elixir", doc: "language for syntax highlighting"
+
+  def example_snippet(assigns) do
+    ~H"""
+    <div phx-hook="Highlight" id={"snippet-#{:erlang.phash2(@code)}"}>
+      <pre class={["font-mono text-xs bg-landing-elevated p-3 rounded-lg overflow-x-auto", @class]}><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
+    </div>
+    """
+  end
+
+  @doc """
   Translates an error message using gettext.
   """
   def translate_error({msg, opts}) do

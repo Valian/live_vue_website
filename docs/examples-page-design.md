@@ -8,18 +8,29 @@ A dedicated Examples page showcasing LiveVue features with live, interactive dem
 
 ### 1. Code Display Strategy
 
-**Compile-time file embedding via macro**
+**Compile-time file embedding via `ExampleSource` macros**
 
 ```elixir
-# Use @external_resource to trigger recompilation when source files change
-@external_resource "assets/vue/examples/Counter.vue"
-@vue_source File.read!("assets/vue/examples/Counter.vue")
+require LiveVueWebsiteWeb.Examples.ExampleSource, as: ExampleSource
+
+@vue_source ExampleSource.vue_source("Counter")
+@elixir_source ExampleSource.elixir_source("Counter")
 ```
+
+The `ExampleSource` module provides two macros:
+- `vue_source(name)` - Reads `assets/vue/examples/{Name}.vue`
+- `elixir_source(name)` - Reads `{snake_name}_preview.ex` and transforms it for display
+
+The Elixir source transformation:
+- Renames module from `LiveVueWebsiteWeb.Examples.{Name}Preview` → `MyAppWeb.{Name}Live`
+- Replaces `LiveVueWebsiteWeb` → `MyAppWeb`
+- Replaces `examples/{Name}` → `{Name}` in component paths
+- Removes `@moduledoc` and `layout: false`
 
 This ensures:
 - Code is always in sync with actual implementation
 - No runtime file reading overhead
-- Automatic recompilation when example files change
+- Automatic recompilation when example files change (via `@external_resource`)
 
 ### 2. Routing Structure
 
@@ -66,6 +77,8 @@ Each route is a separate LiveView module for:
 - **LiveView**: Elixir source with syntax highlighting
 - **Vue**: Vue component source with syntax highlighting
 - Copy button on code tabs
+- Tab state persisted in URL query string (`?tab=preview|liveview|vue`)
+- Tabs implemented as `<.link patch="?tab=...">` for shareable URLs and browser history support
 
 ### 5. Navigation
 
@@ -111,11 +124,12 @@ Categories:
 
 ```
 lib/live_vue_website_web/live/examples/
-  examples_live.ex          # Index/layout with side nav
-  counter_live.ex           # Counter example
-  events_live.ex            # Events example
-  forms_live.ex             # Forms example
-  uploads_live.ex           # Uploads example
+  example_source.ex         # Macros for reading/transforming source code
+  examples_live.ex          # Index page
+  counter_live.ex           # Counter example page (full UI)
+  counter_preview.ex        # Counter preview (minimal, shown in Preview tab)
+  events_live.ex            # Events example page
+  events_preview.ex         # Events preview
   ...
 
 assets/vue/examples/
@@ -126,9 +140,88 @@ assets/vue/examples/
   ...
 ```
 
+## Naming Conventions
+
+Each example consists of two LiveView modules:
+
+| Module | Purpose | Naming |
+|--------|---------|--------|
+| `{Name}Live` | Full example page with tabs, explanation, navigation | `{snake_name}_live.ex` |
+| `{Name}Preview` | Minimal working demo, source displayed as example code | `{snake_name}_preview.ex` |
+
+The Preview module:
+- Should be minimal and self-contained
+- Uses `layout: false` (stripped from displayed source)
+- Has a `@moduledoc` explaining its purpose (stripped from displayed source)
+- Component path uses `examples/{Name}` (transformed to just `{Name}` in display)
+
+## Example Page Structure
+
+Each `{Name}Live` module follows this template:
+
+```elixir
+defmodule LiveVueWebsiteWeb.Examples.{Name}Live do
+  use LiveVueWebsiteWeb, :live_view
+
+  require LiveVueWebsiteWeb.Examples.ExampleSource, as: ExampleSource
+
+  @vue_source ExampleSource.vue_source("{Name}")
+  @elixir_source ExampleSource.elixir_source("{Name}")
+
+  @valid_tabs ~w(preview liveview vue)
+
+  def mount(_params, _session, socket) do
+    {:ok,
+     assign(socket,
+       page_title: "{Name} – LiveVue Examples",
+       vue_source: @vue_source,
+       elixir_source: @elixir_source
+     )}
+  end
+
+  def handle_params(params, _uri, socket) do
+    tab = if params["tab"] in @valid_tabs, do: params["tab"], else: "preview"
+    {:noreply, assign(socket, :active_tab, tab)}
+  end
+
+  def render(assigns) do
+    ~H"""
+    <Layouts.examples current_example="{slug}">
+      <%!-- Header with breadcrumb --%>
+      <header class="mb-8">...</header>
+
+      <%!-- Key concepts section --%>
+      <section class="mb-8 p-6 bg-landing-card/50 ...">...</section>
+
+      <%!-- Tabs: Preview / LiveView / Vue --%>
+      <div class="mb-6">...</div>
+
+      <%!-- Tab content --%>
+      <div class="bg-landing-card border ...">
+        <%= case @active_tab do %>
+          <% "preview" -> %>
+            {live_render(@socket, LiveVueWebsiteWeb.Examples.{Name}Preview, id: "{slug}-preview")}
+          <% "liveview" -> %>
+            <.example_code code={@elixir_source} language="elixir" filename="{slug}_live.ex" color="phoenix" />
+          <% "vue" -> %>
+            <.example_code code={@vue_source} language="vue" filename="{Name}.vue" color="vue" />
+        <% end %>
+      </div>
+
+      <%!-- How it works explanation --%>
+      <section class="mt-8 space-y-6">...</section>
+
+      <%!-- Next example link --%>
+      <section class="mt-12 pt-8 border-t ...">...</section>
+    </Layouts.examples>
+    """
+  end
+end
+```
+
 ## Component Reuse
 
-Create shared components for:
-- `ExampleLayout` - Side nav + content area
-- `CodeBlock` - Syntax highlighted code with copy button
-- `TabGroup` - Preview/LiveView/Vue tabs
+Shared components (defined in `core_components.ex` or `layouts.ex`):
+- `Layouts.examples` - Side nav + content area layout
+- `.example_code` - Syntax highlighted code block with filename header
+- `.example_snippet` - Inline code snippet for explanations
