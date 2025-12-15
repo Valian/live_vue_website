@@ -90,59 +90,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
     """
   end
 
-  # Examples that are implemented and ready (not "coming soon")
-  @active_examples ["index", "counter"]
-
-  @examples_nav [
-    %{
-      category: "Getting Started",
-      items: [
-        %{id: "counter", title: "Counter", icon: "hero-plus-circle"},
-        %{id: "animated-counter", title: "Animated Counter", icon: "hero-sparkles"}
-      ]
-    },
-    %{
-      category: "Events",
-      items: [
-        %{id: "events", title: "Event Handling", icon: "hero-cursor-arrow-rays"},
-        %{id: "server-events", title: "Server Events", icon: "hero-bell-alert"}
-      ]
-    },
-    %{
-      category: "Navigation",
-      items: [
-        %{id: "navigation", title: "Navigation", icon: "hero-arrow-path"}
-      ]
-    },
-    %{
-      category: "Forms",
-      items: [
-        %{id: "simple-form", title: "Simple Form", icon: "hero-document-text"},
-        %{id: "nested-form", title: "Nested Objects", icon: "hero-square-3-stack-3d"},
-        %{id: "array-form", title: "Dynamic Arrays", icon: "hero-queue-list"}
-      ]
-    },
-    %{
-      category: "Uploads",
-      items: [
-        %{id: "file-upload", title: "File Upload", icon: "hero-cloud-arrow-up"}
-      ]
-    },
-    %{
-      category: "Real-time",
-      items: [
-        %{id: "streams", title: "Phoenix Streams", icon: "hero-signal"},
-        %{id: "connection-status", title: "Connection Status", icon: "hero-wifi"}
-      ]
-    },
-    %{
-      category: "Advanced",
-      items: [
-        %{id: "slots", title: "Slots", icon: "hero-puzzle-piece"},
-        %{id: "ssr-control", title: "SSR Control", icon: "hero-server"}
-      ]
-    }
-  ]
+  alias LiveVueWebsite.Examples
 
   @doc """
   Renders the examples layout with side navigation.
@@ -166,8 +114,8 @@ defmodule LiveVueWebsiteWeb.Layouts do
   def examples(assigns) do
     assigns =
       assigns
-      |> assign(:examples_nav, @examples_nav)
-      |> assign(:active_examples, @active_examples)
+      |> assign(:examples_nav, Examples.nav())
+      |> assign(:active_examples, ["index" | Examples.active_ids()])
 
     ~H"""
     <div class="min-h-screen bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif]">

@@ -22,6 +22,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
   end
 
   def handle_event("inc", %{"diff" => diff}, socket) do
+    diff = if is_integer(diff), do: diff, else: String.to_integer(diff)
     {:noreply, update(socket, :count, &(&1 + diff))}
   end
 
@@ -152,7 +153,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
         </nav>
 
-        <div class="relative flex-1 flex flex-col justify-center max-w-[800px] py-16 z-5">
+        <div class="relative flex-1 flex flex-col justify-center max-w-[800px] py-16 z-[5]">
           <div class="inline-flex items-center gap-2 py-1.5 px-4 bg-white/5 border border-landing-border rounded-full text-xs text-landing-muted w-fit mb-8 backdrop-blur-lg">
             <span class="w-1.5 h-1.5 bg-vue rounded-full animate-[pulse-dot_2s_ease-in-out_infinite]">
             </span>
