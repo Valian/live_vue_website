@@ -10,7 +10,7 @@ defmodule LiveVueWebsiteWeb.ExamplesLive do
           title: "Counter",
           description: "Server state + local Vue state with phx-click events",
           icon: "hero-plus-circle",
-          status: :coming_soon
+          status: :ready
         },
         %{
           id: "animated-counter",
@@ -230,7 +230,13 @@ defmodule LiveVueWebsiteWeb.ExamplesLive do
                 href="https://hexdocs.pm/live_vue"
                 class="flex items-center gap-2 text-sm text-landing-muted hover:text-landing-text transition-colors"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="w-4 h-4"
+                >
                   <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
                 Documentation
@@ -323,7 +329,8 @@ defmodule LiveVueWebsiteWeb.ExamplesLive do
                           class={[
                             "group relative p-6 bg-landing-card border border-landing-border rounded-xl transition-all duration-300",
                             if(item.status != :coming_soon,
-                              do: "hover:-translate-y-1 hover:border-landing-muted hover:shadow-lg hover:shadow-black/20",
+                              do:
+                                "hover:-translate-y-1 hover:border-landing-muted hover:shadow-lg hover:shadow-black/20",
                               else: "opacity-50 cursor-not-allowed"
                             )
                           ]}
@@ -383,7 +390,13 @@ defmodule LiveVueWebsiteWeb.ExamplesLive do
                   class="inline-flex items-center gap-2 py-2.5 px-5 bg-gradient-to-br from-phoenix to-phoenix-glow text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-lg shadow-phoenix/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-phoenix/30"
                 >
                   Read the docs
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="w-4 h-4"
+                  >
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </a>
