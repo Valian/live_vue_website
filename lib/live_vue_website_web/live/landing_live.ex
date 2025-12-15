@@ -16,6 +16,8 @@ defmodule LiveVueWebsiteWeb.LandingLive do
      assign(socket,
        count: 0,
        page_title: "LiveVue – Vue Components in Phoenix LiveView",
+       page_description:
+         "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command. Use Vue components seamlessly within LiveView.",
        poll: poll_state,
        github_stars: github_stars
      )}
@@ -58,7 +60,8 @@ defmodule LiveVueWebsiteWeb.LandingLive do
     <template>
       <p>Count: {{ props.count }}</p>
       <input v-model.number="diff" type="range" />
-      <button phx-click="inc" :phx-value-diff="diff">
+      <!-- phx-click is also supported -->
+      <button @click="$live.pushEvent('inc', { diff })">
         +{{ diff }}
       </button>
     </template>
@@ -94,53 +97,56 @@ defmodule LiveVueWebsiteWeb.LandingLive do
   def render(assigns) do
     ~H"""
     <div class="bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif] leading-relaxed overflow-x-hidden">
-      <%!-- HERO SECTION --%>
-      <section class="relative min-h-screen flex flex-col px-[clamp(1.5rem,5vw,4rem)]">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-          <div class="absolute rounded-full blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite] w-[600px] h-[600px] bg-[radial-gradient(circle,var(--color-phoenix)_0%,transparent_70%)] -top-[200px] -right-[100px]">
+      <%!-- STICKY NAVBAR --%>
+      <nav
+        id="landing-nav"
+        phx-hook="ScrollNav"
+        class="fixed top-0 left-0 right-0 z-50 py-4 px-[clamp(1.5rem,5vw,4rem)]"
+        data-scrolled="false"
+      >
+        <div class="nav-pill flex justify-between items-center py-2 px-4 max-w-[1400px] mx-auto rounded-full transition-all duration-300">
+          <div class="flex items-center gap-3">
+            <a
+              href="/"
+              class="flex items-center gap-3 font-serif text-[1.5rem] no-underline tracking-tight"
+            >
+              <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-9 w-9" />
+              <span class="hidden sm:inline">
+                <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
+              </span>
+            </a>
+            <span class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-[0.65rem] font-mono text-vue tracking-wide">
+              v1.0
+            </span>
           </div>
-          <div class="absolute rounded-full blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite] w-[500px] h-[500px] bg-[radial-gradient(circle,var(--color-vue)_0%,transparent_70%)] -bottom-[150px] -left-[100px] [animation-delay:-10s]">
-          </div>
-          <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_70%)]">
-          </div>
-        </div>
-
-        <nav class="relative flex justify-between items-center py-6 z-10">
-          <a
-            href="/"
-            class="flex items-center gap-3 font-serif text-[1.75rem] no-underline tracking-tight"
-          >
-            <img src="/images/live_vue_logo_rounded.png" alt="LiveVue" class="h-10 w-10 rounded-lg" />
-            <span><span class="text-phoenix">Live</span><span class="text-vue">Vue</span></span>
-          </a>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1 sm:gap-2">
             <a
               href="#features"
-              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+              class="py-2 px-3 sm:px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5 hidden md:block"
             >
               Features
             </a>
             <a
               href="#code"
-              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+              class="py-2 px-3 sm:px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5 hidden md:block"
             >
               Code
             </a>
             <a
               href="/examples"
-              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+              class="py-2 px-3 sm:px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
             >
               Examples
             </a>
             <a
               href="https://hexdocs.pm/live_vue"
-              class="py-2 px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+              class="py-2 px-3 sm:px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
             >
               Docs
             </a>
             <a
               href="https://github.com/Valian/live_vue"
-              class="inline-flex items-center gap-1.5 py-1.5 px-3 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
+              class="inline-flex items-center gap-1.5 py-1.5 px-2 sm:px-3 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -151,9 +157,21 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               <span class="font-mono text-xs">{@github_stars}</span>
             </a>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        <div class="relative flex-1 flex flex-col justify-center max-w-[800px] py-16 z-[5]">
+      <%!-- HERO SECTION --%>
+      <section class="relative min-h-screen flex flex-col px-[clamp(1.5rem,5vw,4rem)] pt-20">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div class="absolute rounded-full blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite] w-[600px] h-[600px] bg-[radial-gradient(circle,var(--color-phoenix)_0%,transparent_70%)] -top-[200px] -right-[100px]">
+          </div>
+          <div class="absolute rounded-full blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite] w-[500px] h-[500px] bg-[radial-gradient(circle,var(--color-vue)_0%,transparent_70%)] -bottom-[150px] -left-[100px] [animation-delay:-10s]">
+          </div>
+          <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_70%)]">
+          </div>
+        </div>
+
+        <div class="relative flex-1 flex flex-col justify-center max-w-[800px] lg:max-w-[55%] py-16 z-[5]">
           <div class="inline-flex items-center gap-2 py-1.5 px-4 bg-white/5 border border-landing-border rounded-full text-xs text-landing-muted w-fit mb-8 backdrop-blur-lg">
             <span class="w-1.5 h-1.5 bg-vue rounded-full animate-[pulse-dot_2s_ease-in-out_infinite]">
             </span>
@@ -187,10 +205,10 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               </svg>
             </a>
             <a
-              href="#code"
+              href="/examples"
               class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
             >
-              See the code
+              Browse Examples
             </a>
           </div>
 
@@ -225,11 +243,11 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
         </div>
 
-        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] max-w-[600px] z-1 hidden lg:block">
+        <div class="absolute right-[5%] top-1/2 -translate-y-1/2 w-[40%] max-w-[550px] z-[1] hidden lg:flex lg:items-center lg:justify-center">
           <.vue v-component="DataFlowHero" v-socket={@socket} />
         </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-landing-muted text-xs uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
+        <div class="absolute bottom-8 inset-x-0 flex flex-col items-center gap-2 text-landing-muted text-xs uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
           <span>Scroll to explore</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
             <path d="M12 5v14M5 12l7 7 7-7" />
@@ -559,28 +577,30 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           <div
             id="code-examples"
             phx-hook="Highlight"
-            class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8 max-[900px]:grid-cols-1"
+            class="grid grid-cols-1 lg:grid-cols-2 gap-8"
           >
-            <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
-              <div class="flex items-center gap-3 py-4 px-6 bg-landing-elevated border-b border-landing-border">
-                <span class="w-2.5 h-2.5 rounded-full bg-vue"></span>
-                <span class="font-mono text-[0.85rem] text-landing-text">Counter.vue</span>
-                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted">
+            <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden min-w-0">
+              <div class="flex items-center gap-3 py-4 px-4 sm:px-6 bg-landing-elevated border-b border-landing-border">
+                <span class="w-2.5 h-2.5 rounded-full bg-vue shrink-0"></span>
+                <span class="font-mono text-[0.85rem] text-landing-text truncate">Counter.vue</span>
+                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted shrink-0 hidden sm:block">
                   Vue Component
                 </span>
               </div>
-              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-vue" phx-no-format>{vue_code_example()}</code></pre>
+              <pre class="p-4 sm:p-6 m-0 overflow-x-auto font-mono text-[0.75rem] sm:text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-vue" phx-no-format>{vue_code_example()}</code></pre>
             </div>
 
-            <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden">
-              <div class="flex items-center gap-3 py-4 px-6 bg-landing-elevated border-b border-landing-border">
-                <span class="w-2.5 h-2.5 rounded-full bg-phoenix"></span>
-                <span class="font-mono text-[0.85rem] text-landing-text">counter_live.ex</span>
-                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted">
+            <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden min-w-0">
+              <div class="flex items-center gap-3 py-4 px-4 sm:px-6 bg-landing-elevated border-b border-landing-border">
+                <span class="w-2.5 h-2.5 rounded-full bg-phoenix shrink-0"></span>
+                <span class="font-mono text-[0.85rem] text-landing-text truncate">
+                  counter_live.ex
+                </span>
+                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted shrink-0 hidden sm:block">
                   LiveView
                 </span>
               </div>
-              <pre class="p-6 m-0 overflow-x-auto font-mono text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-elixir" phx-no-format>{elixir_code_example()}</code></pre>
+              <pre class="p-4 sm:p-6 m-0 overflow-x-auto font-mono text-[0.75rem] sm:text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-elixir" phx-no-format>{elixir_code_example()}</code></pre>
             </div>
           </div>
 
@@ -700,10 +720,10 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               </svg>
             </a>
             <a
-              href="https://github.com/Valian/live_vue"
+              href="/examples"
               class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
             >
-              View on GitHub
+              Browse Examples
             </a>
           </div>
         </div>
@@ -711,17 +731,23 @@ defmodule LiveVueWebsiteWeb.LandingLive do
 
       <%!-- FOOTER --%>
       <footer class="py-12 px-[clamp(1.5rem,5vw,4rem)] border-t border-landing-border">
-        <div class="max-w-[1200px] mx-auto flex justify-between items-center flex-wrap gap-6 max-sm:flex-col max-sm:text-center">
+        <div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
           <div class="flex items-center gap-2 font-serif text-xl">
-            <img src="/images/live_vue_logo_rounded.png" alt="LiveVue" class="h-8 w-8 rounded-md" />
+            <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-8 w-8" />
             <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
           </div>
-          <div class="flex gap-8">
+          <div class="flex flex-wrap justify-center gap-4 sm:gap-8">
+            <a
+              href="/examples"
+              class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
+            >
+              Examples
+            </a>
             <a
               href="https://hexdocs.pm/live_vue"
               class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
             >
-              Documentation
+              Docs
             </a>
             <a
               href="https://github.com/Valian/live_vue"
@@ -736,8 +762,26 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               Hex.pm
             </a>
           </div>
-          <div class="text-landing-muted text-xs">
-            Built with Phoenix LiveView + Vue.js
+          <div class="flex items-center gap-3 text-landing-muted text-xs">
+            <span>
+              Made with <span class="text-phoenix">❤️</span>
+              by
+              <a
+                href="https://skalecki.dev"
+                class="text-landing-text hover:text-vue transition-colors"
+              >
+                Jakub Skalecki
+              </a>
+            </span>
+            <a
+              href="https://twitter.com/jskalc"
+              class="hover:text-landing-text transition-colors"
+              title="@jskalc on Twitter"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
           </div>
         </div>
       </footer>

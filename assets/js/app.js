@@ -21,6 +21,25 @@ import "vite/modulepreload-polyfill";
 // Syntax highlighting
 import { Highlight } from "./highlight"
 
+// Scroll-aware navbar
+const ScrollNav = {
+  mounted() {
+    this.updateScrollState = () => {
+      const scrolled = window.scrollY > 50
+      this.el.dataset.scrolled = scrolled ? "true" : "false"
+    }
+    window.addEventListener("scroll", this.updateScrollState, { passive: true })
+    this.updateScrollState()
+  },
+  updated() {
+    // Re-apply scroll state after LiveView patches the DOM
+    this.updateScrollState()
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.updateScrollState)
+  }
+}
+
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
@@ -35,7 +54,7 @@ const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken},
-  hooks: {...colocatedHooks, ...getHooks(liveVueApp), Highlight},
+  hooks: {...colocatedHooks, ...getHooks(liveVueApp), Highlight, ScrollNav},
 })
 
 // Show progress bar on live navigation and form submits
