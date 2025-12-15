@@ -21,6 +21,9 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/examples", ExamplesLive
     live "/examples/counter", Examples.CounterLive
     live "/examples/events", Examples.EventsLive
+    live "/examples/server-events", Examples.ServerEventsLive
+    live "/examples/navigation", Examples.NavigationLive
+    live "/examples/ssr-control", Examples.SsrControlLive
   end
 
   # Other scopes may use custom stacks.

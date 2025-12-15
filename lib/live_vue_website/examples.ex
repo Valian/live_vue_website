@@ -38,7 +38,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Server Events",
           description: "useLiveEvent() for server-pushed notifications",
           icon: "hero-bell-alert",
-          status: :coming_soon
+          status: :ready
         }
       ]
     },
@@ -50,7 +50,7 @@ defmodule LiveVueWebsite.Examples do
           title: "Navigation",
           description: "Link component with patch, navigate, href",
           icon: "hero-arrow-path",
-          status: :coming_soon
+          status: :ready
         }
       ]
     },
@@ -126,7 +126,7 @@ defmodule LiveVueWebsite.Examples do
           title: "SSR Control",
           description: "Disable SSR for client-only components",
           icon: "hero-server",
-          status: :coming_soon
+          status: :ready
         }
       ]
     }
