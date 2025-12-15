@@ -1,17 +1,17 @@
-defmodule LiveVueWebsiteWeb.Examples.CounterLive do
+defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
   use LiveVueWebsiteWeb, :live_view
 
   require LiveVueWebsiteWeb.Examples.ExampleSource, as: ExampleSource
 
-  @vue_source ExampleSource.vue_source("Counter")
-  @elixir_source ExampleSource.elixir_source("Counter")
+  @vue_source ExampleSource.vue_source("ArrayForm")
+  @elixir_source ExampleSource.elixir_source("ArrayForm")
 
   @valid_tabs ~w(preview liveview vue)
 
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
-       page_title: "Counter – LiveVue Examples",
+       page_title: "Dynamic Arrays – LiveVue Examples",
        vue_source: @vue_source,
        elixir_source: @elixir_source
      )}
@@ -24,7 +24,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.examples current_example="counter">
+    <Layouts.examples current_example="array-form">
       <%!-- Header --%>
       <header class="mb-8">
         <div class="flex items-center gap-2 text-sm text-landing-muted mb-4">
@@ -32,14 +32,14 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
             <path d="M9 18l6-6-6-6" />
           </svg>
-          <span class="text-landing-text">Counter</span>
+          <span class="text-landing-text">Dynamic Arrays</span>
         </div>
         <h1 class="font-serif text-4xl font-normal tracking-tight mb-4">
-          Counter
+          Dynamic Arrays
         </h1>
         <p class="text-lg text-landing-muted max-w-2xl">
-          The classic counter example demonstrating the core LiveVue pattern:
-          server state flows down as props, user interactions bubble up as events.
+          Use <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">fieldArray()</code>
+          to manage dynamic lists with add, remove, and per-item validation.
         </p>
       </header>
 
@@ -48,14 +48,14 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
         <h2 class="text-sm font-medium uppercase tracking-wider text-landing-muted mb-4">
           What this example shows
         </h2>
-        <div class="grid grid-cols-4 gap-4 max-sm:grid-cols-1 max-md:grid-cols-2">
+        <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
           <div class="flex gap-3">
-            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
+            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
               1
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Server State</div>
-              <div class="text-xs text-landing-muted">count lives in LiveView</div>
+              <div class="font-medium text-landing-text text-sm">fieldArray()</div>
+              <div class="text-xs text-landing-muted">form.fieldArray("tags")</div>
             </div>
           </div>
           <div class="flex gap-3">
@@ -63,8 +63,8 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               2
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Local State</div>
-              <div class="text-xs text-landing-muted">diff slider is Vue-only</div>
+              <div class="font-medium text-landing-text text-sm">Add & Remove</div>
+              <div class="text-xs text-landing-muted">tagsArray.add(), .remove(i)</div>
             </div>
           </div>
           <div class="flex gap-3">
@@ -72,17 +72,8 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               3
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Phoenix Events</div>
-              <div class="text-xs text-landing-muted">phx-click in Vue template</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
-              4
-            </div>
-            <div>
-              <div class="font-medium text-landing-text text-sm">Vue Transitions</div>
-              <div class="text-xs text-landing-muted">&lt;Transition&gt; on prop changes</div>
+              <div class="font-medium text-landing-text text-sm">Per-Item Errors</div>
+              <div class="text-xs text-landing-muted">tags[0], tags[1] validation</div>
             </div>
           </div>
         </div>
@@ -139,9 +130,9 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
         <%= case @active_tab do %>
           <% "preview" -> %>
             <div class="p-8 flex justify-center">
-              <div class="w-full max-w-sm">
-                {live_render(@socket, LiveVueWebsiteWeb.Examples.CounterPreview,
-                  id: "counter-preview"
+              <div class="w-full max-w-md">
+                {live_render(@socket, LiveVueWebsiteWeb.Examples.ArrayFormPreview,
+                  id: "array-form-preview"
                 )}
               </div>
             </div>
@@ -150,7 +141,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               id="code-tab-liveview"
               code={@elixir_source}
               language="elixir"
-              filename="counter_live.ex"
+              filename="array_form_live.ex"
               color="phoenix"
             />
           <% "vue" -> %>
@@ -158,7 +149,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               id="code-tab-vue"
               code={@vue_source}
               language="vue"
-              filename="Counter.vue"
+              filename="ArrayForm.vue"
               color="vue"
             />
         <% end %>
@@ -174,16 +165,14 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 1
               </span>
-              Props flow from LiveView to Vue
+              Define an embedded schema or relation
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              The <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">count</code>
-              assign in LiveView
-              becomes a prop in Vue. When the server state changes, Vue automatically re-renders with the new value.
+              Use <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">embeds_many</code>
+              or <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">has_many</code>
+              to define array items. Each item gets its own changeset and validation.
             </p>
-            <.example_snippet code={
-              ~s|<.vue count={@count} v-component="Counter" v-socket={@socket} />|
-            } />
+            <.example_snippet code="defmodule Tag do\n  use Ecto.Schema\n  @derive LiveVue.Encoder\n  embedded_schema do\n    field :name, :string\n  end\nend\n\nembeds_many :tags, Tag, on_replace: :delete" />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -191,56 +180,52 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 2
               </span>
-              Local state stays in Vue
+              Get an array field reference
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              The <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">diff</code>
-              slider value is managed entirely in Vue
-              using <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">ref()</code>. No server round-trip for UI-only state.
-            </p>
-            <.example_snippet language="javascript" code="const diff = ref(1)  // Local Vue state" />
-          </div>
-
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
-            <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
-                3
-              </span>
-              Phoenix bindings work in Vue templates
-            </h3>
-            <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Standard Phoenix event bindings like
-              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">phx-click</code>
-              work directly in Vue templates. Use Vue's
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">:phx-value-*</code>
-              binding
-              to pass dynamic values.
+              Use
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">form.fieldArray("tags")</code>
+              to get a reactive array with add, remove, and iteration capabilities.
             </p>
             <.example_snippet
-              language="vue"
-              code={~s|<button phx-click="inc" :phx-value-diff="diff">+{{ diff }}</button>|}
+              language="javascript"
+              code={"const tagsArray = form.fieldArray(\"tags\")\n\n// Add a new tag object\ntagsArray.add({ name: '' })\n\n// Remove tag at index\ntagsArray.remove(index)"}
             />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
-                4
+                3
               </span>
-              Vue transitions on server updates
+              Iterate and access nested fields
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Vue's <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">&lt;Transition&gt;</code>
-              component animates when props change from the server. The
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">:key</code>
-              binding triggers the transition on each value change.
+              Loop over
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">tagsArray.fields.value</code>
+              and use
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">tagField.field('name')</code>
+              to access each item's properties with full error support.
             </p>
             <.example_snippet
               language="vue"
-              code={~s|<Transition name="count" mode="out-in">
-    <div :key="props.count">{{ props.count }}</div>
-    </Transition>|}
+              code={"<div v-for=\"(tagField, index) in tagsArray.fields.value\" :key=\"index\">\n  <input v-bind=\"tagField.field('name').inputAttrs.value\" />\n  <div v-if=\"tagField.field('name').errorMessage.value\">\n    {{ tagField.field('name').errorMessage.value }}\n  </div>\n  <button @click=\"tagsArray.remove(index)\">Remove</button>\n</div>"}
             />
+          </div>
+
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+            <h3 class="flex items-center gap-2 font-medium mb-3">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
+                4
+              </span>
+              Use cast_embed for validation
+            </h3>
+            <p class="text-landing-muted text-sm leading-relaxed mb-3">
+              Call
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">cast_embed(:tags)</code>
+              to automatically validate each item using its own changeset. Errors are mapped per-item.
+            </p>
+            <.example_snippet code="def changeset(post, attrs) do\n  post\n  |> cast(attrs, [:title])\n  |> validate_required([:title])\n  |> cast_embed(:tags, with: &Tag.changeset/2)\nend" />
           </div>
         </div>
       </section>
@@ -249,11 +234,9 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
       <section class="mt-12 pt-8 border-t border-landing-border">
         <div class="flex items-center justify-between">
           <div class="text-landing-muted text-sm">
-            Next up: Event Handling
+            Next up: File uploads with useLiveUpload()
           </div>
-          <.link navigate="/examples/events" class="text-vue hover:underline text-sm">
-            View example →
-          </.link>
+          <span class="text-landing-muted/50 text-sm">Coming soon</span>
         </div>
       </section>
     </Layouts.examples>

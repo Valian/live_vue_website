@@ -10,15 +10,8 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "counter",
           title: "Counter",
-          description: "Server state + local Vue state with phx-click events",
+          description: "Server state, local Vue state, phx-click, transitions",
           icon: "hero-plus-circle",
-          status: :ready
-        },
-        %{
-          id: "animated-counter",
-          title: "Animated Counter",
-          description: "Vue transitions and animations with server state",
-          icon: "hero-sparkles",
           status: :ready
         }
       ]
@@ -69,14 +62,14 @@ defmodule LiveVueWebsite.Examples do
           title: "Nested Objects",
           description: "Nested fields with dot notation paths",
           icon: "hero-square-3-stack-3d",
-          status: :coming_soon
+          status: :ready
         },
         %{
           id: "array-form",
           title: "Dynamic Arrays",
           description: "fieldArray() with add, remove, move",
           icon: "hero-queue-list",
-          status: :coming_soon
+          status: :ready
         }
       ]
     },
@@ -114,6 +107,13 @@ defmodule LiveVueWebsite.Examples do
     %{
       category: "Advanced",
       items: [
+        %{
+          id: "encoder",
+          title: "Custom Encoder",
+          description: "LiveVue.Encoder protocol with @derive and defimpl",
+          icon: "hero-code-bracket",
+          status: :ready
+        },
         %{
           id: "slots",
           title: "Slots",

@@ -9,7 +9,11 @@ const diff = ref(1)
   <div class="p-6 rounded-xl border border-landing-border">
     <div class="text-center mb-6">
       <div class="text-sm text-landing-muted mb-2">Count</div>
-      <div class="text-5xl font-mono font-bold">{{ props.count }}</div>
+      <Transition name="count" mode="out-in">
+        <div :key="props.count" class="text-5xl font-mono font-bold">
+          {{ props.count }}
+        </div>
+      </Transition>
     </div>
 
     <div class="mb-6">
@@ -50,3 +54,20 @@ const diff = ref(1)
     </div>
   </div>
 </template>
+
+<style scoped>
+.count-enter-active,
+.count-leave-active {
+  transition: all 0.15s ease;
+}
+
+.count-enter-from {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.count-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+</style>

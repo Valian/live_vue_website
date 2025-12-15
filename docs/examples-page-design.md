@@ -85,7 +85,7 @@ Each route is a separate LiveView module for:
 **Side navigation with categories**
 
 Categories:
-1. **Getting Started** - Counter, Animated Counter
+1. **Getting Started** - Counter
 2. **Events** - Phoenix events, Vue events, Server events
 3. **Navigation** - Link component, programmatic navigation
 4. **Forms** - Simple form, nested objects, dynamic arrays
@@ -106,8 +106,7 @@ Categories:
 
 | Example | Route | LiveVue Features | Files |
 |---------|-------|------------------|-------|
-| **Counter** | `/examples/counter` | Props, phx-click, local Vue state | `counter_live.ex`, `counter_preview.ex`, `Counter.vue` |
-| **Animated Counter** | `/examples/animated-counter` | Vue `<Transition>`, `watch()`, CSS animations | `animated_counter_live.ex`, `animated_counter_preview.ex`, `AnimatedCounter.vue` |
+| **Counter** | `/examples/counter` | Props, phx-click, local Vue state, `<Transition>` | `counter_live.ex`, `counter_preview.ex`, `Counter.vue` |
 | **Event Handling** | `/examples/events` | `pushEvent()`, `useLiveVue()`, `$live` template access | `events_live.ex`, `events_preview.ex`, `Events.vue` |
 | **Server Events** | `/examples/server-events` | `push_event/3` (server), `useLiveEvent()` (client) | `server_events_live.ex`, `server_events_preview.ex`, `ServerEvents.vue` |
 | **Navigation** | `/examples/navigation` | `Link` component (href/navigate/patch), `useLiveNavigation()` | `navigation_live.ex`, `navigation_preview.ex`, `Navigation.vue` |

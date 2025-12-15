@@ -175,9 +175,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
             </p>
             <.example_snippet
               language="javascript"
-              code={
-                ~s|const form = useLiveForm(() => props.form, {\n  changeEvent: "validate",\n  submitEvent: "submit",\n  debounceInMiliseconds: 300\n})|
-              }
+              code={"const form = useLiveForm(() => props.form, {\n  changeEvent: \"validate\",\n  submitEvent: \"submit\",\n  debounceInMiliseconds: 300\n})"}
             />
           </div>
 
@@ -195,9 +193,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
             </p>
             <.example_snippet
               language="javascript"
-              code={
-                ~s|const nameField = form.field("name")\n// Use: nameField.inputAttrs.value, nameField.errorMessage.value|
-              }
+              code={"const nameField = form.field(\"name\")\n// Use: nameField.inputAttrs.value, nameField.errorMessage.value"}
             />
           </div>
 
@@ -215,7 +211,11 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
               <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">to_form()</code>
               to convert the changeset to a form that LiveVue understands.
             </p>
-            <.example_snippet code="changeset = changeset(params) |> Map.put(:action, :validate)\nassign(socket, form: to_form(changeset, as: :contact))" />
+            <.example_snippet code={
+              String.trim(
+                "changeset = changeset(params) |> Map.put(:action, :validate)\nassign(socket, form: to_form(changeset, as: :contact))"
+              )
+            } />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
@@ -240,12 +240,26 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
 
       <%!-- Next example --%>
       <section class="mt-12 pt-8 border-t border-landing-border">
-        <div class="flex items-center justify-between">
-          <div class="text-landing-muted text-sm">
+        <.link
+          navigate="/examples/nested-form"
+          class="flex items-center justify-between group"
+        >
+          <div class="text-landing-muted text-sm group-hover:text-landing-text transition-colors">
             Next up: Nested Objects with dot notation paths
           </div>
-          <span class="text-landing-muted/50 text-sm">Coming soon</span>
-        </div>
+          <span class="text-vue text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+            View example
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="w-4 h-4"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </span>
+        </.link>
       </section>
     </Layouts.examples>
     """

@@ -6,6 +6,7 @@
 @source "../js";
 @source "../vue";
 @source "../../lib/live_vue_website_web";
+@source "../../lib/live_vue_website/examples.ex";
 
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.
    The heroicons installation itself is managed by your mix.exs */

@@ -20,7 +20,6 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/", LandingLive
     live "/examples", ExamplesLive
     live "/examples/counter", Examples.CounterLive
-    live "/examples/animated-counter", Examples.AnimatedCounterLive
     live "/examples/events", Examples.EventsLive
     live "/examples/server-events", Examples.ServerEventsLive
     live "/examples/navigation", Examples.NavigationLive
@@ -28,6 +27,9 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/examples/connection-status", Examples.ConnectionStatusLive
     live "/examples/slots", Examples.SlotsLive
     live "/examples/simple-form", Examples.SimpleFormLive
+    live "/examples/nested-form", Examples.NestedFormLive
+    live "/examples/array-form", Examples.ArrayFormLive
+    live "/examples/encoder", Examples.EncoderLive
   end
 
   # Other scopes may use custom stacks.

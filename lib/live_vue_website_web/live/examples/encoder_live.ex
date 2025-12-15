@@ -1,17 +1,17 @@
-defmodule LiveVueWebsiteWeb.Examples.CounterLive do
+defmodule LiveVueWebsiteWeb.Examples.EncoderLive do
   use LiveVueWebsiteWeb, :live_view
 
   require LiveVueWebsiteWeb.Examples.ExampleSource, as: ExampleSource
 
-  @vue_source ExampleSource.vue_source("Counter")
-  @elixir_source ExampleSource.elixir_source("Counter")
+  @vue_source ExampleSource.vue_source("Encoder")
+  @elixir_source ExampleSource.elixir_source("Encoder")
 
   @valid_tabs ~w(preview liveview vue)
 
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
-       page_title: "Counter – LiveVue Examples",
+       page_title: "Encoder – LiveVue Examples",
        vue_source: @vue_source,
        elixir_source: @elixir_source
      )}
@@ -24,7 +24,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.examples current_example="counter">
+    <Layouts.examples current_example="encoder">
       <%!-- Header --%>
       <header class="mb-8">
         <div class="flex items-center gap-2 text-sm text-landing-muted mb-4">
@@ -32,14 +32,14 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
             <path d="M9 18l6-6-6-6" />
           </svg>
-          <span class="text-landing-text">Counter</span>
+          <span class="text-landing-text">Custom Encoder</span>
         </div>
         <h1 class="font-serif text-4xl font-normal tracking-tight mb-4">
-          Counter
+          Custom Encoder
         </h1>
         <p class="text-lg text-landing-muted max-w-2xl">
-          The classic counter example demonstrating the core LiveVue pattern:
-          server state flows down as props, user interactions bubble up as events.
+          Control how structs are encoded to JSON using the <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder</code>
+          protocol. Derive for simple cases, implement custom logic when needed.
         </p>
       </header>
 
@@ -48,41 +48,32 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
         <h2 class="text-sm font-medium uppercase tracking-wider text-landing-muted mb-4">
           What this example shows
         </h2>
-        <div class="grid grid-cols-4 gap-4 max-sm:grid-cols-1 max-md:grid-cols-2">
+        <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
           <div class="flex gap-3">
             <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
               1
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Server State</div>
-              <div class="text-xs text-landing-muted">count lives in LiveView</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
-              2
-            </div>
-            <div>
-              <div class="font-medium text-landing-text text-sm">Local State</div>
-              <div class="text-xs text-landing-muted">diff slider is Vue-only</div>
+              <div class="font-medium text-landing-text text-sm">@derive</div>
+              <div class="text-xs text-landing-muted">Simple encoder derivation</div>
             </div>
           </div>
           <div class="flex gap-3">
             <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
-              3
+              2
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Phoenix Events</div>
-              <div class="text-xs text-landing-muted">phx-click in Vue template</div>
+              <div class="font-medium text-landing-text text-sm">defimpl</div>
+              <div class="text-xs text-landing-muted">Custom encode function</div>
             </div>
           </div>
           <div class="flex gap-3">
             <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
-              4
+              3
             </div>
             <div>
-              <div class="font-medium text-landing-text text-sm">Vue Transitions</div>
-              <div class="text-xs text-landing-muted">&lt;Transition&gt; on prop changes</div>
+              <div class="font-medium text-landing-text text-sm">Options</div>
+              <div class="text-xs text-landing-muted">Runtime encoding behavior</div>
             </div>
           </div>
         </div>
@@ -139,9 +130,9 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
         <%= case @active_tab do %>
           <% "preview" -> %>
             <div class="p-8 flex justify-center">
-              <div class="w-full max-w-sm">
-                {live_render(@socket, LiveVueWebsiteWeb.Examples.CounterPreview,
-                  id: "counter-preview"
+              <div class="w-full max-w-md">
+                {live_render(@socket, LiveVueWebsiteWeb.Examples.EncoderPreview,
+                  id: "encoder-preview"
                 )}
               </div>
             </div>
@@ -150,7 +141,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               id="code-tab-liveview"
               code={@elixir_source}
               language="elixir"
-              filename="counter_live.ex"
+              filename="encoder_live.ex"
               color="phoenix"
             />
           <% "vue" -> %>
@@ -158,7 +149,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               id="code-tab-vue"
               code={@vue_source}
               language="vue"
-              filename="Counter.vue"
+              filename="Encoder.vue"
               color="vue"
             />
         <% end %>
@@ -174,72 +165,88 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 1
               </span>
-              Props flow from LiveView to Vue
+              Derive for simple structs
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              The <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">count</code>
-              assign in LiveView
-              becomes a prop in Vue. When the server state changes, Vue automatically re-renders with the new value.
+              Use <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">@derive LiveVue.Encoder</code>
+              to automatically encode all struct fields. Add
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">only:</code> or
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">except:</code>
+              to control which fields are included.
             </p>
-            <.example_snippet code={
-              ~s|<.vue count={@count} v-component="Counter" v-socket={@socket} />|
-            } />
-          </div>
-
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
-            <h3 class="flex items-center gap-2 font-medium mb-3">
-              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
-                2
-              </span>
-              Local state stays in Vue
-            </h3>
-            <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              The <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">diff</code>
-              slider value is managed entirely in Vue
-              using <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">ref()</code>. No server round-trip for UI-only state.
-            </p>
-            <.example_snippet language="javascript" code="const diff = ref(1)  // Local Vue state" />
+            <.example_snippet
+              language="elixir"
+              code={~s|defmodule Business do
+  @derive LiveVue.Encoder
+  defstruct [:name, :industry]
+end|}
+            />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
-                3
+                2
               </span>
-              Phoenix bindings work in Vue templates
+              Custom implementations with options
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Standard Phoenix event bindings like
-              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">phx-click</code>
-              work directly in Vue templates. Use Vue's
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">:phx-value-*</code>
-              binding
-              to pass dynamic values.
+              Implement the protocol directly when you need custom encoding logic. The
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">opts</code>
+              parameter lets you change behavior at runtime.
             </p>
             <.example_snippet
-              language="vue"
-              code={~s|<button phx-click="inc" :phx-value-diff="diff">+{{ diff }}</button>|}
+              language="elixir"
+              code={~s|defimpl LiveVue.Encoder, for: UserProfile do
+  def encode(profile, opts) do
+    avatar_url =
+      case Keyword.get(opts, :avatar) do
+        :original -> profile.avatar_original_url
+        _ -> profile.avatar_url
+      end
+
+    %{name: profile.name, avatar_url: avatar_url, ...}
+    |> LiveVue.Encoder.encode(opts)
+  end
+end|}
             />
           </div>
 
           <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
-                4
+                3
               </span>
-              Vue transitions on server updates
+              Pass options when encoding
             </h3>
             <p class="text-landing-muted text-sm leading-relaxed mb-3">
-              Vue's <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">&lt;Transition&gt;</code>
-              component animates when props change from the server. The
-              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">:key</code>
-              binding triggers the transition on each value change.
+              Call <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder.encode/2</code>
+              explicitly in your template to pass custom options. This lets you control
+              encoding per-prop.
+            </p>
+            <.example_snippet code={~s|<.vue
+  profile={@profile}
+  profile_with_original_avatar={LiveVue.Encoder.encode(@profile, avatar: :original)}
+  v-component="UserProfile"
+  v-socket={@socket}
+/>|} />
+          </div>
+
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+            <h3 class="flex items-center gap-2 font-medium mb-3">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
+                4
+              </span>
+              Nested structs are encoded recursively
+            </h3>
+            <p class="text-landing-muted text-sm leading-relaxed mb-3">
+              When encoding nested structs, call
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">LiveVue.Encoder.encode/2</code>
+              on nested values to ensure they're properly encoded. Options are passed through.
             </p>
             <.example_snippet
-              language="vue"
-              code={~s|<Transition name="count" mode="out-in">
-    <div :key="props.count">{{ props.count }}</div>
-    </Transition>|}
+              language="elixir"
+              code={~s|business: LiveVue.Encoder.encode(profile.business, opts)|}
             />
           </div>
         </div>
@@ -249,9 +256,9 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
       <section class="mt-12 pt-8 border-t border-landing-border">
         <div class="flex items-center justify-between">
           <div class="text-landing-muted text-sm">
-            Next up: Event Handling
+            Next up: File Upload
           </div>
-          <.link navigate="/examples/events" class="text-vue hover:underline text-sm">
+          <.link navigate="/examples/file-upload" class="text-vue hover:underline text-sm">
             View example →
           </.link>
         </div>
