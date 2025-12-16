@@ -160,7 +160,7 @@ defmodule LiveVueWebsiteWeb.Examples.ConnectionStatusLive do
         <h2 class="font-serif text-2xl tracking-tight">How it works</h2>
 
         <div class="grid gap-4">
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 1
@@ -181,7 +181,7 @@ defmodule LiveVueWebsiteWeb.Examples.ConnectionStatusLive do
             />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 2
@@ -196,12 +196,12 @@ defmodule LiveVueWebsiteWeb.Examples.ConnectionStatusLive do
             <.example_snippet
               language="javascript"
               code={
-                ~s|watch(connectionState, (newState) => {\n  stateHistory.value.push({ state: newState, timestamp: new Date() })\n}, { immediate: true })|
+                ~s|watch(\n  connectionState,\n  (newState) => {\n    stateHistory.value.push({ state: newState, timestamp: new Date() })\n  },\n  { immediate: true }\n)|
               }
             />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 3

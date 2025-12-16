@@ -161,7 +161,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
         <h2 class="font-serif text-2xl tracking-tight">How it works</h2>
 
         <div class="grid gap-4">
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 1
@@ -175,7 +175,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
             <.example_snippet code="defmodule Address do\n  use Ecto.Schema\n  @derive LiveVue.Encoder\n  embedded_schema do\n    field :street, :string\n    field :city, :string\n    field :zip, :string\n  end\nend\n\nembeds_one :address, Address, on_replace: :update" />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 2
@@ -192,7 +192,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
             <.example_snippet code="def changeset(profile, attrs) do\n  profile\n  |> cast(attrs, [:name, :email])\n  |> validate_required([:name, :email])\n  |> cast_embed(:address, with: &Address.changeset/2)\nend" />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 3
@@ -207,11 +207,11 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
             </p>
             <.example_snippet
               language="javascript"
-              code={"// Dot notation\nconst cityField = form.field(\n  \"address.city\"\n)\n\n// Or chain .field() calls\nconst addressField = form.field(\n  \"address\"\n)\nconst cityField = addressField\n  .field(\"city\")"}
+              code={"// Dot notation\nconst cityField = form.field(\"address.city\")\n\n// Or chain .field() calls\nconst addressField = form.field(\"address\")\nconst cityField = addressField.field(\"city\")"}
             />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 4
@@ -226,7 +226,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
             </p>
             <.example_snippet
               language="vue"
-              code={"<input v-bind=\"cityField\n  .inputAttrs.value\"\n       type=\"text\" />\n<div v-if=\"cityField\n  .errorMessage.value\">\n  {{\n    cityField\n      .errorMessage.value\n  }}\n</div>"}
+              code={"<input v-bind=\"cityField.inputAttrs.value\" type=\"text\" />\n<div v-if=\"cityField.errorMessage.value\">\n  {{ cityField.errorMessage.value }}\n</div>"}
             />
           </div>
         </div>

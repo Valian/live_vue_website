@@ -160,7 +160,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
         <h2 class="font-serif text-2xl tracking-tight">How it works</h2>
 
         <div class="grid gap-4">
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 1
@@ -175,7 +175,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
             <.example_snippet code="defmodule Tag do\n  use Ecto.Schema\n  @derive LiveVue.Encoder\n  embedded_schema do\n    field :name, :string\n  end\nend\n\nembeds_many :tags, Tag, on_replace: :delete" />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 2
@@ -193,7 +193,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
             />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 3
@@ -209,11 +209,11 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
             </p>
             <.example_snippet
               language="vue"
-              code={"<div v-for=\"(tagField, index)\n     in tagsArray.fields.value\"\n     :key=\"index\">\n  <input v-bind=\"tagField\n    .field('name')\n    .inputAttrs.value\" />\n  <div v-if=\"tagField\n    .field('name')\n    .errorMessage.value\">\n    {{\n      tagField\n        .field('name')\n        .errorMessage.value\n    }}\n  </div>\n  <button @click=\"\n    tagsArray.remove(index)\n  \">Remove</button>\n</div>"}
+              code={"<div v-for=\"(tagField, index) in tagsArray.fields.value\" :key=\"index\">\n  <input v-bind=\"tagField.field('name').inputAttrs.value\" />\n  <div v-if=\"tagField.field('name').errorMessage.value\">\n    {{  tagField.field('name').errorMessage.value }}\n  </div>\n  <button @click=\"tagsArray.remove(index)\">Remove</button>\n</div>"}
             />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 4
