@@ -84,7 +84,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
       <%!-- Sidebar (mobile drawer + desktop fixed) --%>
       <div class="drawer-side z-50">
         <label for="examples-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <aside class="w-72 min-h-full border-r border-landing-border/50 bg-landing-deep lg:bg-landing-bg/50 lg:backdrop-blur-sm">
+        <aside class="w-72 min-h-full border-r border-landing-border/50 bg-landing-deep">
           <div class="sticky top-0 h-screen flex flex-col">
             <%!-- Sidebar header --%>
             <div class="shrink-0 px-4 pt-4 lg:pt-6 pb-4 flex items-center justify-between gap-2">
@@ -300,40 +300,4 @@ defmodule LiveVueWebsiteWeb.Layouts do
     """
   end
 
-  @doc """
-  Provides dark vs light theme toggle based on themes defined in app.css.
-
-  See <head> in root.html.heex which applies the theme before page load.
-  """
-  def theme_toggle(assigns) do
-    ~H"""
-    <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
-      <div class="absolute w-1/3 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-1/3 [[data-theme=dark]_&]:left-2/3 transition-[left]" />
-
-      <button
-        class="flex p-2 cursor-pointer w-1/3"
-        phx-click={JS.dispatch("phx:set-theme")}
-        data-phx-theme="system"
-      >
-        <.icon name="hero-computer-desktop-micro" class="size-4 opacity-75 hover:opacity-100" />
-      </button>
-
-      <button
-        class="flex p-2 cursor-pointer w-1/3"
-        phx-click={JS.dispatch("phx:set-theme")}
-        data-phx-theme="light"
-      >
-        <.icon name="hero-sun-micro" class="size-4 opacity-75 hover:opacity-100" />
-      </button>
-
-      <button
-        class="flex p-2 cursor-pointer w-1/3"
-        phx-click={JS.dispatch("phx:set-theme")}
-        data-phx-theme="dark"
-      >
-        <.icon name="hero-moon-micro" class="size-4 opacity-75 hover:opacity-100" />
-      </button>
-    </div>
-    """
-  end
 end
