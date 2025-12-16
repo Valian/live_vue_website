@@ -729,6 +729,73 @@ defmodule LiveVueWebsiteWeb.LandingLive do
         </div>
       </section>
 
+      <%!-- AUTHOR SECTION --%>
+      <section class="py-16 px-[clamp(1.5rem,5vw,4rem)] bg-landing-elevated/50 border-t border-landing-border">
+        <div class="max-w-[700px] mx-auto">
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
+            <img
+              src={~p"/images/jakub_skalecki.jpeg"}
+              alt="Jakub Skalecki"
+              class="w-24 h-24 rounded-full border-2 border-vue/50 shadow-lg shadow-vue/10 shrink-0"
+            />
+            <div class="text-center sm:text-left">
+              <h3 class="font-serif text-xl mb-2 tracking-tight">
+                Built by <a href="https://skalecki.dev" class="text-vue hover:underline">Jakub Skalecki</a>
+              </h3>
+              <p class="text-landing-muted text-sm leading-relaxed mb-4">
+                Freelance Elixir developer with 12+ years of fullstack experience.
+                Startup founder who knows when to push back on bad ideas.
+                Python, JavaScript, Elixir, Applied AI.
+              </p>
+              <div class="flex flex-wrap justify-center sm:justify-start gap-4 text-sm">
+                <a
+                  href="https://skalecki.dev"
+                  class="inline-flex items-center gap-1.5 text-landing-muted hover:text-vue transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                  skalecki.dev
+                </a>
+                <a
+                  href="https://twitter.com/jskalc"
+                  class="inline-flex items-center gap-1.5 text-landing-muted hover:text-vue transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  @jskalc
+                </a>
+                <a
+                  href="https://discord.com/users/valian.ai"
+                  class="inline-flex items-center gap-1.5 text-landing-muted hover:text-vue transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z" />
+                  </svg>
+                  valian.ai
+                </a>
+                <%!-- Email obfuscated with entities and reversed display --%>
+                <a
+                  href={"mailto:ja" <> "kub" <> "@" <> "ska" <> "lecki" <> ".dev"}
+                  class="inline-flex items-center gap-1.5 text-landing-muted hover:text-vue transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                  <span>ja&#107;ub&#64;s&#107;alec&#107;i.dev</span>
+                </a>
+              </div>
+              <p class="text-landing-muted/70 text-xs mt-4 italic">
+                Available for freelance Elixir projects
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <%!-- FOOTER --%>
       <footer class="py-12 px-[clamp(1.5rem,5vw,4rem)] border-t border-landing-border">
         <div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
