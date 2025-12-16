@@ -3,86 +3,187 @@ import { ref, onMounted, onUnmounted, computed } from "vue"
 import DataFlowLayer from "./components/DataFlowLayer.vue"
 import FlowConnection from "./components/FlowConnection.vue"
 
+// Animation state
 const isAnimating = ref(true)
-const animationProgress = ref(0) // 0 to steps.length, fractional
-const STEP_DURATION_MS = 2000
-const STEPS_COUNT = 6
+const currentStepIndex = ref(0)
+const dotProgress = ref(0) // 0-1 for animated dots
 
-let lastTimestamp: number | null = null
-let animationFrameId: number | null = null
+// The actual values at each layer (these update at different times)
+const serverCount = ref(5)
+const vuePropsCount = ref(5)
+const domCount = ref(5)
 
-const currentStep = computed(() => Math.floor(animationProgress.value) % STEPS_COUNT)
-const stepProgress = computed(() => animationProgress.value % 1)
+// The increment amount (what the button adds)
+const INCREMENT = 1
 
-// Server count increments each full cycle
-const serverCount = computed(() => 5 + Math.floor(animationProgress.value / STEPS_COUNT))
+// Animation timing
+const STEP_DURATION_MS = 1560
+const DOT_DURATION_MS = 780
 
-// Local Vue state (static for display purposes)
-const localDiff = 3
+let animationAbort: AbortController | null = null
 
-const steps = [
+type Step = {
+  id: string
+  label: string
+  desc: string
+  highlight: string
+}
+
+const steps: Step[] = [
   {
     id: "click",
     label: "User Clicks",
-    desc: "Button has @click=\"$live.pushEvent('inc')\" handler.",
+    desc: `Button triggers $live.pushEvent('inc').`,
     highlight: "dom-button",
   },
-  { id: "event-up", label: "Event Sent", desc: "Click event flows to server via WebSocket.", highlight: "event" },
   {
-    id: "update",
+    id: "event-up",
+    label: "Event Sent",
+    desc: "Event travels to server via WebSocket.",
+    highlight: "event",
+  },
+  {
+    id: "server-update",
     label: "Server Updates",
-    desc: "handle_event updates assigns. Count increments.",
+    desc: "handle_event increments @count assign.",
     highlight: "server-update",
   },
   {
     id: "props-down",
-    label: "Props Flow Down",
-    desc: "New server state passed to Vue component as props.",
+    label: "Props Flow",
+    desc: "New count sent to Vue component as props.",
     highlight: "props",
   },
-  { id: "render", label: "Vue Renders", desc: "Vue reactively updates its virtual DOM from new props.", highlight: "render" },
+  {
+    id: "vue-render",
+    label: "Vue Renders",
+    desc: "Vue updates virtual DOM from new props.",
+    highlight: "render",
+  },
   {
     id: "dom-update",
     label: "DOM Updated",
-    desc: "Changes applied to the real DOM. Cycle complete.",
+    desc: "Real DOM reflects the new value.",
     highlight: "dom",
   },
 ]
 
-const currentHighlight = computed(() => steps[currentStep.value].highlight)
+const currentStep = computed(() => steps[currentStepIndex.value])
+const currentHighlight = computed(() => currentStep.value.highlight)
 
-// Dot progress for each connection (null when not active)
-const eventConnectionDot = computed(() => (currentStep.value === 1 ? 1 - stepProgress.value : null))
-const propsConnectionDot = computed(() => (currentStep.value === 3 ? stepProgress.value : null))
-const renderConnectionDot = computed(() => (currentStep.value === 4 ? stepProgress.value : null))
+// Dot visibility for each connection
+const eventDotProgress = computed(() => (currentHighlight.value === "event" ? dotProgress.value : null))
+const propsDotProgress = computed(() => (currentHighlight.value === "props" ? dotProgress.value : null))
+const renderDotProgress = computed(() => (currentHighlight.value === "render" ? dotProgress.value : null))
 
-function animate(timestamp: number) {
-  if (lastTimestamp === null) {
-    lastTimestamp = timestamp
+// Helper to wait with abort support
+function wait(ms: number, signal: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(resolve, ms)
+    signal.addEventListener("abort", () => {
+      clearTimeout(timeout)
+      reject(new DOMException("Aborted", "AbortError"))
+    })
+  })
+}
+
+// Animate dot from 0 to 1
+async function animateDot(signal: AbortSignal): Promise<void> {
+  const startTime = performance.now()
+  return new Promise((resolve, reject) => {
+    function tick() {
+      if (signal.aborted) {
+        reject(new DOMException("Aborted", "AbortError"))
+        return
+      }
+      const elapsed = performance.now() - startTime
+      const progress = Math.min(elapsed / DOT_DURATION_MS, 1)
+      dotProgress.value = progress
+      if (progress < 1) {
+        requestAnimationFrame(tick)
+      } else {
+        resolve()
+      }
+    }
+    requestAnimationFrame(tick)
+  })
+}
+
+// Main animation loop
+async function runAnimationLoop(signal: AbortSignal): Promise<void> {
+  while (!signal.aborted) {
+    // Step 0: Click - button highlights
+    currentStepIndex.value = 0
+    dotProgress.value = 0
+    await wait(STEP_DURATION_MS, signal)
+
+    // Step 1: Event travels up (dot animates, but inverted for upward motion)
+    currentStepIndex.value = 1
+    await animateDot(signal)
+    await wait(STEP_DURATION_MS - DOT_DURATION_MS, signal)
+
+    // Step 2: Server updates - increment the server count
+    currentStepIndex.value = 2
+    dotProgress.value = 0
+    serverCount.value += INCREMENT
+    await wait(STEP_DURATION_MS, signal)
+
+    // Step 3: Props flow down (dot animates)
+    currentStepIndex.value = 3
+    await animateDot(signal)
+    vuePropsCount.value = serverCount.value // Props arrive at Vue
+    await wait(STEP_DURATION_MS - DOT_DURATION_MS, signal)
+
+    // Step 4: Vue renders (dot animates to DOM)
+    currentStepIndex.value = 4
+    await animateDot(signal)
+    await wait(STEP_DURATION_MS - DOT_DURATION_MS, signal)
+
+    // Step 5: DOM updated
+    currentStepIndex.value = 5
+    dotProgress.value = 0
+    domCount.value = vuePropsCount.value // DOM reflects the value
+    await wait(STEP_DURATION_MS, signal)
   }
+}
 
+function startAnimation() {
+  if (animationAbort) {
+    animationAbort.abort()
+  }
+  animationAbort = new AbortController()
+  runAnimationLoop(animationAbort.signal).catch((e) => {
+    if (e.name !== "AbortError") {
+      console.error("Animation error:", e)
+    }
+  })
+}
+
+function stopAnimation() {
+  if (animationAbort) {
+    animationAbort.abort()
+    animationAbort = null
+  }
+}
+
+function toggleAnimation() {
   if (isAnimating.value) {
-    const delta = timestamp - lastTimestamp
-    animationProgress.value += delta / STEP_DURATION_MS
+    stopAnimation()
+  } else {
+    startAnimation()
   }
-
-  lastTimestamp = timestamp
-  animationFrameId = requestAnimationFrame(animate)
+  isAnimating.value = !isAnimating.value
 }
 
 onMounted(() => {
-  animationFrameId = requestAnimationFrame(animate)
-})
-
-onUnmounted(() => {
-  if (animationFrameId !== null) {
-    cancelAnimationFrame(animationFrameId)
+  if (isAnimating.value) {
+    startAnimation()
   }
 })
 
-function toggleAnimation() {
-  isAnimating.value = !isAnimating.value
-}
+onUnmounted(() => {
+  stopAnimation()
+})
 </script>
 
 <template>
@@ -96,7 +197,7 @@ function toggleAnimation() {
         <DataFlowLayer
           badge="Server"
           title="LiveView"
-          :highlighted="currentHighlight === 'server' || currentHighlight === 'server-update'"
+          :highlighted="currentHighlight === 'server-update'"
           accent-color="phoenix"
         >
           <template #icon>
@@ -119,7 +220,7 @@ function toggleAnimation() {
               <span class="text-[#e06c75]">@count</span>
               <span class="text-[#6a6a80]"> = </span>
               <span
-                class="text-[#d19a66] transition-all duration-300"
+                class="text-[#d19a66] transition-all duration-300 tabular-nums"
                 :class="{
                   'text-white [text-shadow:0_0_12px_currentColor,0_0_24px_currentColor]':
                     currentHighlight === 'server-update',
@@ -135,7 +236,7 @@ function toggleAnimation() {
           label="props"
           label-position="right"
           :highlighted="currentHighlight === 'props'"
-          :dot-progress="propsConnectionDot"
+          :dot-progress="propsDotProgress"
           accent-color="phoenix"
         />
 
@@ -166,23 +267,13 @@ function toggleAnimation() {
               <span class="text-[#e06c75]">count</span>
               <span class="text-[#6a6a80]">: </span>
               <span
-                class="text-[#d19a66] transition-all duration-300"
+                class="text-[#d19a66] transition-all duration-300 tabular-nums"
                 :class="{
                   'text-white [text-shadow:0_0_12px_currentColor,0_0_24px_currentColor]': currentHighlight === 'props',
                 }"
-                >{{ serverCount }}</span
+                >{{ vuePropsCount }}</span
               >
               <span class="text-[#6a6a80]"> }</span>
-            </span>
-            <span class="flex gap-1">
-              <span class="text-[#c678dd]">const</span>
-              <span class="text-[#61afef]">diff</span>
-              <span class="text-[#6a6a80]"> = </span>
-              <span class="text-[#c678dd]">ref</span>
-              <span class="text-[#6a6a80]">(</span>
-              <span class="text-[#d19a66]">{{ localDiff }}</span>
-              <span class="text-[#6a6a80]">)</span>
-              <span class="text-[#6a6a80] text-[0.65rem] ml-1">// local</span>
             </span>
           </div>
         </DataFlowLayer>
@@ -192,7 +283,7 @@ function toggleAnimation() {
           label="render"
           label-position="left"
           :highlighted="currentHighlight === 'render' || currentHighlight === 'dom'"
-          :dot-progress="renderConnectionDot"
+          :dot-progress="renderDotProgress"
           accent-color="vue"
         />
 
@@ -220,11 +311,11 @@ function toggleAnimation() {
           <div class="flex flex-col items-center gap-2 p-4 bg-black/30 rounded-md">
             <div class="flex items-center gap-3">
               <span
-                class="font-serif text-[2.5rem] text-landing-text transition-all duration-300 min-w-[2ch] text-center"
+                class="font-serif text-[2.5rem] text-landing-text transition-all duration-300 min-w-[2ch] text-center tabular-nums"
                 :class="{
                   'text-white [text-shadow:0_0_12px_currentColor,0_0_24px_currentColor]': currentHighlight === 'dom',
                 }"
-                >{{ serverCount + localDiff }}</span
+                >{{ domCount }}</span
               >
               <button
                 class="flex items-center justify-center w-10 h-10 rounded-lg border border-white/[0.08] bg-phoenix/10 text-phoenix text-xl cursor-default transition-all duration-300"
@@ -232,14 +323,14 @@ function toggleAnimation() {
                   'border-phoenix shadow-[0_0_15px_rgba(253,79,0,0.4)] scale-110': currentHighlight === 'dom-button',
                 }"
               >
-                <span class="leading-none">+{{ localDiff }}</span>
+                <span class="leading-none">+{{ INCREMENT }}</span>
               </button>
             </div>
             <div
               class="text-[0.65rem] text-[#6a6a80] py-1 px-2.5 bg-black/30 rounded transition-all duration-300"
               :class="{ 'text-phoenix bg-phoenix/15': currentHighlight === 'dom-button' }"
             >
-              @click="$live.pushEvent('inc', { diff })"
+              @click="$live.pushEvent('inc')"
             </div>
           </div>
         </DataFlowLayer>
@@ -252,9 +343,9 @@ function toggleAnimation() {
           :class="{ 'bg-vue shadow-[0_0_8px_rgba(66,184,131,0.4)]': currentHighlight === 'event' }"
         />
         <div
-          v-if="eventConnectionDot !== null"
+          v-if="eventDotProgress !== null"
           class="absolute w-2.5 h-2.5 rounded-full left-1/2 -translate-x-1/2 -translate-y-1/2 bg-vue shadow-[0_0_10px_var(--color-vue),0_0_20px_var(--color-vue)] z-10"
-          :style="{ top: `calc(50px + ${eventConnectionDot} * (100% - 100px))` }"
+          :style="{ top: `calc(50px + ${1 - eventDotProgress} * (100% - 100px))` }"
         />
         <div
           class="flex flex-col items-center gap-1 py-1.5 px-2 bg-[rgba(10,10,15,0.95)] border border-white/[0.08] rounded text-[0.6rem] uppercase tracking-wide text-[#6a6a80] transition-all duration-400 z-5"
@@ -279,10 +370,10 @@ function toggleAnimation() {
 
     <!-- Step indicator and controls -->
     <div class="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
-      <span class="text-[0.7rem] text-[#6a6a80] tabular-nums w-8">{{ currentStep + 1 }}/{{ steps.length }}</span>
+      <span class="text-[0.7rem] text-[#6a6a80] tabular-nums w-8">{{ currentStepIndex + 1 }}/{{ steps.length }}</span>
       <div class="flex-1 flex flex-col gap-0.5">
-        <span class="text-xs font-semibold text-landing-text">{{ steps[currentStep].label }}</span>
-        <span class="text-[0.65rem] text-[#6a6a80]">{{ steps[currentStep].desc }}</span>
+        <span class="text-xs font-semibold text-landing-text">{{ currentStep.label }}</span>
+        <span class="text-[0.65rem] text-[#6a6a80]">{{ currentStep.desc }}</span>
       </div>
       <button
         class="w-7 h-7 flex items-center justify-center bg-white/5 border border-white/[0.08] rounded-md text-[#6a6a80] cursor-pointer transition-all duration-200 hover:text-landing-text hover:border-[#6a6a80]"
