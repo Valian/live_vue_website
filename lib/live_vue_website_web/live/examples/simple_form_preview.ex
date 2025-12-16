@@ -13,6 +13,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormPreview do
     ~H"""
     <.vue
       form={@form}
+      submitted={@submitted}
       v-component="examples/SimpleForm"
       v-socket={@socket}
     />
@@ -21,7 +22,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormPreview do
 
   def mount(_params, _session, socket) do
     changeset = changeset(%{})
-    {:ok, assign(socket, form: to_form(changeset, as: :contact)), layout: false}
+    {:ok, assign(socket, form: to_form(changeset, as: :contact), submitted: nil), layout: false}
   end
 
   def handle_event("validate", %{"contact" => params}, socket) do
@@ -38,10 +39,11 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormPreview do
       |> Map.put(:action, :insert)
 
     if changeset.valid? do
-      # In a real app, you'd save the data here
-      {:noreply,
+      data = Ecto.Changeset.apply_changes(changeset)
+
+      {:reply, %{reset: true},
        socket
-       |> put_flash(:info, "Form submitted successfully!")
+       |> assign(submitted: data)
        |> assign(form: to_form(changeset(%{}), as: :contact))}
     else
       {:noreply, assign(socket, form: to_form(changeset, as: :contact))}

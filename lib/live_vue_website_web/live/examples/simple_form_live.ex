@@ -277,6 +277,25 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
               code={"<button @click=\"form.submit()\" :disabled=\"!form.isValid.value\">\n  Submit\n</button>\n<button @click=\"form.reset()\">Reset</button>"}
             />
           </div>
+
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+            <h3 class="flex items-center gap-2 font-medium mb-3">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
+                7
+              </span>
+              Reset form state after successful submit
+            </h3>
+            <p class="text-landing-muted text-sm leading-relaxed mb-3" phx-no-curly-interpolation>
+              When resetting the form after a successful submission, return
+              <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">
+                {:reply, %{reset: true}, socket}
+              </code>
+              instead of <code class="text-phoenix bg-phoenix/10 px-1.5 py-0.5 rounded">{:noreply, socket}</code>.
+              This tells <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">useLiveForm()</code>
+              to clear the client-side touched state, preventing validation errors from showing on the fresh form.
+            </p>
+            <.example_snippet code={"def handle_event(\"submit\", %{\"contact\" => params}, socket) do\n  changeset = changeset(params) |> Map.put(:action, :insert)\n\n  if changeset.valid? do\n    # Reply with reset: true to clear touched state\n    {:reply, %{reset: true},\n     socket\n     |> assign(form: to_form(changeset(%{}), as: :contact))}\n  else\n    {:noreply, assign(socket, form: to_form(changeset, as: :contact))}\n  end\nend"} />
+          </div>
         </div>
       </section>
 

@@ -11,7 +11,7 @@ type ProfileForm = {
   }
 }
 
-const props = defineProps<{ form: Form<ProfileForm> }>()
+const props = defineProps<{ form: Form<ProfileForm>; submitted: ProfileForm | null }>()
 
 const form = useLiveForm(() => props.form, {
   changeEvent: "validate",
@@ -140,6 +140,11 @@ const zipField = form.field("address.zip")
           {{ form.isValid.value ? "Valid" : "Invalid" }}
         </span>
       </div>
+    </div>
+
+    <div v-if="props.submitted" class="mt-6 p-4 bg-success/10 border border-success/20 rounded-lg">
+      <div class="text-sm font-medium text-success mb-2">Submitted Data:</div>
+      <pre class="text-xs overflow-auto">{{ JSON.stringify(props.submitted, null, 2) }}</pre>
     </div>
   </div>
 </template>

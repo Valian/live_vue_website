@@ -10,7 +10,7 @@ type PostForm = {
   tags: Tag[]
 }
 
-const props = defineProps<{ form: Form<PostForm> }>()
+const props = defineProps<{ form: Form<PostForm>; submitted: PostForm | null }>()
 
 const form = useLiveForm(() => props.form, {
   changeEvent: "validate",
@@ -127,6 +127,11 @@ const tagsArray = form.fieldArray("tags")
           {{ form.isValid.value ? "Valid" : "Invalid" }}
         </span>
       </div>
+    </div>
+
+    <div v-if="props.submitted" class="mt-6 p-4 bg-success/10 border border-success/20 rounded-lg">
+      <div class="text-sm font-medium text-success mb-2">Submitted Data:</div>
+      <pre class="text-xs overflow-auto">{{ JSON.stringify(props.submitted, null, 2) }}</pre>
     </div>
   </div>
 </template>

@@ -55,6 +55,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormPreview do
     ~H"""
     <.vue
       form={@form}
+      submitted={@submitted}
       v-component="examples/NestedForm"
       v-socket={@socket}
     />
@@ -62,13 +63,16 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormPreview do
   end
 
   def mount(_params, _session, socket) do
-    changeset = Profile.changeset(%Profile{}, %{})
-    {:ok, assign(socket, form: to_form(changeset, as: :profile)), layout: false}
+    profile = %Profile{address: %Address{}}
+    changeset = Profile.changeset(profile, %{})
+    {:ok, assign(socket, form: to_form(changeset, as: :profile), submitted: nil), layout: false}
   end
 
   def handle_event("validate", %{"profile" => params}, socket) do
+    profile = %Profile{address: %Address{}}
+
     changeset =
-      %Profile{}
+      profile
       |> Profile.changeset(params)
       |> Map.put(:action, :validate)
 
@@ -76,16 +80,22 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormPreview do
   end
 
   def handle_event("submit", %{"profile" => params}, socket) do
+    profile = %Profile{address: %Address{}}
+
     changeset =
-      %Profile{}
+      profile
       |> Profile.changeset(params)
       |> Map.put(:action, :insert)
 
     if changeset.valid? do
-      {:noreply,
+      data = Ecto.Changeset.apply_changes(changeset)
+
+      {:reply, %{reset: true},
        socket
-       |> put_flash(:info, "Profile saved successfully!")
-       |> assign(form: to_form(Profile.changeset(%Profile{}, %{}), as: :profile))}
+       |> assign(submitted: data)
+       |> assign(
+         form: to_form(Profile.changeset(%Profile{address: %Address{}}, %{}), as: :profile)
+       )}
     else
       {:noreply, assign(socket, form: to_form(changeset, as: :profile))}
     end

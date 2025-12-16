@@ -49,6 +49,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormPreview do
     ~H"""
     <.vue
       form={@form}
+      submitted={@submitted}
       v-component="examples/ArrayForm"
       v-socket={@socket}
     />
@@ -57,7 +58,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormPreview do
 
   def mount(_params, _session, socket) do
     changeset = Post.changeset(%Post{}, %{})
-    {:ok, assign(socket, form: to_form(changeset, as: :post)), layout: false}
+    {:ok, assign(socket, form: to_form(changeset, as: :post), submitted: nil), layout: false}
   end
 
   def handle_event("validate", %{"post" => params}, socket) do
@@ -76,9 +77,11 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormPreview do
       |> Map.put(:action, :insert)
 
     if changeset.valid? do
-      {:noreply,
+      data = Ecto.Changeset.apply_changes(changeset)
+
+      {:reply, %{reset: true},
        socket
-       |> put_flash(:info, "Post saved successfully!")
+       |> assign(submitted: data)
        |> assign(form: to_form(Post.changeset(%Post{}, %{}), as: :post))}
     else
       {:noreply, assign(socket, form: to_form(changeset, as: :post))}
