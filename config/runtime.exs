@@ -47,7 +47,11 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
   scheme = System.get_env("PHX_SCHEME") || "https"
-  url_port = String.to_integer(System.get_env("PHX_URL_PORT") || if(scheme == "https", do: "443", else: to_string(port)))
+
+  url_port =
+    String.to_integer(
+      System.get_env("PHX_URL_PORT") || if(scheme == "https", do: "443", else: to_string(port))
+    )
 
   config :live_vue_website, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
