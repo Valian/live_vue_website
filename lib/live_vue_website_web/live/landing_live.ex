@@ -132,12 +132,12 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             >
               Code
             </a>
-            <a
-              href="/examples"
+            <.link
+              navigate="/examples"
               class="py-2 px-3 sm:px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"
             >
               Examples
-            </a>
+            </.link>
             <a
               href="https://hexdocs.pm/live_vue"
               class="py-2 px-3 sm:px-4 text-landing-muted no-underline text-sm transition-colors rounded-md hover:text-landing-text hover:bg-white/5"

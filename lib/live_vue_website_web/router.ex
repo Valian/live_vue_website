@@ -52,7 +52,6 @@ defmodule LiveVueWebsiteWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: LiveVueWebsiteWeb.Telemetry
-      live "/vue_demo", LiveVueWebsiteWeb.VueDemoLive
     end
   end
 end
