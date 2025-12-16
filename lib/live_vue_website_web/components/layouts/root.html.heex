@@ -10,7 +10,10 @@
     <%!-- Basic meta tags --%>
     <meta
       name="description"
-      content={assigns[:page_description] || "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command. Use Vue components seamlessly within LiveView."}
+      content={
+        assigns[:page_description] ||
+          "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command. Use Vue components seamlessly within LiveView."
+      }
     />
     <link rel="canonical" href={assigns[:canonical_url] || "https://live-vue.com"} />
     <%!-- Open Graph tags --%>
@@ -21,7 +24,10 @@
     />
     <meta
       property="og:description"
-      content={assigns[:page_description] || "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command."}
+      content={
+        assigns[:page_description] ||
+          "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command."
+      }
     />
     <meta property="og:url" content={assigns[:canonical_url] || "https://live-vue.com"} />
     <meta
@@ -39,7 +45,10 @@
     />
     <meta
       name="twitter:description"
-      content={assigns[:page_description] || "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command."}
+      content={
+        assigns[:page_description] ||
+          "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command."
+      }
     />
     <meta
       name="twitter:image"

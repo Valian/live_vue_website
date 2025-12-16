@@ -23,35 +23,30 @@ const tagsArray = form.fieldArray("tags")
 </script>
 
 <template>
-  <div class="p-6 rounded-xl border border-landing-border space-y-6">
+  <div class="card bg-base-200 p-6 space-y-6">
     <div class="space-y-4">
-      <div class="space-y-2">
-        <label class="text-sm font-medium text-landing-text">Title</label>
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Title</span></div>
         <input
           v-bind="titleField.inputAttrs.value"
           type="text"
           placeholder="Enter a title"
           :class="[
-            'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-            titleField.isTouched.value && titleField.errorMessage.value
-              ? 'border-red-500/50 focus:border-red-500'
-              : 'border-landing-border focus:border-vue'
+            'input input-bordered w-full',
+            titleField.isTouched.value && titleField.errorMessage.value && 'input-error'
           ]"
         />
-        <div
-          v-if="titleField.isTouched.value && titleField.errorMessage.value"
-          class="text-sm text-red-400"
-        >
-          {{ titleField.errorMessage.value }}
+        <div v-if="titleField.isTouched.value && titleField.errorMessage.value" class="label">
+          <span class="label-text-alt text-error">{{ titleField.errorMessage.value }}</span>
         </div>
-      </div>
+      </label>
 
-      <div class="pt-4 border-t border-landing-border/50">
+      <div class="pt-4 border-t border-base-300">
         <div class="flex items-center justify-between mb-3">
-          <div class="text-sm font-medium text-landing-muted">Tags</div>
+          <div class="text-sm font-medium text-neutral">Tags</div>
           <button
             type="button"
-            class="text-xs px-2 py-1 rounded bg-vue/10 text-vue hover:bg-vue/20 transition-colors"
+            class="btn btn-xs btn-primary btn-outline"
             @click="tagsArray.add({ name: '' })"
           >
             + Add Tag
@@ -64,28 +59,26 @@ const tagsArray = form.fieldArray("tags")
             :key="index"
             class="flex gap-2 items-start"
           >
-            <div class="flex-1 space-y-1">
+            <div class="flex-1">
               <input
                 v-bind="tagField.field('name').inputAttrs.value"
                 type="text"
                 :placeholder="`Tag ${index + 1}`"
                 :class="[
-                  'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-                  tagField.field('name').isTouched.value && tagField.field('name').errorMessage.value
-                    ? 'border-red-500/50 focus:border-red-500'
-                    : 'border-landing-border focus:border-vue'
+                  'input input-bordered w-full',
+                  tagField.field('name').isTouched.value && tagField.field('name').errorMessage.value && 'input-error'
                 ]"
               />
               <div
                 v-if="tagField.field('name').isTouched.value && tagField.field('name').errorMessage.value"
-                class="text-sm text-red-400"
+                class="label pt-1"
               >
-                {{ tagField.field('name').errorMessage.value }}
+                <span class="label-text-alt text-error">{{ tagField.field('name').errorMessage.value }}</span>
               </div>
             </div>
             <button
               type="button"
-              class="p-2 text-landing-muted hover:text-red-400 transition-colors shrink-0"
+              class="btn btn-ghost btn-sm text-neutral hover:text-error shrink-0"
               @click="tagsArray.remove(index)"
             >
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -99,7 +92,7 @@ const tagsArray = form.fieldArray("tags")
           </div>
           <div
             v-if="tagsArray.fields.value.length === 0"
-            class="text-sm text-landing-muted/50 py-4 text-center border border-dashed border-landing-border rounded"
+            class="text-sm text-neutral/50 py-4 text-center border border-dashed border-base-300 rounded"
           >
             No tags yet. Click "Add Tag" to start.
           </div>
@@ -112,29 +105,24 @@ const tagsArray = form.fieldArray("tags")
         <button
           type="button"
           :disabled="!form.isValid.value"
-          :class="[
-            'px-4 py-2 rounded font-medium transition-colors',
-            form.isValid.value
-              ? 'bg-vue text-white hover:bg-vue/90'
-              : 'bg-landing-border text-landing-muted cursor-not-allowed'
-          ]"
+          class="btn btn-primary"
           @click="form.submit()"
         >
           Submit
         </button>
         <button
           type="button"
-          class="px-4 py-2 border border-landing-border rounded text-landing-muted hover:text-landing-text hover:bg-white/5 transition-colors"
+          class="btn btn-ghost"
           @click="form.reset()"
         >
           Reset
         </button>
       </div>
       <div class="flex items-center gap-4 text-xs">
-        <span :class="form.isDirty.value ? 'text-vue' : 'text-landing-muted/50'">
+        <span :class="form.isDirty.value ? 'text-primary' : 'text-neutral/50'">
           {{ form.isDirty.value ? "Modified" : "Unchanged" }}
         </span>
-        <span :class="form.isValid.value ? 'text-green-400' : 'text-red-400'">
+        <span :class="form.isValid.value ? 'text-success' : 'text-error'">
           {{ form.isValid.value ? "Valid" : "Invalid" }}
         </span>
       </div>

@@ -9,7 +9,6 @@ interface StateHistoryEntry {
 
 const { connectionState, isConnected } = useLiveConnection()
 
-// Track state history for demo purposes
 const stateHistory = ref<StateHistoryEntry[]>([])
 
 watch(connectionState, (newState) => {
@@ -17,7 +16,6 @@ watch(connectionState, (newState) => {
     state: newState,
     timestamp: new Date()
   })
-  // Keep last 5 entries
   if (stateHistory.value.length > 5) {
     stateHistory.value.shift()
   }
@@ -32,104 +30,78 @@ const formatTime = (date: Date) => {
   })
 }
 
-const getStateColor = (state: string) => {
+const getStateClass = (state: string) => {
   switch (state) {
     case 'open':
-      return 'text-green-500'
+      return 'text-success'
     case 'connecting':
-      return 'text-amber-500'
+      return 'text-warning'
     case 'closing':
-      return 'text-orange-500'
+      return 'text-warning'
     case 'closed':
-      return 'text-red-500'
+      return 'text-error'
     default:
-      return 'text-landing-muted'
+      return 'text-neutral'
   }
 }
 
-const getStateBgColor = (state: string) => {
+const getStateBadge = (state: string) => {
   switch (state) {
     case 'open':
-      return 'bg-green-500/10'
+      return 'badge-success'
     case 'connecting':
-      return 'bg-amber-500/10'
+      return 'badge-warning'
     case 'closing':
-      return 'bg-orange-500/10'
+      return 'badge-warning'
     case 'closed':
-      return 'bg-red-500/10'
+      return 'badge-error'
     default:
-      return 'bg-landing-card'
-  }
-}
-
-const getStateDotColor = (state: string) => {
-  switch (state) {
-    case 'open':
-      return 'bg-green-500'
-    case 'connecting':
-      return 'bg-amber-500'
-    case 'closing':
-      return 'bg-orange-500'
-    case 'closed':
-      return 'bg-red-500'
-    default:
-      return 'bg-landing-muted'
+      return 'badge-ghost'
   }
 }
 </script>
 
 <template>
-  <div class="p-6 rounded-xl border border-landing-border space-y-6">
-    <!-- Current status display -->
+  <div class="card bg-base-200 p-6 space-y-6">
     <div class="text-center">
-      <div class="text-sm text-landing-muted mb-3">WebSocket Connection</div>
-      <div
-        class="inline-flex items-center gap-3 px-6 py-3 rounded-full transition-colors"
-        :class="getStateBgColor(connectionState)"
-      >
+      <div class="text-sm text-neutral mb-3">WebSocket Connection</div>
+      <div class="inline-flex items-center gap-3">
         <span
-          class="w-3 h-3 rounded-full transition-colors"
           :class="[
-            getStateDotColor(connectionState),
-            isConnected ? 'animate-pulse' : ''
+            'badge badge-lg gap-2',
+            getStateBadge(connectionState),
+            isConnected && 'animate-pulse'
           ]"
-        />
-        <span class="font-mono text-lg transition-colors" :class="getStateColor(connectionState)">
-          {{ connectionState }}
+        >
+          <span class="w-2 h-2 rounded-full bg-current" />
+          <span class="font-mono">{{ connectionState }}</span>
         </span>
       </div>
-      <div class="mt-3 text-sm" :class="isConnected ? 'text-green-500/80' : 'text-landing-muted'">
+      <div class="mt-3 text-sm" :class="isConnected ? 'text-success' : 'text-neutral'">
         {{ isConnected ? 'Connected' : 'Disconnected' }}
       </div>
     </div>
 
-    <!-- State history -->
-    <div v-if="stateHistory.length > 0" class="pt-4 border-t border-landing-border">
-      <div class="text-sm text-landing-muted mb-3">Connection History</div>
+    <div v-if="stateHistory.length > 0" class="pt-4 border-t border-base-300">
+      <div class="text-sm text-neutral mb-3">Connection History</div>
       <div class="space-y-2">
         <div
           v-for="(entry, index) in stateHistory.slice().reverse()"
           :key="index"
-          class="flex items-center justify-between py-2 px-3 rounded border border-landing-border/50 text-sm"
+          class="flex items-center justify-between py-2 px-3 rounded border border-base-300 text-sm"
         >
-          <div class="flex items-center gap-2">
-            <span
-              class="w-2 h-2 rounded-full"
-              :class="getStateDotColor(entry.state)"
-            />
-            <span class="font-mono" :class="getStateColor(entry.state)">
-              {{ entry.state }}
-            </span>
-          </div>
-          <span class="text-xs text-landing-muted font-mono">
+          <span :class="['badge badge-sm gap-1.5', getStateBadge(entry.state)]">
+            <span class="w-1.5 h-1.5 rounded-full bg-current" />
+            <span class="font-mono">{{ entry.state }}</span>
+          </span>
+          <span class="text-xs text-neutral font-mono">
             {{ formatTime(entry.timestamp) }}
           </span>
         </div>
       </div>
     </div>
 
-    <!-- Info note -->
-    <div class="pt-4 border-t border-landing-border text-xs text-landing-muted">
+    <div class="pt-4 border-t border-base-300 text-xs text-neutral">
       Open your browser's DevTools and throttle the network to see state changes, or navigate away and back.
     </div>
   </div>

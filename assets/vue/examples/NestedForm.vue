@@ -27,117 +27,92 @@ const zipField = form.field("address.zip")
 </script>
 
 <template>
-  <div class="p-6 rounded-xl border border-landing-border space-y-6">
+  <div class="card bg-base-200 p-6 space-y-6">
     <div class="space-y-4">
-      <div class="space-y-2">
-        <label class="text-sm font-medium text-landing-text">Name</label>
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Name</span></div>
         <input
           v-bind="nameField.inputAttrs.value"
           type="text"
           placeholder="Your name"
           :class="[
-            'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-            nameField.isTouched.value && nameField.errorMessage.value
-              ? 'border-red-500/50 focus:border-red-500'
-              : 'border-landing-border focus:border-vue'
+            'input input-bordered w-full',
+            nameField.isTouched.value && nameField.errorMessage.value && 'input-error'
           ]"
         />
-        <div
-          v-if="nameField.isTouched.value && nameField.errorMessage.value"
-          class="text-sm text-red-400"
-        >
-          {{ nameField.errorMessage.value }}
+        <div v-if="nameField.isTouched.value && nameField.errorMessage.value" class="label">
+          <span class="label-text-alt text-error">{{ nameField.errorMessage.value }}</span>
         </div>
-      </div>
+      </label>
 
-      <div class="space-y-2">
-        <label class="text-sm font-medium text-landing-text">Email</label>
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Email</span></div>
         <input
           v-bind="emailField.inputAttrs.value"
           type="email"
           placeholder="you@example.com"
           :class="[
-            'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-            emailField.isTouched.value && emailField.errorMessage.value
-              ? 'border-red-500/50 focus:border-red-500'
-              : 'border-landing-border focus:border-vue'
+            'input input-bordered w-full',
+            emailField.isTouched.value && emailField.errorMessage.value && 'input-error'
           ]"
         />
-        <div
-          v-if="emailField.isTouched.value && emailField.errorMessage.value"
-          class="text-sm text-red-400"
-        >
-          {{ emailField.errorMessage.value }}
+        <div v-if="emailField.isTouched.value && emailField.errorMessage.value" class="label">
+          <span class="label-text-alt text-error">{{ emailField.errorMessage.value }}</span>
         </div>
-      </div>
+      </label>
 
-      <div class="pt-4 border-t border-landing-border/50">
-        <div class="text-sm font-medium text-landing-muted mb-3">Address</div>
+      <div class="pt-4 border-t border-base-300">
+        <div class="text-sm font-medium text-neutral mb-3">Address</div>
 
         <div class="space-y-4">
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-landing-text">Street</label>
+          <label class="form-control w-full">
+            <div class="label"><span class="label-text">Street</span></div>
             <input
               v-bind="streetField.inputAttrs.value"
               type="text"
               placeholder="123 Main St"
               :class="[
-                'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-                streetField.isTouched.value && streetField.errorMessage.value
-                  ? 'border-red-500/50 focus:border-red-500'
-                  : 'border-landing-border focus:border-vue'
+                'input input-bordered w-full',
+                streetField.isTouched.value && streetField.errorMessage.value && 'input-error'
               ]"
             />
-            <div
-              v-if="streetField.isTouched.value && streetField.errorMessage.value"
-              class="text-sm text-red-400"
-            >
-              {{ streetField.errorMessage.value }}
+            <div v-if="streetField.isTouched.value && streetField.errorMessage.value" class="label">
+              <span class="label-text-alt text-error">{{ streetField.errorMessage.value }}</span>
             </div>
-          </div>
+          </label>
 
           <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-2">
-              <label class="text-sm font-medium text-landing-text">City</label>
+            <label class="form-control w-full">
+              <div class="label"><span class="label-text">City</span></div>
               <input
                 v-bind="cityField.inputAttrs.value"
                 type="text"
                 placeholder="San Francisco"
                 :class="[
-                  'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-                  cityField.isTouched.value && cityField.errorMessage.value
-                    ? 'border-red-500/50 focus:border-red-500'
-                    : 'border-landing-border focus:border-vue'
+                  'input input-bordered w-full',
+                  cityField.isTouched.value && cityField.errorMessage.value && 'input-error'
                 ]"
               />
-              <div
-                v-if="cityField.isTouched.value && cityField.errorMessage.value"
-                class="text-sm text-red-400"
-              >
-                {{ cityField.errorMessage.value }}
+              <div v-if="cityField.isTouched.value && cityField.errorMessage.value" class="label">
+                <span class="label-text-alt text-error">{{ cityField.errorMessage.value }}</span>
               </div>
-            </div>
+            </label>
 
-            <div class="space-y-2">
-              <label class="text-sm font-medium text-landing-text">ZIP</label>
+            <label class="form-control w-full">
+              <div class="label"><span class="label-text">ZIP</span></div>
               <input
                 v-bind="zipField.inputAttrs.value"
                 type="text"
                 placeholder="94102"
                 :class="[
-                  'w-full px-3 py-2 rounded border bg-transparent text-landing-text placeholder:text-landing-muted/50 transition-colors',
-                  zipField.isTouched.value && zipField.errorMessage.value
-                    ? 'border-red-500/50 focus:border-red-500'
-                    : 'border-landing-border focus:border-vue'
+                  'input input-bordered w-full',
+                  zipField.isTouched.value && zipField.errorMessage.value && 'input-error'
                 ]"
               />
-              <div
-                v-if="zipField.isTouched.value && zipField.errorMessage.value"
-                class="text-sm text-red-400"
-              >
-                {{ zipField.errorMessage.value }}
+              <div v-if="zipField.isTouched.value && zipField.errorMessage.value" class="label">
+                <span class="label-text-alt text-error">{{ zipField.errorMessage.value }}</span>
               </div>
-            </div>
+            </label>
           </div>
         </div>
       </div>
@@ -148,29 +123,20 @@ const zipField = form.field("address.zip")
         <button
           type="button"
           :disabled="!form.isValid.value"
-          :class="[
-            'px-4 py-2 rounded font-medium transition-colors',
-            form.isValid.value
-              ? 'bg-vue text-white hover:bg-vue/90'
-              : 'bg-landing-border text-landing-muted cursor-not-allowed'
-          ]"
+          class="btn btn-primary"
           @click="form.submit()"
         >
           Submit
         </button>
-        <button
-          type="button"
-          class="px-4 py-2 border border-landing-border rounded text-landing-muted hover:text-landing-text hover:bg-white/5 transition-colors"
-          @click="form.reset()"
-        >
+        <button type="button" class="btn btn-ghost" @click="form.reset()">
           Reset
         </button>
       </div>
       <div class="flex items-center gap-4 text-xs">
-        <span :class="form.isDirty.value ? 'text-vue' : 'text-landing-muted/50'">
+        <span :class="form.isDirty.value ? 'text-primary' : 'text-neutral/50'">
           {{ form.isDirty.value ? "Modified" : "Unchanged" }}
         </span>
-        <span :class="form.isValid.value ? 'text-green-400' : 'text-red-400'">
+        <span :class="form.isValid.value ? 'text-success' : 'text-error'">
           {{ form.isValid.value ? "Valid" : "Invalid" }}
         </span>
       </div>

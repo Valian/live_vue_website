@@ -14,29 +14,29 @@ const hasIcon = computed(() => !!slots.icon)
 const variantClasses = computed(() => {
   switch (props.variant) {
     case 'primary':
-      return 'border-phoenix/30 bg-phoenix/5'
+      return 'border-secondary/30 bg-secondary/5'
     case 'success':
-      return 'border-vue/30 bg-vue/5'
+      return 'border-primary/30 bg-primary/5'
     default:
-      return 'border-landing-border'
+      return 'border-base-300'
   }
 })
 </script>
 
 <template>
-  <div :class="['rounded-xl border overflow-hidden', variantClasses]">
+  <div :class="['card overflow-hidden', variantClasses]">
     <!-- Header slot -->
     <div
       v-if="hasHeader || props.title"
-      class="px-6 py-4 bg-landing-elevated border-b border-landing-border"
+      class="px-6 py-4 bg-base-200 border-b border-base-300"
     >
       <div class="flex items-center gap-3">
-        <div v-if="hasIcon" class="text-landing-muted">
+        <div v-if="hasIcon" class="text-neutral">
           <slot name="icon" />
         </div>
         <div class="flex-1">
           <slot name="header">
-            <h3 v-if="props.title" class="font-medium text-landing-text">{{ props.title }}</h3>
+            <h3 v-if="props.title" class="font-medium">{{ props.title }}</h3>
           </slot>
         </div>
       </div>
@@ -45,14 +45,14 @@ const variantClasses = computed(() => {
     <!-- Default slot (main content) -->
     <div class="p-6">
       <slot>
-        <p class="text-landing-muted italic">No content provided</p>
+        <p class="text-neutral italic">No content provided</p>
       </slot>
     </div>
 
     <!-- Footer slot -->
     <div
       v-if="hasFooter"
-      class="px-6 py-4 bg-landing-elevated border-t border-landing-border"
+      class="px-6 py-4 bg-base-200 border-t border-base-300"
     >
       <slot name="footer" />
     </div>
