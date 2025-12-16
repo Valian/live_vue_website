@@ -8,6 +8,9 @@
 @source "../../lib/live_vue_website_web";
 @source "../../lib/live_vue_website/examples.ex";
 
+/* Google Fonts import - must come before all other rules except @charset and @layer */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.
    The heroicons installation itself is managed by your mix.exs */
 @plugin "../vendor/heroicons";
@@ -23,6 +26,8 @@
   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js
   We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
   on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
+/* Note: daisyUI themes include experimental CSS @property rules which may generate
+   warnings during build. These warnings are safe to ignore - the CSS functions correctly. */
 @plugin "daisyui/theme" {
   name: "dark";
   default: false;
@@ -171,9 +176,6 @@ nav[data-scrolled="true"] .nav-pill {
   0% { bottom: 20px; opacity: 1; }
   100% { bottom: calc(100% - 30px); opacity: 1; }
 }
-
-/* Google Fonts import for landing page */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
 
 /* Highlight.js theme - customized for landing page */
 .hljs {
