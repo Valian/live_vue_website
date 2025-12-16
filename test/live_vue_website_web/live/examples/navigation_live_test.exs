@@ -37,8 +37,8 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLiveTest do
       {:ok, view, _html} = live(conn, ~p"/examples/navigation")
 
       vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
-      assert vue.props["current_path"] == "/examples/navigation"
-      assert vue.props["query_params"] == %{}
+      assert vue.props["currentPath"] == "/examples/navigation"
+      assert vue.props["queryParams"] == %{}
     end
 
     test "vue component has correct name", %{conn: conn} do
@@ -55,16 +55,16 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLiveTest do
       view |> element("a[href='?tab=preview']") |> render_click()
 
       vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
-      # The tab param is filtered out, so query_params should be empty
-      assert vue.props["query_params"] == %{}
-      assert vue.props["current_path"] == "/examples/navigation"
+      # The tab param is filtered out, so queryParams should be empty
+      assert vue.props["queryParams"] == %{}
+      assert vue.props["currentPath"] == "/examples/navigation"
     end
 
     test "query params with demo param are passed to vue component", %{conn: conn} do
       {:ok, view, _html} = live(conn, ~p"/examples/navigation?demo=true")
 
       vue = LiveVue.Test.get_vue(view, name: "examples/Navigation")
-      assert vue.props["query_params"]["demo"] == "true"
+      assert vue.props["queryParams"]["demo"] == "true"
     end
   end
 end

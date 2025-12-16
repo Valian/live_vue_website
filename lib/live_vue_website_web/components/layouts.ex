@@ -143,6 +143,9 @@ defmodule LiveVueWebsiteWeb.Layouts do
                 <span class="font-serif text-xl tracking-tight">
                   <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
                 </span>
+                <span class="inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-[0.65rem] font-mono text-vue tracking-wide">
+                  v1.0
+                </span>
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"

@@ -9,11 +9,11 @@ const props = defineProps<{
 
 const { navigate, patch } = useLiveNavigation()
 
-const tabs = ['overview', 'details', 'settings']
-const selectedTab = computed(() => props.queryParams.tab || 'overview')
+const sections = ['overview', 'details', 'settings']
+const selectedSection = computed(() => props.queryParams.section || 'overview')
 
-function selectTab(tab: string) {
-  patch({ tab }, { replace: true })
+function selectSection(section: string) {
+  patch({ section }, { replace: true })
 }
 
 function goToCounter() {
@@ -41,19 +41,31 @@ function goToCounter() {
       <div class="text-sm font-medium text-neutral">
         Link Component (declarative)
       </div>
-      <div class="flex gap-2 flex-wrap">
-        <Link href="https://vuejs.org" class="btn btn-ghost">
-          href (external)
-        </Link>
-        <Link navigate="/examples/events" class="btn btn-ghost">
-          navigate (new LiveView)
-        </Link>
-        <Link :patch="`${props.currentPath}?tab=demo`" class="btn btn-ghost">
-          patch (update params)
-        </Link>
-        <Link :patch="`${props.currentPath}?tab=demo&id=123`" replace class="btn btn-ghost">
-          patch with replace
-        </Link>
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+          <Link :patch="`${props.currentPath}?filter=active`" class="btn btn-ghost btn-sm">
+            patch
+          </Link>
+          <span class="text-xs text-neutral">Updates URL params, keeps LiveView state</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <Link :patch="`${props.currentPath}?filter=active&id=123`" replace class="btn btn-ghost btn-sm">
+            patch + replace
+          </Link>
+          <span class="text-xs text-neutral">Same as patch, but replaces browser history</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <Link navigate="/examples/events" class="btn btn-ghost btn-sm">
+            navigate
+          </Link>
+          <span class="text-xs text-neutral">Navigates to Events example (new LiveView)</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <Link href="https://vuejs.org" class="btn btn-ghost btn-sm">
+            href
+          </Link>
+          <span class="text-xs text-neutral">Full page load to vuejs.org</span>
+        </div>
       </div>
     </div>
 
@@ -61,37 +73,43 @@ function goToCounter() {
       <div class="text-sm font-medium text-neutral">
         useLiveNavigation() Hook (programmatic)
       </div>
-      <div class="flex gap-2 flex-wrap">
-        <button @click="goToCounter" class="btn btn-primary">
-          navigate() to Counter
-        </button>
-        <button @click="patch({ demo: 'true' })" class="btn btn-secondary">
-          patch() with object
-        </button>
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+          <button @click="patch({ sort: 'desc', page: '2' })" class="btn btn-secondary btn-sm">
+            patch()
+          </button>
+          <span class="text-xs text-neutral">Adds sort=desc & page=2 to URL</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button @click="goToCounter" class="btn btn-primary btn-sm">
+            navigate()
+          </button>
+          <span class="text-xs text-neutral">Navigates to Counter example (new LiveView)</span>
+        </div>
       </div>
     </div>
 
     <div class="border-t border-base-300 pt-6 space-y-3">
       <div class="text-sm font-medium text-neutral">
-        Tab Navigation (patch with replace)
+        Section Navigation (patch with replace)
       </div>
       <div class="flex gap-1 p-1 bg-base-300 rounded-lg w-fit">
         <button
-          v-for="tab in tabs"
-          :key="tab"
-          @click="selectTab(tab)"
+          v-for="section in sections"
+          :key="section"
+          @click="selectSection(section)"
           :class="[
             'py-2 px-4 rounded-md text-sm font-medium transition-all capitalize',
-            selectedTab === tab
+            selectedSection === section
               ? 'bg-base-200 shadow-sm'
               : 'text-neutral hover:text-base-content'
           ]"
         >
-          {{ tab }}
+          {{ section }}
         </button>
       </div>
       <div class="p-4 rounded-lg bg-base-300">
-        <div class="text-sm capitalize">{{ selectedTab }} content goes here</div>
+        <div class="text-sm capitalize">{{ selectedSection }} content goes here</div>
       </div>
     </div>
   </div>

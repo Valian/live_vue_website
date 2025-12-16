@@ -8,8 +8,8 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationPreview do
   def render(assigns) do
     ~H"""
     <.vue
-      current_path={@current_path}
-      query_params={@query_params}
+      currentPath={@current_path}
+      queryParams={@query_params}
       v-component="examples/Navigation"
       v-socket={@socket}
     />

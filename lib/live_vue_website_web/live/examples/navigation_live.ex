@@ -142,8 +142,8 @@ defmodule LiveVueWebsiteWeb.Examples.NavigationLive do
             <div class="p-8 flex justify-center">
               <div class="w-full max-w-2xl">
                 <.vue
-                  current_path={@current_path}
-                  query_params={@query_params}
+                  currentPath={@current_path}
+                  queryParams={@query_params}
                   v-component="examples/Navigation"
                   v-socket={@socket}
                 />
