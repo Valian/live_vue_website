@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import { useLiveForm, type Form } from "live_vue"
 
 type ContactForm = {
@@ -18,6 +19,9 @@ const form = useLiveForm(() => props.form, {
 const nameField = form.field("name")
 const emailField = form.field("email")
 const consentField = form.field("consent", { type: "checkbox" })
+
+const fields = [nameField, emailField, consentField]
+const hasVisibleErrors = computed(() => fields.some((f) => f.isTouched.value && f.errorMessage.value))
 </script>
 
 <template>
@@ -74,7 +78,7 @@ const consentField = form.field("consent", { type: "checkbox" })
 
     <div class="flex items-center justify-between pt-2">
       <div class="flex items-center gap-3">
-        <button type="button" :disabled="!form.isValid.value" class="btn btn-primary" @click="form.submit()">
+        <button type="button" class="btn btn-primary" :disabled="hasVisibleErrors" @click="form.submit()">
           Submit
         </button>
         <button type="button" class="btn btn-ghost" @click="form.reset()">Reset</button>
