@@ -6,6 +6,10 @@
 @source "../js";
 @source "../vue";
 @source "../../lib/live_vue_website_web";
+@source "../../lib/live_vue_website/examples.ex";
+
+/* Google Fonts import - must come before all other rules except @charset and @layer */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
 
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.
    The heroicons installation itself is managed by your mix.exs */
@@ -22,26 +26,29 @@
   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js
   We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
   on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
+/* Note: daisyUI themes include experimental CSS @property rules which may generate
+   warnings during build. These warnings are safe to ignore - the CSS functions correctly. */
 @plugin "daisyui/theme" {
   name: "dark";
   default: false;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(30.33% 0.016 252.42);
-  --color-base-200: oklch(25.26% 0.014 253.1);
-  --color-base-300: oklch(20.15% 0.012 254.09);
-  --color-base-content: oklch(97.807% 0.029 256.847);
-  --color-primary: oklch(58% 0.233 277.117);
-  --color-primary-content: oklch(96% 0.018 272.314);
-  --color-secondary: oklch(58% 0.233 277.117);
-  --color-secondary-content: oklch(96% 0.018 272.314);
-  --color-accent: oklch(60% 0.25 292.717);
-  --color-accent-content: oklch(96% 0.016 293.756);
-  --color-neutral: oklch(37% 0.044 257.287);
-  --color-neutral-content: oklch(98% 0.003 247.858);
+  /* Maps to landing-* colors for examples pages */
+  --color-base-100: oklch(13% 0.01 270);       /* ~#0f0f15 landing-bg */
+  --color-base-200: oklch(16% 0.01 270);       /* ~#16161f landing-elevated */
+  --color-base-300: oklch(19% 0.01 270);       /* ~#1a1a24 landing-card */
+  --color-base-content: oklch(96% 0.01 270);   /* ~#f0f0f5 landing-text */
+  --color-primary: oklch(64% 0.14 163);        /* ~#42b883 vue green */
+  --color-primary-content: oklch(98% 0.01 163);
+  --color-secondary: oklch(62% 0.23 38);       /* ~#FD4F00 phoenix orange */
+  --color-secondary-content: oklch(98% 0.02 38);
+  --color-accent: oklch(64% 0.14 163);         /* same as primary for consistency */
+  --color-accent-content: oklch(98% 0.01 163);
+  --color-neutral: oklch(55% 0.02 270);        /* ~#8888a0 landing-muted */
+  --color-neutral-content: oklch(96% 0.01 270);
   --color-info: oklch(58% 0.158 241.966);
   --color-info-content: oklch(97% 0.013 236.62);
-  --color-success: oklch(60% 0.118 184.704);
+  --color-success: oklch(64% 0.14 163);        /* vue green */
   --color-success-content: oklch(98% 0.014 180.72);
   --color-warning: oklch(66% 0.179 58.318);
   --color-warning-content: oklch(98% 0.022 95.277);
@@ -49,10 +56,10 @@
   --color-error-content: oklch(96% 0.015 12.422);
   --radius-selector: 0.25rem;
   --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
+  --radius-box: 0.75rem;
   --size-selector: 0.21875rem;
   --size-field: 0.21875rem;
-  --border: 1.5px;
+  --border: 1px;
   --depth: 1;
   --noise: 0;
 }
@@ -66,17 +73,17 @@
   --color-base-200: oklch(96% 0.001 286.375);
   --color-base-300: oklch(92% 0.004 286.32);
   --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: oklch(70% 0.213 47.604);
-  --color-primary-content: oklch(98% 0.016 73.684);
-  --color-secondary: oklch(55% 0.027 264.364);
-  --color-secondary-content: oklch(98% 0.002 247.839);
-  --color-accent: oklch(0% 0 0);
-  --color-accent-content: oklch(100% 0 0);
+  --color-primary: oklch(64% 0.14 163);        /* ~#42b883 vue green */
+  --color-primary-content: oklch(98% 0.01 163);
+  --color-secondary: oklch(62% 0.23 38);       /* ~#FD4F00 phoenix orange */
+  --color-secondary-content: oklch(98% 0.02 38);
+  --color-accent: oklch(64% 0.14 163);
+  --color-accent-content: oklch(98% 0.01 163);
   --color-neutral: oklch(44% 0.017 285.786);
   --color-neutral-content: oklch(98% 0 0);
   --color-info: oklch(62% 0.214 259.815);
   --color-info-content: oklch(97% 0.014 254.604);
-  --color-success: oklch(70% 0.14 182.503);
+  --color-success: oklch(64% 0.14 163);        /* vue green */
   --color-success-content: oklch(98% 0.014 180.72);
   --color-warning: oklch(66% 0.179 58.318);
   --color-warning-content: oklch(98% 0.022 95.277);
@@ -84,10 +91,10 @@
   --color-error-content: oklch(96% 0.015 12.422);
   --radius-selector: 0.25rem;
   --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
+  --radius-box: 0.75rem;
   --size-selector: 0.21875rem;
   --size-field: 0.21875rem;
-  --border: 1.5px;
+  --border: 1px;
   --depth: 1;
   --noise: 0;
 }
@@ -135,8 +142,19 @@
 }
 
 @keyframes bounce-scroll {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Scroll-aware navbar pill */
+.nav-pill {
+  border: 1px solid transparent;
+}
+nav[data-scrolled="true"] .nav-pill {
+  background-color: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(12px);
+  border-color: rgba(42, 42, 58, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes spin-slow {
@@ -158,9 +176,6 @@
   0% { bottom: 20px; opacity: 1; }
   100% { bottom: calc(100% - 30px); opacity: 1; }
 }
-
-/* Google Fonts import for landing page */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
 
 /* Highlight.js theme - customized for landing page */
 .hljs {

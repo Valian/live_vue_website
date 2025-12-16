@@ -20,6 +20,18 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/", LandingLive
     live "/examples", ExamplesLive
     live "/examples/counter", Examples.CounterLive
+    live "/examples/events", Examples.EventsLive
+    live "/examples/server-events", Examples.ServerEventsLive
+    live "/examples/navigation", Examples.NavigationLive
+    live "/examples/ssr-control", Examples.SsrControlLive
+    live "/examples/connection-status", Examples.ConnectionStatusLive
+    live "/examples/slots", Examples.SlotsLive
+    live "/examples/simple-form", Examples.SimpleFormLive
+    live "/examples/nested-form", Examples.NestedFormLive
+    live "/examples/array-form", Examples.ArrayFormLive
+    live "/examples/encoder", Examples.EncoderLive
+    live "/examples/streams", Examples.StreamsLive
+    live "/examples/file-upload", Examples.FileUploadLive
   end
 
   # Other scopes may use custom stacks.
@@ -40,7 +52,6 @@ defmodule LiveVueWebsiteWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: LiveVueWebsiteWeb.Telemetry
-      live "/vue_demo", LiveVueWebsiteWeb.VueDemoLive
     end
   end
 end

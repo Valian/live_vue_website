@@ -48,7 +48,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
         <h2 class="text-sm font-medium uppercase tracking-wider text-landing-muted mb-4">
           What this example shows
         </h2>
-        <div class="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
+        <div class="grid grid-cols-4 gap-4 max-sm:grid-cols-1 max-md:grid-cols-2">
           <div class="flex gap-3">
             <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono font-bold">
               1
@@ -74,6 +74,15 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
             <div>
               <div class="font-medium text-landing-text text-sm">Phoenix Events</div>
               <div class="text-xs text-landing-muted">phx-click in Vue template</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="shrink-0 w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono font-bold">
+              4
+            </div>
+            <div>
+              <div class="font-medium text-landing-text text-sm">Vue Transitions</div>
+              <div class="text-xs text-landing-muted">&lt;Transition&gt; on prop changes</div>
             </div>
           </div>
         </div>
@@ -160,7 +169,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
         <h2 class="font-serif text-2xl tracking-tight">How it works</h2>
 
         <div class="grid gap-4">
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 1
@@ -177,7 +186,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
             } />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
                 2
@@ -192,7 +201,7 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
             <.example_snippet language="javascript" code="const diff = ref(1)  // Local Vue state" />
           </div>
 
-          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl">
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
             <h3 class="flex items-center gap-2 font-medium mb-3">
               <span class="w-6 h-6 flex items-center justify-center rounded bg-phoenix/10 text-phoenix text-xs font-mono">
                 3
@@ -212,6 +221,27 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
               code={~s|<button phx-click="inc" :phx-value-diff="diff">+{{ diff }}</button>|}
             />
           </div>
+
+          <div class="p-6 bg-landing-card/50 border border-landing-border rounded-xl overflow-hidden">
+            <h3 class="flex items-center gap-2 font-medium mb-3">
+              <span class="w-6 h-6 flex items-center justify-center rounded bg-vue/10 text-vue text-xs font-mono">
+                4
+              </span>
+              Vue transitions on server updates
+            </h3>
+            <p class="text-landing-muted text-sm leading-relaxed mb-3">
+              Vue's <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">&lt;Transition&gt;</code>
+              component animates when props change from the server. The
+              <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">:key</code>
+              binding triggers the transition on each value change.
+            </p>
+            <.example_snippet
+              language="vue"
+              code={~s|<Transition name="count" mode="out-in">
+    <div :key="props.count">{{ props.count }}</div>
+    </Transition>|}
+            />
+          </div>
         </div>
       </section>
 
@@ -219,9 +249,11 @@ defmodule LiveVueWebsiteWeb.Examples.CounterLive do
       <section class="mt-12 pt-8 border-t border-landing-border">
         <div class="flex items-center justify-between">
           <div class="text-landing-muted text-sm">
-            Next up: Animated Counter with Vue transitions
+            Next up: Event Handling
           </div>
-          <span class="text-landing-muted/50 text-sm">Coming soon</span>
+          <.link navigate="/examples/events" class="text-vue hover:underline text-sm">
+            View example →
+          </.link>
         </div>
       </section>
     </Layouts.examples>

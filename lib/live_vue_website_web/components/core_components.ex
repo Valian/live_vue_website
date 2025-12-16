@@ -508,9 +508,16 @@ defmodule LiveVueWebsiteWeb.CoreComponents do
   attr :language, :string, default: "elixir", doc: "language for syntax highlighting"
 
   def example_snippet(assigns) do
+    # Convert escape sequences to actual newlines
+    processed_code = String.replace(assigns.code, "\\n", "\n")
+    assigns = assign(assigns, :code, processed_code)
+
     ~H"""
-    <div phx-hook="Highlight" id={"snippet-#{:erlang.phash2(@code)}"}>
-      <pre class={["font-mono text-xs bg-landing-elevated p-3 rounded-lg overflow-x-auto", @class]}><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
+    <div
+      phx-hook="Highlight"
+      id={"snippet-#{:erlang.phash2(@code)}"}
+    >
+      <pre class={["font-mono text-xs bg-landing-elevated p-3 overflow-x-auto", @class]}><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
     </div>
     """
   end

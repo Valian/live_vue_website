@@ -4,9 +4,58 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="LiveVueWebsite" suffix=" · Phoenix Framework">
+    <.live_title default="LiveVue – Vue Components in Phoenix LiveView">
       {assigns[:page_title]}
     </.live_title>
+    <%!-- Favicon links --%>
+    <link rel="icon" type="image/x-icon" href={~p"/images/favicon.ico"} />
+    <link rel="icon" type="image/png" sizes="192x192" href={~p"/images/favicon-192.png"} />
+    <link rel="icon" type="image/png" sizes="512x512" href={~p"/images/favicon-512.png"} />
+    <link rel="apple-touch-icon" href={~p"/images/apple-touch-icon.png"} />
+    <%!-- Basic meta tags --%>
+    <meta
+      name="description"
+      content={
+        assigns[:page_description] ||
+          "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command. Use Vue components seamlessly within LiveView."
+      }
+    />
+    <link rel="canonical" href={assigns[:canonical_url] || "https://live-vue.com"} />
+    <%!-- Open Graph tags --%>
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content={assigns[:page_title] || "LiveVue – Vue Components in Phoenix LiveView"}
+    />
+    <meta
+      property="og:description"
+      content={
+        assigns[:page_description] ||
+          "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command."
+      }
+    />
+    <meta property="og:url" content={assigns[:canonical_url] || "https://live-vue.com"} />
+    <meta property="og:image" content={~p"/images/live_vue_logo_v.png"} />
+    <meta property="og:site_name" content="LiveVue" />
+    <%!-- Twitter Card tags --%>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@jskalc" />
+    <meta name="twitter:creator" content="@jskalc" />
+    <meta
+      name="twitter:title"
+      content={assigns[:page_title] || "LiveVue – Vue Components in Phoenix LiveView"}
+    />
+    <meta
+      name="twitter:description"
+      content={
+        assigns[:page_description] ||
+          "The missing Vue bridge for Phoenix LiveView. Full reactivity. No API layer. One install command."
+      }
+    />
+    <meta
+      name="twitter:image"
+      content={assigns[:og_image] || "https://live-vue.com/images/live_vue_og.png"}
+    />
     <PhoenixVite.Components.assets
       names={["js/app.js", "css/app.css"]}
       manifest={{:live_vue_website, "priv/static/.vite/manifest.json"}}
@@ -28,7 +77,7 @@
           setTheme(localStorage.getItem("phx:theme") || "system");
         }
         window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
-        
+
         window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
       })();
     </script>

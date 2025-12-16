@@ -1,6 +1,7 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*), Bash(git log:*)
 description: Create git commit(s) for current changes
+model: claude-haiku-4-5-20251001
 ---
 
 ## Context

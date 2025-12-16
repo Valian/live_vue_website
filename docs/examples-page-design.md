@@ -85,7 +85,7 @@ Each route is a separate LiveView module for:
 **Side navigation with categories**
 
 Categories:
-1. **Getting Started** - Counter, Animated Counter
+1. **Getting Started** - Counter
 2. **Events** - Phoenix events, Vue events, Server events
 3. **Navigation** - Link component, programmatic navigation
 4. **Forms** - Simple form, nested objects, dynamic arrays
@@ -100,25 +100,39 @@ Categories:
 - Visual grid/list of all examples with descriptions
 - Or redirects to first example (TBD)
 
-## Example Priority
+## Implementation Status
 
-### Phase 1 (MVP)
-1. Counter with transitions
-2. Events demo (pushEvent, phx-click)
-3. Simple form with validation
-4. Basic file upload
+### Implemented (status: :ready)
 
-### Phase 2
-5. Navigation demo
-6. Phoenix Streams
-7. Server events (useLiveEvent)
-8. Dynamic array form
+| Example | Route | LiveVue Features | Files |
+|---------|-------|------------------|-------|
+| **Counter** | `/examples/counter` | Props, phx-click, local Vue state, `<Transition>` | `counter_live.ex`, `counter_preview.ex`, `Counter.vue` |
+| **Event Handling** | `/examples/events` | `pushEvent()`, `useLiveVue()`, `$live` template access | `events_live.ex`, `events_preview.ex`, `Events.vue` |
+| **Server Events** | `/examples/server-events` | `push_event/3` (server), `useLiveEvent()` (client) | `server_events_live.ex`, `server_events_preview.ex`, `ServerEvents.vue` |
+| **Navigation** | `/examples/navigation` | `Link` component (href/navigate/patch), `useLiveNavigation()` | `navigation_live.ex`, `navigation_preview.ex`, `Navigation.vue` |
+| **SSR Control** | `/examples/ssr-control` | `v-ssr={false}`, `onMounted()` for client detection | `ssr_control_live.ex`, `ssr_control_preview.ex`, `SsrControl.vue` |
+| **Connection Status** | `/examples/connection-status` | `useLiveConnection()`, WebSocket state tracking | `connection_status_live.ex`, `connection_status_preview.ex`, `ConnectionStatus.vue` |
+| **Slots** | `/examples/slots` | Default/named slots, HEEx content in Vue | `slots_live.ex`, `slots_preview.ex`, `Slots.vue` |
 
-### Phase 3
-9. Complex nested form
-10. Custom struct encoding
-11. Connection status
-12. Slots demo
+### Not Yet Implemented (status: :coming_soon)
+
+| Example | Category | LiveVue Features | Complexity |
+|---------|----------|------------------|------------|
+| **Simple Form** | Forms | `useLiveForm()`, Ecto validation | Medium |
+| **Nested Objects** | Forms | Nested field paths (dot notation) | Medium |
+| **Dynamic Arrays** | Forms | `fieldArray()` with add/remove/move | Medium-High |
+| **File Upload** | Uploads | `useLiveUpload()`, progress, drag & drop | Medium |
+| **Phoenix Streams** | Real-time | `stream()` integration | Medium |
+
+### Suggested Next Examples (by complexity)
+
+**Medium complexity:**
+1. **Simple Form** - `useLiveForm()` with basic Ecto changeset
+2. **File Upload** - `useLiveUpload()` with `allow_upload` on server
+
+**Higher complexity:**
+3. **Phoenix Streams** - Requires understanding of LiveView streams
+4. **Dynamic Arrays** - `fieldArray()` with complex form state
 
 ## File Structure
 
@@ -225,3 +239,36 @@ Shared components (defined in `core_components.ex` or `layouts.ex`):
 - `Layouts.examples` - Side nav + content area layout
 - `.example_code` - Syntax highlighted code block with filename header
 - `.example_snippet` - Inline code snippet for explanations
+
+## Implementation Notes
+
+### Key Patterns Discovered
+
+**Child LiveView limitations:**
+- Preview components are rendered via `live_render/3` as child LiveViews
+- Child LiveViews **cannot** use `handle_params/3` - only root LiveViews receive URL params
+- For previews that need URL-like state, use `handle_event` with client-side callbacks instead
+
+**Props naming:**
+- Props passed from Elixir use snake_case (e.g., `notification_count`)
+- `LiveVue.Test.get_vue/2` returns props with snake_case keys
+- Vue components receive props as-is (no automatic camelCase conversion)
+
+**Testing patterns:**
+- Use `LiveVue.Test.get_vue(view, name: "examples/ComponentName")` to inspect Vue props
+- For child LiveViews, use `find_live_child(view, "preview-id")` then `render_hook`
+- HTML content assertions work for SSR-rendered content
+
+### Reference Files
+
+When implementing a new example, use these as templates:
+- **Simple example:** `counter_live.ex`, `counter_preview.ex`, `Counter.vue`
+- **With server events:** `server_events_live.ex`, `server_events_preview.ex`, `ServerEvents.vue`
+- **With client hooks:** `navigation_live.ex`, `navigation_preview.ex`, `Navigation.vue`
+
+### LiveVue Source Reference
+
+Full LiveVue source code is available at `deps/live_vue/` including:
+- `lib/live_vue.ex` - Main module, `vue` component
+- `assets/js/live_vue/` - JavaScript composables (`useLiveVue`, `useLiveEvent`, etc.)
+- `lib/live_vue/test.ex` - Test helpers

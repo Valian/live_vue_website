@@ -26,3 +26,7 @@ config :phoenix, :plug_init_mode, :runtime
 # Enable helpful, but potentially expensive runtime checks
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
+
+# Disable props diff for easier testing - always send full props
+config :live_vue,
+  enable_props_diff: false
