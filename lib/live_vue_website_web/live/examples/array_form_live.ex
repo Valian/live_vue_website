@@ -236,7 +236,9 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
           <div class="text-landing-muted text-sm">
             Next up: File uploads with useLiveUpload()
           </div>
-          <span class="text-landing-muted/50 text-sm">Coming soon</span>
+          <.link navigate="/examples/file-upload" class="text-vue hover:underline text-sm">
+            View example →
+          </.link>
         </div>
       </section>
     </Layouts.examples>

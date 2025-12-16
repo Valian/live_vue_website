@@ -246,7 +246,9 @@ defmodule LiveVueWebsiteWeb.Examples.SlotsLive do
           <div class="text-landing-muted text-sm">
             Next up: Simple Form with useLiveForm()
           </div>
-          <span class="text-landing-muted/50 text-sm">Coming soon</span>
+          <.link navigate="/examples/simple-form" class="text-vue hover:underline text-sm">
+            View example →
+          </.link>
         </div>
       </section>
     </Layouts.examples>

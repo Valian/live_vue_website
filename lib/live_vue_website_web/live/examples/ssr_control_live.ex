@@ -232,7 +232,9 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
           <div class="text-landing-muted text-sm">
             Next up: Slots for composable components
           </div>
-          <span class="text-landing-muted/50 text-sm">Coming soon</span>
+          <.link navigate="/examples/slots" class="text-vue hover:underline text-sm">
+            View example →
+          </.link>
         </div>
       </section>
     </Layouts.examples>

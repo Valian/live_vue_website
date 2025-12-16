@@ -242,7 +242,9 @@ defmodule LiveVueWebsiteWeb.Examples.EventsLive do
           <div class="text-landing-muted text-sm">
             Next up: Server Events with useLiveEvent()
           </div>
-          <span class="text-landing-muted/50 text-sm">Coming soon</span>
+          <.link navigate="/examples/server-events" class="text-vue hover:underline text-sm">
+            View example →
+          </.link>
         </div>
       </section>
     </Layouts.examples>
