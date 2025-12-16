@@ -22,9 +22,9 @@ const consentField = form.field("consent", { type: "checkbox" })
 
 <template>
   <div class="card bg-base-200 p-6 space-y-6">
-    <div class="space-y-8">
+    <div class="flex flex-col gap-6">
       <label class="form-control w-full">
-        <div class="label"><span class="label-text">Name</span></div>
+        <div class="label pb-2"><span class="label-text font-medium">Name</span></div>
         <input
           v-bind="nameField.inputAttrs.value"
           type="text"
@@ -40,7 +40,7 @@ const consentField = form.field("consent", { type: "checkbox" })
       </label>
 
       <label class="form-control w-full">
-        <div class="label"><span class="label-text">Email</span></div>
+        <div class="label pb-2"><span class="label-text font-medium">Email</span></div>
         <input
           v-bind="emailField.inputAttrs.value"
           type="email"
@@ -55,7 +55,7 @@ const consentField = form.field("consent", { type: "checkbox" })
         </div>
       </label>
 
-      <div class="form-control">
+      <div class="form-control pt-2">
         <label class="label cursor-pointer justify-start gap-3">
           <input
             v-bind="consentField.inputAttrs.value"
@@ -64,7 +64,7 @@ const consentField = form.field("consent", { type: "checkbox" })
               consentField.isTouched.value && consentField.errorMessage.value && 'checkbox-error',
             ]"
           />
-          <span class="label-text text-neutral">I consent to the processing of my personal data</span>
+          <span class="label-text">I consent to the processing of my personal data</span>
         </label>
         <div v-if="consentField.isTouched.value && consentField.errorMessage.value" class="label pt-0">
           <span class="label-text-alt text-error">{{ consentField.errorMessage.value }}</span>

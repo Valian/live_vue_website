@@ -24,9 +24,9 @@ const tagsArray = form.fieldArray("tags")
 
 <template>
   <div class="card bg-base-200 p-6 space-y-6">
-    <div class="space-y-4">
+    <div class="flex flex-col gap-6">
       <label class="form-control w-full">
-        <div class="label"><span class="label-text">Title</span></div>
+        <div class="label pb-2"><span class="label-text font-medium">Title</span></div>
         <input
           v-bind="titleField.inputAttrs.value"
           type="text"
@@ -42,8 +42,8 @@ const tagsArray = form.fieldArray("tags")
       </label>
 
       <div class="pt-4 border-t border-base-300">
-        <div class="flex items-center justify-between mb-3">
-          <div class="text-sm font-medium text-neutral">Tags</div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-sm font-medium">Tags</div>
           <button
             type="button"
             class="btn btn-xs btn-primary btn-outline"
@@ -53,13 +53,13 @@ const tagsArray = form.fieldArray("tags")
           </button>
         </div>
 
-        <div class="space-y-2">
+        <div class="space-y-3">
           <div
             v-for="(tagField, index) in tagsArray.fields.value"
             :key="index"
             class="flex gap-2 items-start"
           >
-            <div class="flex-1">
+            <label class="form-control flex-1">
               <input
                 v-bind="tagField.field('name').inputAttrs.value"
                 type="text"
@@ -71,15 +71,16 @@ const tagsArray = form.fieldArray("tags")
               />
               <div
                 v-if="tagField.field('name').isTouched.value && tagField.field('name').errorMessage.value"
-                class="label pt-1"
+                class="label"
               >
                 <span class="label-text-alt text-error">{{ tagField.field('name').errorMessage.value }}</span>
               </div>
-            </div>
+            </label>
             <button
               type="button"
-              class="btn btn-ghost btn-sm text-neutral hover:text-error shrink-0"
+              class="btn btn-square btn-ghost btn-sm shrink-0 mt-0.5"
               @click="tagsArray.remove(index)"
+              title="Remove tag"
             >
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -92,7 +93,7 @@ const tagsArray = form.fieldArray("tags")
           </div>
           <div
             v-if="tagsArray.fields.value.length === 0"
-            class="text-sm text-neutral/50 py-4 text-center border border-dashed border-base-300 rounded"
+            class="text-sm text-neutral/50 py-8 text-center border border-dashed border-base-300 rounded-lg"
           >
             No tags yet. Click "Add Tag" to start.
           </div>

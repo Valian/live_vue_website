@@ -28,9 +28,9 @@ const zipField = form.field("address.zip")
 
 <template>
   <div class="card bg-base-200 p-6 space-y-6">
-    <div class="space-y-4">
+    <div class="flex flex-col gap-6">
       <label class="form-control w-full">
-        <div class="label"><span class="label-text">Name</span></div>
+        <div class="label pb-2"><span class="label-text font-medium">Name</span></div>
         <input
           v-bind="nameField.inputAttrs.value"
           type="text"
@@ -46,7 +46,7 @@ const zipField = form.field("address.zip")
       </label>
 
       <label class="form-control w-full">
-        <div class="label"><span class="label-text">Email</span></div>
+        <div class="label pb-2"><span class="label-text font-medium">Email</span></div>
         <input
           v-bind="emailField.inputAttrs.value"
           type="email"
@@ -62,11 +62,11 @@ const zipField = form.field("address.zip")
       </label>
 
       <div class="pt-4 border-t border-base-300">
-        <div class="text-sm font-medium text-neutral mb-3">Address</div>
+        <div class="text-sm font-medium mb-4">Address</div>
 
-        <div class="space-y-4">
+        <div class="flex flex-col gap-6">
           <label class="form-control w-full">
-            <div class="label"><span class="label-text">Street</span></div>
+            <div class="label pb-2"><span class="label-text font-medium">Street</span></div>
             <input
               v-bind="streetField.inputAttrs.value"
               type="text"
@@ -83,7 +83,7 @@ const zipField = form.field("address.zip")
 
           <div class="grid grid-cols-2 gap-4">
             <label class="form-control w-full">
-              <div class="label"><span class="label-text">City</span></div>
+              <div class="label pb-2"><span class="label-text font-medium">City</span></div>
               <input
                 v-bind="cityField.inputAttrs.value"
                 type="text"
@@ -99,7 +99,7 @@ const zipField = form.field("address.zip")
             </label>
 
             <label class="form-control w-full">
-              <div class="label"><span class="label-text">ZIP</span></div>
+              <div class="label pb-2"><span class="label-text font-medium">ZIP</span></div>
               <input
                 v-bind="zipField.inputAttrs.value"
                 type="text"
