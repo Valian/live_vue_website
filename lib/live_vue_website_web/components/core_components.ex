@@ -467,7 +467,7 @@ defmodule LiveVueWebsiteWeb.CoreComponents do
     assigns = assign_new(assigns, :id, fn -> "code-#{assigns.language}" end)
 
     ~H"""
-    <div class="relative">
+    <div class="relative overflow-hidden">
       <div class="flex items-center gap-3 py-3 px-4 bg-landing-elevated border-b border-landing-border">
         <span class={[
           "w-2 h-2 rounded-full",
@@ -487,7 +487,7 @@ defmodule LiveVueWebsiteWeb.CoreComponents do
           </svg>
         </button>
       </div>
-      <div id={@id} phx-hook="Highlight" class="p-4 overflow-x-auto">
+      <div id={@id} phx-hook="Highlight" class="p-4 overflow-x-auto max-w-full">
         <pre class="font-mono text-sm leading-relaxed"><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
       </div>
     </div>
@@ -513,8 +513,8 @@ defmodule LiveVueWebsiteWeb.CoreComponents do
     assigns = assign(assigns, :code, processed_code)
 
     ~H"""
-    <div phx-hook="Highlight" id={"snippet-#{:erlang.phash2(@code)}"}>
-      <pre class={["font-mono text-xs bg-landing-elevated p-3 rounded-lg overflow-x-auto", @class]}><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
+    <div phx-hook="Highlight" id={"snippet-#{:erlang.phash2(@code)}"} class="overflow-hidden rounded-lg">
+      <pre class={["font-mono text-xs bg-landing-elevated p-3 overflow-x-auto max-w-full", @class]}><code class={"language-#{@language}"} phx-no-format>{@code}</code></pre>
     </div>
     """
   end

@@ -209,7 +209,7 @@ defmodule LiveVueWebsiteWeb.Examples.ArrayFormLive do
             </p>
             <.example_snippet
               language="vue"
-              code={"<div v-for=\"(tagField, index) in tagsArray.fields.value\" :key=\"index\">\n  <input v-bind=\"tagField.field('name').inputAttrs.value\" />\n  <div v-if=\"tagField.field('name').errorMessage.value\">\n    {{ tagField.field('name').errorMessage.value }}\n  </div>\n  <button @click=\"tagsArray.remove(index)\">Remove</button>\n</div>"}
+              code={"<div v-for=\"(tagField, index)\n     in tagsArray.fields.value\"\n     :key=\"index\">\n  <input v-bind=\"tagField\n    .field('name')\n    .inputAttrs.value\" />\n  <div v-if=\"tagField\n    .field('name')\n    .errorMessage.value\">\n    {{\n      tagField\n        .field('name')\n        .errorMessage.value\n    }}\n  </div>\n  <button @click=\"\n    tagsArray.remove(index)\n  \">Remove</button>\n</div>"}
             />
           </div>
 

@@ -198,7 +198,7 @@ defmodule LiveVueWebsiteWeb.Examples.EncoderLive do
             </p>
             <.example_snippet
               language="elixir"
-              code="defimpl LiveVue.Encoder, for: UserProfile do\n  def encode(profile, opts) do\n    avatar_url =\n      case Keyword.get(opts, :avatar) do\n        :original -> profile.avatar_original_url\n        _ -> profile.avatar_url\n      end\n\n    %{name: profile.name, avatar_url: avatar_url, ...}\n    |> LiveVue.Encoder.encode(opts)\n  end\nend"
+              code="defimpl LiveVue.Encoder, for: UserProfile do\n  def encode(profile, opts) do\n    avatar_url =\n      if Keyword.get(opts, :avatar) == :original,\n        do: profile.avatar_original_url,\n        else: profile.avatar_url\n\n    %{\n      name: profile.name,\n      avatar_url: avatar_url,\n      business: encode(profile.business, opts)\n    }\n  end\nend"
             />
           </div>
 

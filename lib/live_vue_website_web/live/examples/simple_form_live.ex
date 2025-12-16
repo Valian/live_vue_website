@@ -294,7 +294,7 @@ defmodule LiveVueWebsiteWeb.Examples.SimpleFormLive do
               This tells <code class="text-vue bg-vue/10 px-1.5 py-0.5 rounded">useLiveForm()</code>
               to clear the client-side touched state, preventing validation errors from showing on the fresh form.
             </p>
-            <.example_snippet code={"def handle_event(\"submit\", %{\"contact\" => params}, socket) do\n  changeset = changeset(params) |> Map.put(:action, :insert)\n\n  if changeset.valid? do\n    # Reply with reset: true to clear touched state\n    {:reply, %{reset: true},\n     socket\n     |> assign(form: to_form(changeset(%{}), as: :contact))}\n  else\n    {:noreply, assign(socket, form: to_form(changeset, as: :contact))}\n  end\nend"} />
+            <.example_snippet code={"def handle_event(\"submit\", params, socket) do\n  %{\"contact\" => form_params} = params\n  changeset = changeset(form_params)\n              |> Map.put(:action, :insert)\n\n  if changeset.valid? do\n    # Reply with reset: true to clear touched state\n    new_form = to_form(\n      changeset(%{}),\n      as: :contact\n    )\n    {:reply, %{reset: true},\n     assign(socket, form: new_form)}\n  else\n    {:noreply,\n     assign(socket,\n      form: to_form(changeset, as: :contact))}\n  end\nend"} />
           </div>
         </div>
       </section>

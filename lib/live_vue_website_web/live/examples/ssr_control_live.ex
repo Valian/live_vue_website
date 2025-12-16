@@ -205,7 +205,7 @@ defmodule LiveVueWebsiteWeb.Examples.SsrControlLive do
             </p>
             <.example_snippet
               language="javascript"
-              code={~s|const userAgent = typeof window !== 'undefined' ? navigator.userAgent : 'SSR'|}
+              code={~s|const userAgent =\n  typeof window !== 'undefined'\n    ? navigator.userAgent\n    : 'SSR'|}
             />
           </div>
 

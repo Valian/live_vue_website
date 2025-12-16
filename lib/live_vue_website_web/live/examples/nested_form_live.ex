@@ -207,7 +207,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
             </p>
             <.example_snippet
               language="javascript"
-              code={"// Dot notation\nconst cityField = form.field(\"address.city\")\n\n// Or chain .field() calls\nconst addressField = form.field(\"address\")\nconst cityField = addressField.field(\"city\")"}
+              code={"// Dot notation\nconst cityField = form.field(\n  \"address.city\"\n)\n\n// Or chain .field() calls\nconst addressField = form.field(\n  \"address\"\n)\nconst cityField = addressField\n  .field(\"city\")"}
             />
           </div>
 
@@ -226,7 +226,7 @@ defmodule LiveVueWebsiteWeb.Examples.NestedFormLive do
             </p>
             <.example_snippet
               language="vue"
-              code={"<input v-bind=\"cityField.inputAttrs.value\" type=\"text\" />\n<div v-if=\"cityField.errorMessage.value\">\n  {{ cityField.errorMessage.value }}\n</div>"}
+              code={"<input v-bind=\"cityField\n  .inputAttrs.value\"\n       type=\"text\" />\n<div v-if=\"cityField\n  .errorMessage.value\">\n  {{\n    cityField\n      .errorMessage.value\n  }}\n</div>"}
             />
           </div>
         </div>
