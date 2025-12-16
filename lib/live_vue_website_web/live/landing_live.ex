@@ -110,7 +110,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               href="/"
               class="flex items-center gap-3 font-serif text-[1.5rem] no-underline tracking-tight"
             >
-              <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-9 w-9" />
+              <img src={~p"/images/live_vue_logo_v_64.png"} alt="" class="h-9 w-9" />
               <span class="hidden sm:inline">
                 <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
               </span>
@@ -216,6 +216,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             <div class="flex items-center gap-2 py-3 px-4 bg-landing-elevated border border-landing-border rounded-lg w-fit">
               <code class="font-mono text-sm text-vue">mix igniter.install live_vue</code>
               <button
+                aria-label="Copy install command to clipboard"
                 class="bg-none border-none p-1 cursor-pointer text-landing-muted transition-colors flex items-center hover:text-landing-text"
                 onclick="navigator.clipboard.writeText('mix igniter.install live_vue')"
               >
@@ -800,7 +801,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       <footer class="py-12 px-[clamp(1.5rem,5vw,4rem)] border-t border-landing-border">
         <div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
           <div class="flex items-center gap-2 font-serif text-xl">
-            <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-8 w-8" />
+            <img src={~p"/images/live_vue_logo_v_64.png"} alt="" class="h-8 w-8" />
             <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
           </div>
           <div class="flex flex-wrap justify-center gap-4 sm:gap-8">

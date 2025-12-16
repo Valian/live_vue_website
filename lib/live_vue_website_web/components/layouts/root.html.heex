@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -62,27 +62,10 @@
       dev_server={PhoenixVite.Components.has_vite_watcher?(LiveVueWebsiteWeb.Endpoint)}
       to_url={fn p -> static_url(@conn, p) end}
     />
-    <script>
-      (() => {
-        const setTheme = (theme) => {
-          if (theme === "system") {
-            localStorage.removeItem("phx:theme");
-            document.documentElement.removeAttribute("data-theme");
-          } else {
-            localStorage.setItem("phx:theme", theme);
-            document.documentElement.setAttribute("data-theme", theme);
-          }
-        };
-        if (!document.documentElement.hasAttribute("data-theme")) {
-          setTheme(localStorage.getItem("phx:theme") || "system");
-        }
-        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
-
-        window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
-      })();
-    </script>
   </head>
   <body>
-    {@inner_content}
+    <main>
+      {@inner_content}
+    </main>
   </body>
 </html>

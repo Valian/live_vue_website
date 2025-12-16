@@ -66,10 +66,12 @@ function reset() {
           <span class="font-mono font-semibold text-vue bg-vue/10 py-0.5 px-2 rounded">{{ diff }}</span>
         </label>
         <input
+          id="increment-diff"
           v-model.number="diff"
           type="range"
           min="1"
           max="10"
+          aria-label="Increment amount"
           class="w-full h-1.5 bg-[rgba(26,26,36,0.9)] rounded-sm outline-none cursor-pointer appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-vue [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-[0_2px_8px_rgba(66,184,131,0.3)] [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-200 hover:[&::-webkit-slider-thumb]:scale-115 hover:[&::-webkit-slider-thumb]:shadow-[0_4px_16px_rgba(66,184,131,0.3)] [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:bg-vue [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-[0_2px_8px_rgba(66,184,131,0.3)]"
         />
         <div class="font-mono text-[0.6rem] text-landing-muted text-center">
