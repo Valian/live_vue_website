@@ -43,6 +43,9 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Build assets
+        run: mix assets.build
+
       - name: Check formatting
         run: mix format --check-formatted
 
