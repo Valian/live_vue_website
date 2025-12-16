@@ -16,7 +16,7 @@ const props = defineProps<{ form: Form<ProfileForm>; submitted: ProfileForm | nu
 const form = useLiveForm(() => props.form, {
   changeEvent: "validate",
   submitEvent: "submit",
-  debounceInMiliseconds: 300
+  debounceInMiliseconds: 300,
 })
 
 const nameField = form.field("name")
@@ -37,7 +37,7 @@ const zipField = form.field("address.zip")
           placeholder="Your name"
           :class="[
             'input input-bordered w-full',
-            nameField.isTouched.value && nameField.errorMessage.value && 'input-error'
+            nameField.isTouched.value && nameField.errorMessage.value && 'input-error',
           ]"
         />
         <div v-if="nameField.isTouched.value && nameField.errorMessage.value" class="label">
@@ -53,7 +53,7 @@ const zipField = form.field("address.zip")
           placeholder="you@example.com"
           :class="[
             'input input-bordered w-full',
-            emailField.isTouched.value && emailField.errorMessage.value && 'input-error'
+            emailField.isTouched.value && emailField.errorMessage.value && 'input-error',
           ]"
         />
         <div v-if="emailField.isTouched.value && emailField.errorMessage.value" class="label">
@@ -73,7 +73,7 @@ const zipField = form.field("address.zip")
               placeholder="123 Main St"
               :class="[
                 'input input-bordered w-full',
-                streetField.isTouched.value && streetField.errorMessage.value && 'input-error'
+                streetField.isTouched.value && streetField.errorMessage.value && 'input-error',
               ]"
             />
             <div v-if="streetField.isTouched.value && streetField.errorMessage.value" class="label">
@@ -90,7 +90,7 @@ const zipField = form.field("address.zip")
                 placeholder="San Francisco"
                 :class="[
                   'input input-bordered w-full',
-                  cityField.isTouched.value && cityField.errorMessage.value && 'input-error'
+                  cityField.isTouched.value && cityField.errorMessage.value && 'input-error',
                 ]"
               />
               <div v-if="cityField.isTouched.value && cityField.errorMessage.value" class="label">
@@ -106,7 +106,7 @@ const zipField = form.field("address.zip")
                 placeholder="94102"
                 :class="[
                   'input input-bordered w-full',
-                  zipField.isTouched.value && zipField.errorMessage.value && 'input-error'
+                  zipField.isTouched.value && zipField.errorMessage.value && 'input-error',
                 ]"
               />
               <div v-if="zipField.isTouched.value && zipField.errorMessage.value" class="label">
@@ -120,17 +120,10 @@ const zipField = form.field("address.zip")
 
     <div class="flex items-center justify-between pt-2">
       <div class="flex items-center gap-3">
-        <button
-          type="button"
-          :disabled="!form.isValid.value"
-          class="btn btn-primary"
-          @click="form.submit()"
-        >
+        <button type="button" :disabled="!form.isValid.value" class="btn btn-primary" @click="form.submit()">
           Submit
         </button>
-        <button type="button" class="btn btn-ghost" @click="form.reset()">
-          Reset
-        </button>
+        <button type="button" class="btn btn-ghost" @click="form.reset()">Reset</button>
       </div>
       <div class="flex items-center gap-4 text-xs">
         <span :class="form.isDirty.value ? 'text-primary' : 'text-neutral/50'">
