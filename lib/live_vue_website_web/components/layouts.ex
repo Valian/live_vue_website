@@ -299,5 +299,4 @@ defmodule LiveVueWebsiteWeb.Layouts do
     </div>
     """
   end
-
 end
