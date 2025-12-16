@@ -741,7 +741,8 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             />
             <div class="text-center sm:text-left">
               <h3 class="font-serif text-xl mb-2 tracking-tight">
-                Built by <a href="https://skalecki.dev" class="text-vue hover:underline">Jakub Skalecki</a>
+                Built by
+                <a href="https://skalecki.dev" class="text-vue hover:underline">Jakub Skalecki</a>
               </h3>
               <p class="text-landing-muted text-sm leading-relaxed mb-4">
                 Freelance Elixir developer with 12+ years of fullstack experience.
@@ -753,7 +754,13 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                   href="https://skalecki.dev"
                   class="inline-flex items-center gap-1.5 text-landing-muted hover:text-vue transition-colors"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="w-4 h-4"
+                  >
                     <circle cx="12" cy="12" r="10" />
                     <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                   </svg>
@@ -782,7 +789,13 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                   href={"mailto:ja" <> "kub" <> "@" <> "ska" <> "lecki" <> ".dev"}
                   class="inline-flex items-center gap-1.5 text-landing-muted hover:text-vue transition-colors"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="w-4 h-4"
+                  >
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                   </svg>
