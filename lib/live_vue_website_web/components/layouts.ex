@@ -62,7 +62,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
               <.icon name="hero-bars-3" class="size-5" />
             </label>
             <.link navigate="/" class="flex items-center gap-2">
-              <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-6 w-6 rounded" />
+              <img src={~p"/images/live_vue_logo_v_64.png"} alt="" class="h-6 w-6 rounded" />
               <span class="font-serif text-lg tracking-tight">
                 <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
               </span>
@@ -90,7 +90,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
             <div class="shrink-0 px-4 pt-4 lg:pt-6 pb-4 flex items-center justify-between gap-2">
               <%!-- Mobile: static logo (no link) --%>
               <div class="lg:hidden flex items-center gap-3 px-3 py-2">
-                <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-8 w-8 rounded-md" />
+                <img src={~p"/images/live_vue_logo_v_64.png"} alt="" class="h-8 w-8 rounded-md" />
                 <span class="font-serif text-xl tracking-tight">
                   <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
                 </span>
@@ -103,7 +103,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
                 navigate="/"
                 class="hidden lg:flex items-center gap-3 px-3 py-2 -mx-1 rounded-lg transition-colors hover:bg-white/5 group"
               >
-                <img src={~p"/images/live_vue_logo_v.png"} alt="LiveVue" class="h-8 w-8 rounded-md" />
+                <img src={~p"/images/live_vue_logo_v_64.png"} alt="" class="h-8 w-8 rounded-md" />
                 <span class="font-serif text-xl tracking-tight">
                   <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
                 </span>
