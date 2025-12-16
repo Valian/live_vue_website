@@ -40,12 +40,12 @@ const steps = [
     desc: "New server state passed to Vue component as props.",
     highlight: "props",
   },
-  { id: "render", label: "Vue Renders DOM", desc: "Vue reactively renders the UI from props.", highlight: "dom" },
+  { id: "render", label: "Vue Renders", desc: "Vue reactively updates its virtual DOM from new props.", highlight: "render" },
   {
-    id: "ready",
-    label: "UI Updated",
-    desc: "DOM reflects new state. Ready for next interaction.",
-    highlight: "server",
+    id: "dom-update",
+    label: "DOM Updated",
+    desc: "Changes applied to the real DOM. Cycle complete.",
+    highlight: "dom",
   },
 ]
 
