@@ -40,7 +40,7 @@ defmodule LiveVueWebsite.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:live_vue, [github: "Valian/live_vue", ref: "drop-js-build-step", override: true]},
+      {:live_vue, github: "Valian/live_vue", branch: "main", override: true},
       {:igniter, "~> 0.6", only: [:dev, :test]},
       {:phoenix, "~> 1.8.0"},
       {:phoenix_ecto, "~> 4.5"},
