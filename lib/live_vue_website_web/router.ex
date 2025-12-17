@@ -32,6 +32,7 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/examples/encoder", Examples.EncoderLive
     live "/examples/streams", Examples.StreamsLive
     live "/examples/file-upload", Examples.FileUploadLive
+    live "/examples/vue-sigil", Examples.SigilLive
   end
 
   # Other scopes may use custom stacks.
