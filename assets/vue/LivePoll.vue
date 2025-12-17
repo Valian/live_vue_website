@@ -161,7 +161,7 @@ onUnmounted(() => {
 
     <!-- Header -->
     <div class="text-center relative z-10">
-      <div class="font-mono text-[0.65rem] uppercase tracking-widest text-vue mb-3 flex items-center justify-center gap-2">
+      <div class="font-mono text-xs uppercase tracking-widest text-vue mb-3 flex items-center justify-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-vue animate-pulse" />
         Live Poll
       </div>
@@ -211,7 +211,7 @@ onUnmounted(() => {
         <!-- Winner badge -->
         <div
           v-if="winner === 'a'"
-          class="absolute -top-2 -right-2 py-1 px-2 bg-phoenix text-white text-[0.6rem] font-bold uppercase tracking-wide rounded-full shadow-lg animate-bounce"
+          class="absolute -top-2 -right-2 py-1 px-2 bg-phoenix text-white text-xs font-bold uppercase tracking-wide rounded-full shadow-lg animate-bounce"
         >
           Winner!
         </div>
@@ -263,7 +263,7 @@ onUnmounted(() => {
         <!-- Winner badge -->
         <div
           v-if="winner === 'b'"
-          class="absolute -top-2 -right-2 py-1 px-2 bg-vue text-white text-[0.6rem] font-bold uppercase tracking-wide rounded-full shadow-lg animate-bounce"
+          class="absolute -top-2 -right-2 py-1 px-2 bg-vue text-white text-xs font-bold uppercase tracking-wide rounded-full shadow-lg animate-bounce"
         >
           Winner!
         </div>
@@ -293,7 +293,7 @@ onUnmounted(() => {
         <template v-else>
           <span
             v-if="!canVote"
-            class="font-mono text-[0.6rem] uppercase tracking-wide text-phoenix/70 py-0.5 px-2 bg-phoenix/10 rounded"
+            class="font-mono text-xs uppercase tracking-wide text-phoenix/70 py-0.5 px-2 bg-phoenix/10 rounded"
           >
             Wait 3s
           </span>
@@ -309,7 +309,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Real-time indicator -->
-    <div class="flex items-center justify-center gap-2 text-[0.6rem] text-landing-muted">
+    <div class="flex items-center justify-center gap-2 text-xs text-landing-muted">
       <span class="w-1 h-1 rounded-full bg-vue animate-pulse" />
       <span>Updates via PubSub - all users see votes in real-time</span>
     </div>

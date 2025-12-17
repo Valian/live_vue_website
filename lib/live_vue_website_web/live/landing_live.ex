@@ -115,7 +115,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
               </span>
             </a>
-            <span class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-[0.65rem] font-mono text-vue tracking-wide">
+            <span class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-xs font-mono text-vue tracking-wide">
               v1.0
             </span>
           </div>
@@ -172,7 +172,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
         </div>
 
         <div class="relative flex-1 flex flex-col justify-center max-w-[800px] lg:max-w-[55%] py-16 z-[5]">
-          <div class="inline-flex items-center gap-2 py-1.5 px-4 bg-white/5 border border-landing-border rounded-full text-xs text-landing-muted w-fit mb-8 backdrop-blur-lg">
+          <div class="inline-flex items-center gap-2 py-1.5 px-4 bg-white/5 border border-landing-border rounded-full text-sm text-landing-muted w-fit mb-8 backdrop-blur-lg">
             <span class="w-1.5 h-1.5 bg-vue rounded-full animate-[pulse-dot_2s_ease-in-out_infinite]">
             </span>
             Phoenix LiveView + Vue.js
@@ -232,7 +232,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </svg>
               </button>
             </div>
-            <span class="text-xs text-landing-muted">
+            <span class="text-sm text-landing-muted">
               Phoenix 1.8+ ·
               <a
                 href="https://hexdocs.pm/live_vue/installation.html#new-project"
@@ -248,7 +248,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           <.vue v-component="DataFlowHero" v-socket={@socket} />
         </div>
 
-        <div class="absolute bottom-8 inset-x-0 flex flex-col items-center gap-2 text-landing-muted text-xs uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
+        <div class="absolute bottom-8 inset-x-0 flex flex-col items-center gap-2 text-landing-muted text-sm uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
           <span>Scroll to explore</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
             <path d="M12 5v14M5 12l7 7 7-7" />
@@ -259,7 +259,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       <%!-- FEATURES SECTION --%>
       <section id="features" class="py-32 px-[clamp(1.5rem,5vw,4rem)] bg-landing-bg">
         <div class="text-center mb-16">
-          <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+          <span class="inline-block font-mono text-sm uppercase tracking-[0.15em] text-vue mb-4">
             Why LiveVue
           </span>
           <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
@@ -322,19 +322,19 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div class="p-4 bg-landing-elevated rounded-lg text-center">
                 <code class="text-vue text-sm font-mono">useLiveVue()</code>
-                <p class="text-landing-muted text-xs mt-2">pushEvent, handleEvent & more</p>
+                <p class="text-landing-muted text-sm mt-2">pushEvent, handleEvent & more</p>
               </div>
               <div class="p-4 bg-landing-elevated rounded-lg text-center">
                 <code class="text-vue text-sm font-mono">useLiveForm()</code>
-                <p class="text-landing-muted text-xs mt-2">Ecto changeset validation</p>
+                <p class="text-landing-muted text-sm mt-2">Ecto changeset validation</p>
               </div>
               <div class="p-4 bg-landing-elevated rounded-lg text-center">
                 <code class="text-vue text-sm font-mono">useLiveUpload()</code>
-                <p class="text-landing-muted text-xs mt-2">LiveView file uploads</p>
+                <p class="text-landing-muted text-sm mt-2">LiveView file uploads</p>
               </div>
               <div class="p-4 bg-landing-elevated rounded-lg text-center">
                 <code class="text-vue text-sm font-mono">useLiveEvent()</code>
-                <p class="text-landing-muted text-xs mt-2">Server → client events</p>
+                <p class="text-landing-muted text-sm mt-2">Server → client events</p>
               </div>
             </div>
             <p class="text-landing-muted text-sm mt-6 text-center">
@@ -540,7 +540,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       >
         <div class="max-w-[1000px] mx-auto">
           <div class="text-center mb-16">
-            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+            <span class="inline-block font-mono text-sm uppercase tracking-[0.15em] text-vue mb-4">
               Try it live
             </span>
             <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
@@ -555,7 +555,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
 
             <div class="flex flex-col gap-8">
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   01
                 </div>
                 <div class="flex flex-col gap-1">
@@ -568,7 +568,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </div>
               </div>
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   02
                 </div>
                 <div class="flex flex-col gap-1">
@@ -581,7 +581,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </div>
               </div>
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   03
                 </div>
                 <div class="flex flex-col gap-1">
@@ -605,7 +605,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       >
         <div class="max-w-[1000px] mx-auto">
           <div class="text-center mb-16">
-            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-phoenix mb-4">
+            <span class="inline-block font-mono text-sm uppercase tracking-[0.15em] text-phoenix mb-4">
               Real-time collaboration
             </span>
             <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
@@ -630,7 +630,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
 
             <div class="flex flex-col gap-8">
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   01
                 </div>
                 <div class="flex flex-col gap-1">
@@ -643,7 +643,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </div>
               </div>
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   02
                 </div>
                 <div class="flex flex-col gap-1">
@@ -656,7 +656,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </div>
               </div>
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   03
                 </div>
                 <div class="flex flex-col gap-1">
@@ -669,7 +669,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </div>
               </div>
               <div class="flex gap-6 items-start">
-                <div class="font-mono text-xs text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
+                <div class="font-mono text-sm text-phoenix py-1 px-2 bg-phoenix/10 rounded shrink-0">
                   04
                 </div>
                 <div class="flex flex-col gap-1">
@@ -690,7 +690,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       <section id="code" class="py-32 px-[clamp(1.5rem,5vw,4rem)] bg-landing-bg">
         <div class="max-w-[1100px] mx-auto">
           <div class="text-center mb-16">
-            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+            <span class="inline-block font-mono text-sm uppercase tracking-[0.15em] text-vue mb-4">
               The mental model
             </span>
             <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-normal leading-tight tracking-tight">
@@ -707,11 +707,11 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               <div class="flex items-center gap-3 py-4 px-4 sm:px-6 bg-landing-elevated border-b border-landing-border">
                 <span class="w-2.5 h-2.5 rounded-full bg-vue shrink-0"></span>
                 <span class="font-mono text-[0.85rem] text-landing-text truncate">Counter.vue</span>
-                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted shrink-0 hidden sm:block">
+                <span class="ml-auto text-xs uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted shrink-0 hidden sm:block">
                   Vue Component
                 </span>
               </div>
-              <pre class="p-4 sm:p-6 m-0 overflow-x-auto font-mono text-[0.75rem] sm:text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-vue" phx-no-format>{vue_code_example()}</code></pre>
+              <pre class="p-4 sm:p-6 m-0 overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed whitespace-pre"><code class="language-vue" phx-no-format>{vue_code_example()}</code></pre>
             </div>
 
             <div class="bg-landing-card border border-landing-border rounded-xl overflow-hidden min-w-0">
@@ -720,18 +720,18 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 <span class="font-mono text-[0.85rem] text-landing-text truncate">
                   counter_live.ex
                 </span>
-                <span class="ml-auto text-[0.7rem] uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted shrink-0 hidden sm:block">
+                <span class="ml-auto text-xs uppercase tracking-wide py-1 px-2 bg-white/5 rounded text-landing-muted shrink-0 hidden sm:block">
                   LiveView
                 </span>
               </div>
-              <pre class="p-4 sm:p-6 m-0 overflow-x-auto font-mono text-[0.75rem] sm:text-[0.85rem] leading-relaxed whitespace-pre"><code class="language-elixir" phx-no-format>{elixir_code_example()}</code></pre>
+              <pre class="p-4 sm:p-6 m-0 overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed whitespace-pre"><code class="language-elixir" phx-no-format>{elixir_code_example()}</code></pre>
             </div>
           </div>
 
           <div class="mt-12 relative">
             <div class="h-0.5 bg-gradient-to-r from-phoenix to-vue rounded-sm"></div>
             <div class="flex justify-between mt-4">
-              <span class="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-phoenix">
+              <span class="flex items-center gap-2 font-mono text-sm uppercase tracking-wide text-phoenix">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -743,7 +743,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 </svg>
                 Props
               </span>
-              <span class="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-vue">
+              <span class="flex items-center gap-2 font-mono text-sm uppercase tracking-wide text-vue">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -764,7 +764,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       <section class="py-24 px-[clamp(1.5rem,5vw,4rem)] bg-landing-deep">
         <div class="max-w-[700px] mx-auto">
           <div class="text-center mb-12">
-            <span class="inline-block font-mono text-xs uppercase tracking-[0.15em] text-vue mb-4">
+            <span class="inline-block font-mono text-sm uppercase tracking-[0.15em] text-vue mb-4">
               When to reach for LiveVue
             </span>
             <h2 class="font-serif text-[clamp(2rem,5vw,3rem)] font-normal leading-tight tracking-tight mb-6">
@@ -1023,7 +1023,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               Hex.pm
             </a>
           </div>
-          <div class="flex items-center gap-3 text-landing-muted text-xs">
+          <div class="flex items-center gap-3 text-landing-muted text-sm">
             <span>
               Made with <span class="text-phoenix">❤️</span>
               by
