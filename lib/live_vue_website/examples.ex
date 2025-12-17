@@ -127,6 +127,13 @@ defmodule LiveVueWebsite.Examples do
           description: "Disable SSR for client-only components",
           icon: "hero-server",
           status: :ready
+        },
+        %{
+          id: "vue-sigil",
+          title: "Vue Sigil",
+          description: "Inline Vue components with the ~V sigil",
+          icon: "hero-sparkles",
+          status: :ready
         }
       ]
     }
