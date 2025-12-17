@@ -106,15 +106,15 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       >
         <div class="nav-pill flex justify-between items-center py-2 px-4 max-w-[1400px] mx-auto rounded-full transition-all duration-300">
           <div class="flex items-center gap-3">
-            <a
-              href="/"
+            <.link
+              navigate="/"
               class="flex items-center gap-3 font-serif text-[1.5rem] no-underline tracking-tight"
             >
               <img src={~p"/images/live_vue_logo_v_64.png"} alt="" class="h-9 w-9" />
               <span class="hidden sm:inline">
                 <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
               </span>
-            </a>
+            </.link>
             <span class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-[0.65rem] font-mono text-vue tracking-wide">
               v1.0
             </span>
@@ -204,12 +204,12 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <a
-              href="/examples"
+            <.link
+              navigate="/examples"
               class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
             >
               Browse Examples
-            </a>
+            </.link>
           </div>
 
           <div class="flex flex-col gap-2">
@@ -900,12 +900,12 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <a
-              href="/examples"
+            <.link
+              navigate="/examples"
               class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
             >
               Browse Examples
-            </a>
+            </.link>
           </div>
         </div>
       </section>
@@ -998,12 +998,12 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
           </div>
           <div class="flex flex-wrap justify-center gap-4 sm:gap-8">
-            <a
-              href="/examples"
+            <.link
+              navigate="/examples"
               class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
             >
               Examples
-            </a>
+            </.link>
             <a
               href="https://hexdocs.pm/live_vue"
               class="text-landing-muted no-underline text-sm transition-colors hover:text-landing-text"
