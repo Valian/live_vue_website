@@ -215,7 +215,7 @@ onUnmounted(() => {
             </svg>
           </template>
           <div class="flex flex-col gap-1 py-2.5 px-3 bg-black/30 rounded-md">
-            <span class="text-[#6a6a80] text-[0.7rem]"># assigns</span>
+            <span class="text-[#6a6a80] text-xs"># assigns</span>
             <span class="flex gap-1">
               <span class="text-[#e06c75]">@count</span>
               <span class="text-[#6a6a80]"> = </span>
@@ -327,7 +327,7 @@ onUnmounted(() => {
               </button>
             </div>
             <div
-              class="text-[0.65rem] text-[#6a6a80] py-1 px-2.5 bg-black/30 rounded transition-all duration-300"
+              class="text-xs text-[#6a6a80] py-1 px-2.5 bg-black/30 rounded transition-all duration-300"
               :class="{ 'text-phoenix bg-phoenix/15': currentHighlight === 'dom-button' }"
             >
               @click="$live.pushEvent('inc')"
@@ -348,7 +348,7 @@ onUnmounted(() => {
           :style="{ top: `calc(50px + ${1 - eventDotProgress} * (100% - 100px))` }"
         />
         <div
-          class="flex flex-col items-center gap-1 py-1.5 px-2 bg-[rgba(10,10,15,0.95)] border border-white/[0.08] rounded text-[0.6rem] uppercase tracking-wide text-[#6a6a80] transition-all duration-400 z-5"
+          class="flex flex-col items-center gap-1 py-1.5 px-2 bg-[rgba(10,10,15,0.95)] border border-white/[0.08] rounded text-xs uppercase tracking-wide text-[#6a6a80] transition-all duration-400 z-5"
           :class="{ 'text-vue border-vue shadow-[0_0_10px_rgba(66,184,131,0.4)]': currentHighlight === 'event' }"
         >
           <svg class="w-2.5 h-2.5" viewBox="0 0 12 12">
@@ -370,10 +370,10 @@ onUnmounted(() => {
 
     <!-- Step indicator and controls -->
     <div class="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
-      <span class="text-[0.7rem] text-[#6a6a80] tabular-nums w-8">{{ currentStepIndex + 1 }}/{{ steps.length }}</span>
+      <span class="text-xs text-[#6a6a80] tabular-nums w-8">{{ currentStepIndex + 1 }}/{{ steps.length }}</span>
       <div class="flex-1 flex flex-col gap-0.5">
         <span class="text-xs font-semibold text-landing-text">{{ currentStep.label }}</span>
-        <span class="text-[0.65rem] text-[#6a6a80]">{{ currentStep.desc }}</span>
+        <span class="text-xs text-[#6a6a80]">{{ currentStep.desc }}</span>
       </div>
       <button
         class="w-7 h-7 flex items-center justify-center bg-white/5 border border-white/[0.08] rounded-md text-[#6a6a80] cursor-pointer transition-all duration-200 hover:text-landing-text hover:border-[#6a6a80]"
@@ -390,7 +390,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Legend -->
-    <div class="flex justify-center gap-6 text-[0.65rem] text-[#6a6a80]">
+    <div class="flex justify-center gap-6 text-xs text-[#6a6a80]">
       <div class="flex items-center gap-1.5">
         <span class="w-2 h-2 rounded-full bg-phoenix shadow-[0_0_6px_rgba(253,79,0,0.4)]"></span>
         <span>Phoenix/Server</span>
