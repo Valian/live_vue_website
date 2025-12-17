@@ -345,7 +345,26 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">🖥️</div>
+            <div class="w-8 h-8 mb-4 text-vue">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <rect x="3" y="4" width="26" height="20" rx="2" />
+                <path d="M3 10h26" />
+                <circle cx="6" cy="7" r="1" />
+                <circle cx="10" cy="7" r="1" />
+                <path d="M7 15h8" />
+                <path d="M7 19h12" />
+                <path d="M19 15h4" />
+                <path d="M12 28l4-4 4 4" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">Server-Side Rendered</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               Vue components render on first paint. No loading flash. Full SEO.
@@ -353,7 +372,23 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">📦</div>
+            <div class="w-8 h-8 mb-4 text-vue">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <rect x="4" y="4" width="24" height="24" rx="3" />
+                <path d="M4 16h24" />
+                <path d="M12 10h8" />
+                <path d="M18 22h4" />
+                <circle cx="10" cy="22" r="2" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">Efficient Updates</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               JSON patches over WebSocket. Only changed props are sent.
@@ -361,7 +396,19 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">⚡</div>
+            <div class="w-8 h-8 mb-4 text-phoenix">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <path d="M18 3L8 17h7l-3 12 12-14h-8l4-12z" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">Vite-Powered DX</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               Instant HMR, TypeScript out of the box. The legendary Vite experience, for free.
@@ -369,7 +416,24 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">🚀</div>
+            <div class="w-8 h-8 mb-4 text-phoenix">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <rect x="3" y="5" width="26" height="22" rx="2" />
+                <circle cx="8" cy="10" r="1" />
+                <circle cx="12" cy="10" r="1" />
+                <circle cx="16" cy="10" r="1" />
+                <path d="M8 17l4 3-4 3" />
+                <path d="M15 23h8" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">One-Line Install</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               Igniter handles the setup. TypeScript, Vite, SSR — all configured.
@@ -377,7 +441,23 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">🎯</div>
+            <div class="w-8 h-8 mb-4 text-phoenix">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <rect x="6" y="4" width="20" height="6" rx="1" />
+                <rect x="6" y="13" width="20" height="6" rx="1" />
+                <rect x="6" y="22" width="20" height="6" rx="1" />
+                <path d="M16 10v3" />
+                <path d="M16 19v3" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">Streams Support</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               Phoenix Streams work transparently. Efficient patches, no special handling.
@@ -385,7 +465,19 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">🦄</div>
+            <div class="w-8 h-8 mb-4 text-vue">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <path d="M6 10h4a2 2 0 1 1 0 4H6v10h10v-4a2 2 0 1 1 4 0v4h6V10h-4a2 2 0 1 1 0-4h4V4H6v6z" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">Vue Ecosystem</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               Use any Vue library. Chart.js, TipTap, Headless UI — they all work.
@@ -393,7 +485,24 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">🤖</div>
+            <div class="w-8 h-8 mb-4 text-vue">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <rect x="5" y="3" width="22" height="26" rx="2" />
+                <path d="M9 9h6" />
+                <path d="M9 14l3 2-3 2" />
+                <path d="M14 18h5" />
+                <circle cx="21" cy="23" r="3" />
+                <path d="M19.5 21.5l3 3" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">AI-Ready</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               AGENTS.md auto-generated with LiveVue usage rules. Your AI assistant knows how to use it.
@@ -401,7 +510,21 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           </div>
 
           <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-            <div class="text-3xl mb-4">🐌</div>
+            <div class="w-8 h-8 mb-4 text-vue">
+              <svg
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <rect x="4" y="4" width="24" height="24" rx="3" />
+                <circle cx="16" cy="16" r="6" />
+                <path d="M14 13v6l5-3-5-3z" />
+              </svg>
+            </div>
             <h3 class="font-serif text-xl mb-2 tracking-tight">Lazy Loading</h3>
             <p class="text-landing-muted text-[0.95rem] leading-relaxed">
               Load Vue components on demand. Keep your initial bundle small.
@@ -655,28 +778,85 @@ defmodule LiveVueWebsiteWeb.LandingLive do
 
           <div class="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
             <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-              <div class="text-3xl mb-4">🎨</div>
+              <div class="w-8 h-8 mb-4 text-phoenix">
+                <svg
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-full h-full"
+                >
+                  <path d="M8 6l10 4-4 4 6 10-10-4 4-4-6-10z" />
+                  <path d="M22 8l4-4" />
+                  <path d="M24 10l4-4" />
+                  <path d="M26 6l-2 6" />
+                </svg>
+              </div>
               <h3 class="font-serif text-xl mb-2 tracking-tight">Rich Interactions</h3>
               <p class="text-landing-muted text-[0.95rem] leading-relaxed">
                 Drag-drop, animations, complex local state that doesn't need the server.
               </p>
             </div>
             <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-              <div class="text-3xl mb-4">📦</div>
+              <div class="w-8 h-8 mb-4 text-vue">
+                <svg
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-full h-full"
+                >
+                  <path d="M6 10h4a2 2 0 1 1 0 4H6v10h10v-4a2 2 0 1 1 4 0v4h6V10h-4a2 2 0 1 1 0-4h4V4H6v6z" />
+                </svg>
+              </div>
               <h3 class="font-serif text-xl mb-2 tracking-tight">Vue Ecosystem</h3>
               <p class="text-landing-muted text-[0.95rem] leading-relaxed">
                 Chart.js, TipTap, Headless UI — any Vue package works out of the box.
               </p>
             </div>
             <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-              <div class="text-3xl mb-4">👥</div>
+              <div class="w-8 h-8 mb-4 text-vue">
+                <svg
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-full h-full"
+                >
+                  <circle cx="12" cy="10" r="4" />
+                  <path d="M4 26c0-5 3.5-8 8-8s8 3 8 8" />
+                  <circle cx="21" cy="8" r="3" />
+                  <path d="M25 24c0-4-2.5-6-5-6" />
+                </svg>
+              </div>
               <h3 class="font-serif text-xl mb-2 tracking-tight">Team Familiarity</h3>
               <p class="text-landing-muted text-[0.95rem] leading-relaxed">
                 Your frontend team already knows Vue. Let them use what they know.
               </p>
             </div>
             <div class="p-8 bg-landing-card border border-landing-border rounded-xl transition-all duration-300 hover:-translate-y-1 hover:border-landing-muted">
-              <div class="text-3xl mb-4">🌱</div>
+              <div class="w-8 h-8 mb-4 text-vue">
+                <svg
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-full h-full"
+                >
+                  <path d="M16 28v-12" />
+                  <path d="M16 16c-8 0-10-6-10-10 6 0 10 3 10 10" />
+                  <path d="M16 20c6 0 8-4 8-8-5 0-8 2-8 8" />
+                  <path d="M8 28h16" />
+                </svg>
+              </div>
               <h3 class="font-serif text-xl mb-2 tracking-tight">Gradual Adoption</h3>
               <p class="text-landing-muted text-[0.95rem] leading-relaxed">
                 Start with one component. Expand as needed. No big rewrites.
