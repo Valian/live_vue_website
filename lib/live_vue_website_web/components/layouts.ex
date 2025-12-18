@@ -149,7 +149,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
   defp examples_sidebar_content(assigns) do
     ~H"""
     <%!-- Scrollable examples section --%>
-    <div class="flex-1 overflow-y-auto px-4">
+    <div id="examples-sidebar-scroll" phx-hook="ScrollRestore" class="flex-1 overflow-y-auto px-4">
       <%!-- Introduction link --%>
       <% is_intro_current = @current_example == "index" %>
       <div class="mb-6">
