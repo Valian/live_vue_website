@@ -40,6 +40,27 @@ const ScrollNav = {
   }
 }
 
+// Preserve scroll position across navigations for sidebar
+const ScrollRestore = {
+  mounted() {
+    const key = this.el.id || "scroll-restore"
+    const saved = sessionStorage.getItem(`scroll:${key}`)
+    if (saved) {
+      this.el.scrollTop = parseInt(saved, 10)
+    }
+    this.saveScroll = () => {
+      sessionStorage.setItem(`scroll:${key}`, this.el.scrollTop)
+    }
+    this.el.addEventListener("scroll", this.saveScroll, { passive: true })
+    // Also save before navigation
+    window.addEventListener("phx:page-loading-start", this.saveScroll)
+  },
+  destroyed() {
+    this.el.removeEventListener("scroll", this.saveScroll)
+    window.removeEventListener("phx:page-loading-start", this.saveScroll)
+  }
+}
+
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
@@ -54,7 +75,7 @@ const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken},
-  hooks: {...colocatedHooks, ...getHooks(liveVueApp), Highlight, ScrollNav},
+  hooks: {...colocatedHooks, ...getHooks(liveVueApp), Highlight, ScrollNav, ScrollRestore},
 })
 
 // Show progress bar on live navigation and form submits
