@@ -64,7 +64,8 @@ defmodule LiveVueWebsite.MixProject do
       {:jason, "~> 1.2"},
       {:req, "~> 0.5"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:phoenix_srcset, "~> 0.1"}
     ]
   end
 

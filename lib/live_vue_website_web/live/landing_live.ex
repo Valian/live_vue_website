@@ -914,9 +914,12 @@ defmodule LiveVueWebsiteWeb.LandingLive do
       <section class="py-16 px-[clamp(1.5rem,5vw,4rem)] bg-landing-elevated/50 border-t border-landing-border">
         <div class="max-w-[700px] mx-auto">
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
-            <img
-              src={~p"/images/jakub_skalecki.jpeg"}
+            <PhoenixSrcset.Components.responsive_img
+              src="/images/jakub_skalecki.jpeg"
               alt="Jakub Skalecki"
+              widths={[96, 192, 288]}
+              sizes="96px"
+              loading="lazy"
               class="w-24 h-24 rounded-full border-2 border-vue/50 shadow-lg shadow-vue/10 shrink-0"
             />
             <div class="text-center sm:text-left">
