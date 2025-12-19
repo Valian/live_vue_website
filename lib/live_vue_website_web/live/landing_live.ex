@@ -188,14 +188,14 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             Full reactivity. No API layer. One install command.
           </p>
 
-          <div class="flex gap-4 flex-wrap mb-12">
+          <div class="flex gap-3 sm:gap-4 flex-wrap mb-12">
             <a
               href="https://hexdocs.pm/live_vue"
-              class="inline-flex items-center gap-2 py-3.5 px-7 bg-gradient-to-br from-phoenix to-phoenix-glow text-white no-underline font-medium rounded-lg transition-all duration-200 shadow-[0_4px_20px_rgba(253,79,0,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_30px_rgba(253,79,0,0.4)] group"
+              class="inline-flex items-center gap-2 py-3 px-5 sm:py-3.5 sm:px-7 bg-gradient-to-br from-phoenix to-phoenix-glow text-white no-underline font-medium rounded-lg transition-all duration-200 shadow-[0_4px_20px_rgba(253,79,0,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_30px_rgba(253,79,0,0.4)] group text-sm sm:text-base"
             >
               Get Started
               <svg
-                class="w-[18px] h-[18px] transition-transform duration-200 group-hover:translate-x-1"
+                class="w-4 h-4 sm:w-[18px] sm:h-[18px] transition-transform duration-200 group-hover:translate-x-1"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -206,7 +206,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
             </a>
             <.link
               navigate="/examples"
-              class="inline-flex items-center py-3.5 px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted"
+              class="inline-flex items-center py-3 px-5 sm:py-3.5 sm:px-7 bg-transparent border border-landing-border text-landing-text no-underline font-medium rounded-lg transition-all duration-200 hover:bg-white/5 hover:border-landing-muted text-sm sm:text-base"
             >
               Browse Examples
             </.link>
@@ -248,7 +248,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
           <.vue v-component="DataFlowHero" v-socket={@socket} />
         </div>
 
-        <div class="absolute bottom-8 inset-x-0 flex flex-col items-center gap-2 text-landing-muted text-sm uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
+        <div class="hidden sm:flex absolute bottom-8 inset-x-0 flex-col items-center gap-2 text-landing-muted text-sm uppercase tracking-widest animate-[bounce-scroll_2s_ease-in-out_infinite]">
           <span>Scroll to explore</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
             <path d="M12 5v14M5 12l7 7 7-7" />
