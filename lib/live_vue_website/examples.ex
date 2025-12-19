@@ -10,14 +10,14 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "counter",
           title: "Counter",
-          description: "Server state, local Vue state, phx-click, transitions",
+          description: "Pass assigns as props to Vue, handle clicks in LiveView",
           icon: "hero-plus-circle",
           status: :ready
         },
         %{
           id: "encoder",
           title: "Custom Encoder",
-          description: "Pass custom structs with @derive and defimpl",
+          description: "Send Ecto schemas and custom structs as props",
           icon: "hero-code-bracket",
           status: :ready
         }
@@ -29,14 +29,14 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "events",
           title: "Event Handling",
-          description: "pushEvent, phx-click, and useLiveVue()",
+          description: "Send events from Vue to your handle_event callbacks",
           icon: "hero-cursor-arrow-rays",
           status: :ready
         },
         %{
           id: "server-events",
           title: "Server Events",
-          description: "useLiveEvent() for server-pushed notifications",
+          description: "Push events from LiveView to Vue (like push_event)",
           icon: "hero-bell-alert",
           status: :ready
         }
@@ -48,7 +48,7 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "navigation",
           title: "Navigation",
-          description: "Link component with patch, navigate, href",
+          description: "Use push_patch and push_navigate from Vue components",
           icon: "hero-arrow-path",
           status: :ready
         }
@@ -60,21 +60,21 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "simple-form",
           title: "Simple Form",
-          description: "useLiveForm() with Ecto validation",
+          description: "Use Ecto changesets for validation in Vue forms",
           icon: "hero-document-text",
           status: :ready
         },
         %{
           id: "nested-form",
           title: "Nested Objects",
-          description: "Nested fields with dot notation paths",
+          description: "Handle embedded schemas and nested changesets",
           icon: "hero-square-3-stack-3d",
           status: :ready
         },
         %{
           id: "array-form",
           title: "Dynamic Arrays",
-          description: "fieldArray() with add, remove, move",
+          description: "Add, remove, reorder items in has_many associations",
           icon: "hero-queue-list",
           status: :ready
         }
@@ -86,7 +86,7 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "file-upload",
           title: "File Upload",
-          description: "useLiveUpload() with progress tracking",
+          description: "Use allow_upload with Vue drag-and-drop UI",
           icon: "hero-cloud-arrow-up",
           status: :ready
         }
@@ -98,14 +98,14 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "streams",
           title: "Phoenix Streams",
-          description: "Efficient list updates with stream()",
+          description: "Render LiveView streams in Vue components",
           icon: "hero-signal",
           status: :ready
         },
         %{
           id: "connection-status",
           title: "Connection Status",
-          description: "useLiveConnection() for offline handling",
+          description: "React to socket disconnects and reconnects",
           icon: "hero-wifi",
           status: :ready
         }
@@ -117,21 +117,21 @@ defmodule LiveVueWebsite.Examples do
         %{
           id: "slots",
           title: "Slots",
-          description: "Default and named slots with HEEX content",
+          description: "Pass HEEx markup into Vue component slots",
           icon: "hero-puzzle-piece",
           status: :ready
         },
         %{
           id: "ssr-control",
           title: "SSR Control",
-          description: "Disable SSR for client-only components",
+          description: "Skip server rendering for browser-only libraries",
           icon: "hero-server",
           status: :ready
         },
         %{
           id: "vue-sigil",
           title: "Vue Sigil",
-          description: "Inline Vue components with the ~V sigil",
+          description: "Write Vue components inline in your LiveView",
           icon: "hero-sparkles",
           status: :ready
         }
