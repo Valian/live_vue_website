@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :live_vue, shared_props: [], ssr: true
+config :live_vue, ssr: true
 
 config :phoenix_vite, PhoenixVite.Npm,
   assets: [args: [], cd: __DIR__],
