@@ -940,7 +940,13 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 href="https://skalecki.dev/blog/story-of-live-vue"
                 class="inline-flex items-center gap-2 py-2 px-4 bg-vue/10 border border-vue/30 rounded-lg text-sm text-vue hover:bg-vue/20 transition-colors mb-4"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="w-4 h-4"
+                >
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                 </svg>
