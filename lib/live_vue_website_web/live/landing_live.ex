@@ -115,9 +115,13 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
               </span>
             </.link>
-            <span class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-xs font-mono text-vue tracking-wide">
-              v1.0
-            </span>
+            <a
+              href="https://skalecki.dev/blog/story-of-live-vue"
+              class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-xs font-mono text-vue tracking-wide transition-all duration-300 hover:bg-vue/20 hover:px-3 group"
+            >
+              <span class="group-hover:hidden animate-pulse">v1.0</span>
+              <span class="hidden group-hover:inline">Read the story →</span>
+            </a>
           </div>
           <div class="flex items-center gap-1 sm:gap-2">
             <a
@@ -932,6 +936,16 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                 Startup founder who knows when to push back on bad ideas.
                 Python, JavaScript, Elixir, Applied AI.
               </p>
+              <a
+                href="https://skalecki.dev/blog/story-of-live-vue"
+                class="inline-flex items-center gap-2 py-2 px-4 bg-vue/10 border border-vue/30 rounded-lg text-sm text-vue hover:bg-vue/20 transition-colors mb-4"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                </svg>
+                Read the story: Road to LiveVue 1.0
+              </a>
               <div class="flex flex-wrap justify-center sm:justify-start gap-4 text-sm">
                 <a
                   href="https://skalecki.dev"
@@ -985,7 +999,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
                   <span>ja&#107;ub&#64;s&#107;alec&#107;i.dev</span>
                 </a>
               </div>
-              <p class="text-landing-muted/70 text-xs mt-4 italic">
+              <p class="text-landing-muted text-xs mt-4 italic">
                 Available for freelance Elixir projects
               </p>
             </div>
