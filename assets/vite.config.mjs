@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from "@vitejs/plugin-vue";
 import liveVuePlugin from "live_vue/vitePlugin";
+import stubNodeBuiltins from "live_vue/stubNodeBuiltins";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -35,6 +36,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     vue(),
-    liveVuePlugin()
+    liveVuePlugin(),
+    stubNodeBuiltins()
   ]
 });
