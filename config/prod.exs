@@ -1,5 +1,5 @@
 import Config
-config :live_vue, ssr_module: LiveVue.SSR.NodeJS, ssr: true
+config :live_vue, ssr_module: LiveVue.SSR.QuickJS, ssr: true
 
 # Note we also include the path to a cache manifest
 # containing the digested version of static files. This
