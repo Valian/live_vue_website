@@ -40,7 +40,7 @@ defmodule LiveVueWebsite.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:live_vue, github: "dannote/live_vue", branch: "quickjs-ssr"},
+      {:live_vue, github: "Valian/live_vue", branch: "main"},
       {:quickjs_ex, "~> 0.2"},
       {:igniter, "~> 0.6", only: [:dev, :test]},
       {:phoenix, "~> 1.8.0"},
