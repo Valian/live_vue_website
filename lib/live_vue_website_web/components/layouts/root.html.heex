@@ -56,6 +56,12 @@
       name="twitter:image"
       content={assigns[:og_image] || static_url(@conn, "/images/live_vue_og_image.jpeg")}
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <PhoenixVite.Components.assets
       names={["js/app.js", "css/app.css"]}
       manifest={{:live_vue_website, "priv/static/.vite/manifest.json"}}

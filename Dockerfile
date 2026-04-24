@@ -20,10 +20,10 @@ ARG RUNNER_IMAGE="docker.io/debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} AS builder
 
-# install build dependencies and Node.js 22 (required for live_vue SSR)
+# install build dependencies and Node.js 24 (required for asset compilation)
 RUN apt-get update \
   && apt-get install -y --no-install-recommends build-essential git curl ca-certificates \
-  && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+  && curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
   && apt-get install -y --no-install-recommends nodejs \
   && rm -rf /var/lib/apt/lists/*
 
@@ -77,7 +77,7 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE} AS final
 
-# Install runtime dependencies (Node.js no longer needed — SSR uses quickjs_ex)
+# Install runtime dependencies (Node.js no longer needed — QuickBEAM handles SSR in the BEAM)
 RUN apt-get update \
   && apt-get install -y --no-install-recommends libstdc++6 openssl libncurses6 locales ca-certificates \
   && rm -rf /var/lib/apt/lists/*

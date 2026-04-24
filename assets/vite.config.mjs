@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from "@vitejs/plugin-vue";
 import liveVuePlugin from "live_vue/vitePlugin";
-import stubNodeBuiltins from "live_vue/stubNodeBuiltins";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -15,7 +14,10 @@ export default defineConfig({
     // https://vitejs.dev/guide/dep-pre-bundling#monorepos-and-linked-dependencies
     include: ["live_vue", "phoenix", "phoenix_html", "phoenix_live_view"],
   },
-  ssr: { noExternal: process.env.NODE_ENV === "production" ? true : undefined },
+  ssr: {
+    noExternal: process.env.NODE_ENV === "production" ? true : undefined,
+    resolve: { conditions: ["import", "module", "default"] },
+  },
   build: {
     manifest: false,
     ssrManifest: false,
@@ -36,7 +38,6 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     vue(),
-    liveVuePlugin(),
-    stubNodeBuiltins()
+    liveVuePlugin()
   ]
 });

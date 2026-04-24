@@ -7,19 +7,27 @@ defmodule LiveVueWebsite.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      LiveVue.SSR.QuickJS,
-      LiveVueWebsiteWeb.Telemetry,
-      LiveVueWebsite.Repo,
-      {Ecto.Migrator,
-       repos: Application.fetch_env!(:live_vue_website, :ecto_repos), skip: skip_migrations?()},
-      {DNSCluster, query: Application.get_env(:live_vue_website, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: LiveVueWebsite.PubSub},
-      LiveVueWebsite.LivePoll,
-      LiveVueWebsite.GitHubStars,
-      # Start to serve requests, typically the last entry
-      LiveVueWebsiteWeb.Endpoint
-    ]
+    children =
+      if(Application.get_env(:live_vue, :ssr_module) == LiveVue.SSR.QuickBEAM,
+        do: [LiveVue.SSR.QuickBEAM],
+        else: []
+      )
+
+    children =
+      children ++
+        [
+          LiveVueWebsiteWeb.Telemetry,
+          LiveVueWebsite.Repo,
+          {Ecto.Migrator,
+           repos: Application.fetch_env!(:live_vue_website, :ecto_repos), skip: skip_migrations?()},
+          {DNSCluster,
+           query: Application.get_env(:live_vue_website, :dns_cluster_query) || :ignore},
+          {Phoenix.PubSub, name: LiveVueWebsite.PubSub},
+          LiveVueWebsite.LivePoll,
+          LiveVueWebsite.GitHubStars,
+          # Start to serve requests, typically the last entry
+          LiveVueWebsiteWeb.Endpoint
+        ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
