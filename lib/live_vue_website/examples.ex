@@ -134,6 +134,20 @@ defmodule LiveVueWebsite.Examples do
           description: "Write Vue components inline in your LiveView",
           icon: "hero-sparkles",
           status: :ready
+        },
+        %{
+          id: "inject",
+          title: "v-inject",
+          description: "Inject a Vue component into another component's slot",
+          icon: "hero-arrow-down-on-square",
+          status: :ready
+        },
+        %{
+          id: "shared-props",
+          title: "Shared Props",
+          description: "Headless component as a global state provider",
+          icon: "hero-share",
+          status: :ready
         }
       ]
     }

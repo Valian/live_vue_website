@@ -259,10 +259,10 @@ defmodule LiveVueWebsiteWeb.Examples.SigilLive do
       <section class="mt-12 pt-8 border-t border-landing-border">
         <div class="flex items-center justify-between">
           <div class="text-landing-muted text-sm">
-            Explore more examples
+            Next up: v-inject
           </div>
-          <.link navigate="/examples" class="text-vue hover:underline text-sm">
-            View all examples
+          <.link navigate="/examples/inject" class="text-vue hover:underline text-sm">
+            View example →
           </.link>
         </div>
       </section>

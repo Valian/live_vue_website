@@ -39,7 +39,7 @@ defmodule LiveVueWebsiteWeb.Examples.ExampleSource do
         "MyAppWeb.#{name}Live"
       )
       |> String.replace("LiveVueWebsiteWeb", "MyAppWeb")
-      |> String.replace("examples/#{name}", name)
+      |> String.replace(~r/"examples\//, "\"")
       |> String.replace(~r/\s*@moduledoc.*?\"\"\".*?\"\"\"[\r\n]*/s, "\n")
       |> String.replace(", layout: false", "")
       |> String.trim()
