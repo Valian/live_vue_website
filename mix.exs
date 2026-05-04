@@ -85,8 +85,8 @@ defmodule LiveVueWebsite.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["phoenix_vite.npm assets install"],
       "assets.build": [
-        "phoenix_vite.npm vite build --manifest --emptyOutDir true",
-        "phoenix_vite.npm vite build --ssrManifest --emptyOutDir false --ssr js/server.js --outDir ../priv/static"
+        "phoenix_vite.npm vite build --manifest --ssrManifest --emptyOutDir true",
+        "phoenix_vite.npm vite build --emptyOutDir false --ssr js/server.js --outDir ../priv/static"
       ],
       "assets.deploy": [
         "assets.build"
