@@ -96,7 +96,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
 
   def render(assigns) do
     ~H"""
-    <div class="bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif] leading-relaxed overflow-x-hidden">
+    <div class="bg-landing-deep text-landing-text font-[system-ui,sans-serif] leading-relaxed overflow-x-hidden">
       <%!-- STICKY NAVBAR --%>
       <nav
         id="landing-nav"

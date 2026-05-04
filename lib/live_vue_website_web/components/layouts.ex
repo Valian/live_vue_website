@@ -45,7 +45,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
       <input id="examples-drawer" type="checkbox" class="drawer-toggle" />
 
       <div class="drawer-content">
-        <div class="min-h-screen bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif]">
+        <div class="min-h-screen bg-landing-deep text-landing-text font-[system-ui,sans-serif]">
           <%!-- Ambient background --%>
           <div class="fixed inset-0 overflow-hidden pointer-events-none">
             <div class="absolute rounded-full blur-[120px] opacity-20 w-[500px] h-[500px] bg-[radial-gradient(circle,var(--color-phoenix)_0%,transparent_70%)] -top-[200px] -right-[150px]">

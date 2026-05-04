@@ -123,8 +123,8 @@
   --color-landing-text: #f0f0f5;
   --color-landing-muted: #8888a0;
   --color-landing-border: #2a2a3a;
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* Landing page keyframe animations */
