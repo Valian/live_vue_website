@@ -41,7 +41,7 @@ defmodule LiveVueWebsite.MixProject do
   defp deps do
     [
       {:live_vue, "~> 1.1"},
-      {:quickbeam, "~> 0.8"},
+      {:quickbeam, "~> 0.10"},
       {:igniter, "~> 0.6", only: [:dev, :test]},
       {:phoenix, "~> 1.8.0"},
       {:phoenix_ecto, "~> 4.5"},
