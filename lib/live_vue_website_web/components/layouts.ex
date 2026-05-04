@@ -45,7 +45,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
       <input id="examples-drawer" type="checkbox" class="drawer-toggle" />
 
       <div class="drawer-content">
-        <div class="min-h-screen bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif]">
+        <div class="min-h-screen bg-landing-deep text-landing-text font-[system-ui,sans-serif]">
           <%!-- Ambient background --%>
           <div class="fixed inset-0 overflow-hidden pointer-events-none">
             <div class="absolute rounded-full blur-[120px] opacity-20 w-[500px] h-[500px] bg-[radial-gradient(circle,var(--color-phoenix)_0%,transparent_70%)] -top-[200px] -right-[150px]">
@@ -67,7 +67,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
                 <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
               </span>
               <span class="inline-flex items-center py-0.5 px-1.5 bg-vue/10 border border-vue/30 rounded-full text-[0.6rem] font-mono text-vue tracking-wide">
-                1.0
+                1.1
               </span>
             </.link>
           </header>
@@ -95,7 +95,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
                   <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
                 </span>
                 <span class="inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-[0.65rem] font-mono text-vue tracking-wide">
-                  v1.0
+                  v1.1
                 </span>
               </div>
               <%!-- Desktop: logo as link --%>
@@ -108,7 +108,7 @@ defmodule LiveVueWebsiteWeb.Layouts do
                   <span class="text-phoenix">Live</span><span class="text-vue">Vue</span>
                 </span>
                 <span class="inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-[0.65rem] font-mono text-vue tracking-wide">
-                  v1.0
+                  v1.1
                 </span>
                 <svg
                   viewBox="0 0 24 24"

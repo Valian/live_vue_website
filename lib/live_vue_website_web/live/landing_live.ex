@@ -96,7 +96,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
 
   def render(assigns) do
     ~H"""
-    <div class="bg-landing-deep text-landing-text font-[Inter,system-ui,sans-serif] leading-relaxed overflow-x-hidden">
+    <div class="bg-landing-deep text-landing-text font-[system-ui,sans-serif] leading-relaxed overflow-x-hidden">
       <%!-- STICKY NAVBAR --%>
       <nav
         id="landing-nav"
@@ -119,7 +119,7 @@ defmodule LiveVueWebsiteWeb.LandingLive do
               href="https://skalecki.dev/blog/story-of-live-vue"
               class="hidden sm:inline-flex items-center py-0.5 px-2 bg-vue/10 border border-vue/30 rounded-full text-xs font-mono text-vue tracking-wide transition-all duration-300 hover:bg-vue/20 hover:px-3 group"
             >
-              <span class="group-hover:hidden animate-pulse">v1.0</span>
+              <span class="group-hover:hidden animate-pulse">v1.1</span>
               <span class="hidden group-hover:inline">Read the story →</span>
             </a>
           </div>

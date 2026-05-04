@@ -5,7 +5,7 @@ defmodule LiveVueWebsite.MixProject do
     [
       app: :live_vue_website,
       version: "0.1.0",
-      elixir: "~> 1.19",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -40,8 +40,8 @@ defmodule LiveVueWebsite.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:live_vue, github: "Valian/live_vue", branch: "main", override: true},
-      {:quickbeam, "~> 0.8"},
+      {:live_vue, "~> 1.1"},
+      {:quickbeam, "~> 0.10"},
       {:igniter, "~> 0.6", only: [:dev, :test]},
       {:phoenix, "~> 1.8.0"},
       {:phoenix_ecto, "~> 4.5"},

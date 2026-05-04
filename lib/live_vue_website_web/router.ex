@@ -33,6 +33,8 @@ defmodule LiveVueWebsiteWeb.Router do
     live "/examples/streams", Examples.StreamsLive
     live "/examples/file-upload", Examples.FileUploadLive
     live "/examples/vue-sigil", Examples.SigilLive
+    live "/examples/inject", Examples.InjectLive
+    live "/examples/shared-props", Examples.SharedPropsLive
   end
 
   # Other scopes may use custom stacks.
